@@ -1,0 +1,10 @@
+<div *ngIf="user">
+  <h2>用户 {{ user.name | uppercase }} 的资料详情</h2>
+  <div><span>编号: </span>{{ user.id }}</div>
+  <div>
+    <label
+      >姓名:
+      <input [(ngModel)]="user.name" placeholder="name" />
+    </label>
+  </div>
+</div>
