@@ -32,6 +32,18 @@
     }
   }
 
+  a {
+    color: #888;
+    text-decoration: none;
+    position: relative;
+    display: block;
+    width: 250px;
+
+    &:hover {
+      color:#607D8B;
+    }
+  }
+
   .text {
     position: relative;
     top: -3px;
@@ -50,5 +62,27 @@
     height: 1.8em;
     margin-right: .8em;
     border-radius: 4px 0 0 4px;
+  }
+}
+
+button {
+  background-color: #eee;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  cursor: hand;
+  font-family: Arial;
+
+  &:hover {
+    background-color: #cfd8dc;
+  }
+
+  &.delete {
+    position: relative;
+    left: 194px;
+    top: -32px;
+    background-color: gray !important;
+    color: white;
   }
 }
