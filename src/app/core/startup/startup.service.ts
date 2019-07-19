@@ -77,63 +77,12 @@ export class StartupService {
       );
   }
 
-  // private viaMock(resolve: any, reject: any) {
-  //   // const tokenData = this.tokenService.get();
-  //   // if (!tokenData.token) {
-  //   //   this.injector.get(Router).navigateByUrl('/passport/login');
-  //   //   resolve({});
-  //   //   return;
-  //   // }
-  //   // mock
-  //   const app: any = {
-  //     name: `ng-alain`,
-  //     description: `Ng-zorro admin panel front-end framework`
-  //   };
-  //   const user: any = {
-  //     name: 'Admin',
-  //     avatar: './assets/tmp/img/avatar.jpg',
-  //     email: 'cipchk@qq.com',
-  //     token: '123456789'
-  //   };
-  //   // Application information: including site name, description, year
-  //   this.settingService.setApp(app);
-  //   // User information: including name, avatar, email address
-  //   this.settingService.setUser(user);
-  //   // ACL: Set the permissions to full, https://ng-alain.com/acl/getting-started
-  //   this.aclService.setFull(true);
-  //   // Menu data, https://ng-alain.com/theme/menu
-  //   this.menuService.add([
-  //     {
-  //       text: 'Main',
-  //       group: true,
-  //       children: [
-  //         {
-  //           text: 'Dashboard',
-  //           link: '/dashboard',
-  //           icon: { type: 'icon', value: 'appstore' }
-  //         },
-  //         {
-  //           text: 'Quick Menu',
-  //           icon: { type: 'icon', value: 'rocket' },
-  //           shortcutRoot: true
-  //         }
-  //       ]
-  //     }
-  //   ]);
-  //   // Can be set page suffix title, https://ng-alain.com/theme/title
-  //   this.titleService.suffix = app.name;
-
-  //   resolve({});
-  // }
-
   load(): Promise<any> {
     // only works with promises
     // https://github.com/angular/angular/issues/15088
     return new Promise((resolve, reject) => {
       // http
       this.viaHttp(resolve, reject);
-      // mock：请勿在生产环境中这么使用，viaMock 单纯只是为了模拟一些数据使脚手架一开始能正常运行
-      // this.viaMock(resolve, reject);
     });
   }
 }

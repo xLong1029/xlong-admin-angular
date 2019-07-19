@@ -9,6 +9,11 @@ preloaderFinished();
 
 import { hmrBootstrap } from './hmr';
 
+import { APPLICATION_ID, REST_API_KEY } from './app/app.global';
+
+// 初始化Bmob
+Bmob.initialize(APPLICATION_ID, REST_API_KEY);
+
 if (environment.production) {
   enableProdMode();
 }

@@ -31,7 +31,7 @@ import { Component, ChangeDetectionStrategy, ChangeDetectorRef } from '@angular/
               <nz-avatar [nzSrc]="'./assets/tmp/img/1.png'"></nz-avatar>
             </div>
             <div nz-col [nzSpan]="20">
-              <strong>cipchk</strong>
+              <strong>admin</strong>
               <p class="mb0">Please tell me what happened in a few words, don't go into details.</p>
             </div>
           </div>
