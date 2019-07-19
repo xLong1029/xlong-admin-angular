@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+body {
+  background: #fff;
+}
+
+// 布局样式修改
+.alain-default__fixed .alain-default__content {
+  margin-left: 0;
+  transform: none;
+}
+
+.content-container {
+  padding: 24px;
+  background: #fff;
+}
+
+/* 带树形侧边栏的通用布局 */
+.has-tree-side {
+  &-layout {
+    display: flex;
+
+    &__left {
+      position: fixed;
+      top: 0;
+      bottom: 0;
+      width: 250px;
+      margin-top: 64px;
+      padding-top: 15px;
+      padding-left: 15px;
+      overflow: scroll;
+      border-right: 1px solid #efe3e5;
+    }
+
+    &__right {
+      position: relative;
+      width: 100%;
+      margin-left: 250px;
+      padding: 25px;
+    }
+  }
+
+  &-content {
+    position: relative;
+  }
+}
