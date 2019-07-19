@@ -1,11 +1,4 @@
-// Custom icon static resources
+// 静态加载nz-zorro图标
+import { HomeFill, AppstoreFill, ContactsFill } from '@ant-design/icons-angular/icons';
 
-import {
-  InfoOutline,
-  BulbOutline,
-  ProfileOutline,
-  ExceptionOutline,
-  LinkOutline,
-} from '@ant-design/icons-angular/icons';
-
-export const ICONS = [InfoOutline, BulbOutline, ProfileOutline, ExceptionOutline, LinkOutline];
+export const ICONS = [HomeFill, AppstoreFill, ContactsFill];
