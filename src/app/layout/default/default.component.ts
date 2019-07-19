@@ -11,15 +11,22 @@ import {
   Inject,
 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
-import { Router, NavigationEnd, RouteConfigLoadStart, RouteConfigLoadEnd, NavigationError, NavigationCancel } from '@angular/router';
+import {
+  Router,
+  NavigationEnd,
+  RouteConfigLoadStart,
+  RouteConfigLoadEnd,
+  NavigationError,
+  NavigationCancel,
+} from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd';
 import { updateHostClass } from '@delon/util';
 import { SettingsService } from '@delon/theme';
-import { environment } from '@env/environment';
+// import { environment } from '@env/environment';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { SettingDrawerComponent } from './setting-drawer/setting-drawer.component';
+// import { SettingDrawerComponent } from './setting-drawer/setting-drawer.component';
 
 @Component({
   selector: 'layout-default',
@@ -27,14 +34,14 @@ import { SettingDrawerComponent } from './setting-drawer/setting-drawer.componen
 })
 export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy {
   private unsubscribe$ = new Subject<void>();
-  @ViewChild('settingHost', { read: ViewContainerRef, static: true })
-  private settingHost: ViewContainerRef;
+  // @ViewChild('settingHost', { read: ViewContainerRef, static: false })
+  // private settingHost: ViewContainerRef;
   isFetching = false;
 
   constructor(
     router: Router,
     _message: NzMessageService,
-    private resolver: ComponentFactoryResolver,
+    // private resolver: ComponentFactoryResolver,
     private settings: SettingsService,
     private el: ElementRef,
     private renderer: Renderer2,
@@ -77,12 +84,12 @@ export class LayoutDefaultComponent implements OnInit, AfterViewInit, OnDestroy 
 
   ngAfterViewInit(): void {
     // Setting componet for only developer
-    if (true) {
-      setTimeout(() => {
-        const settingFactory = this.resolver.resolveComponentFactory(SettingDrawerComponent);
-        this.settingHost.createComponent(settingFactory);
-      }, 22);
-    }
+    // if (!environment.production) {
+    //   setTimeout(() => {
+    //     const settingFactory = this.resolver.resolveComponentFactory(SettingDrawerComponent);
+    //     this.settingHost.createComponent(settingFactory);
+    //   }, 22);
+    // }
   }
 
   ngOnInit() {

@@ -1,0 +1,102 @@
+@primary-color: #00c5a3;
+
+// responsive
+@screen-xs: 480px;
+@screen-xs-min: @screen-xs;
+
+@screen-sm: 576px;
+@screen-sm-min: @screen-sm;
+
+@screen-md: 768px;
+@screen-md-min: @screen-md;
+
+@screen-lg: 992px;
+@screen-lg-min: @screen-lg;
+
+@screen-xl: 1200px;
+@screen-xl-min: @screen-xl;
+
+@screen-xxl: 1600px;
+@screen-xxl-min: @screen-xxl;
+
+@screen-xs-max: (@screen-sm-min - 1px);
+@screen-sm-max: (@screen-md-min - 1px);
+@screen-md-max: (@screen-lg-min - 1px);
+@screen-lg-max: (@screen-xl-min - 1px);
+@screen-xl-max: (@screen-xxl-min - 1px);
+
+@mobile-min: @screen-md-min;
+@mobile-max: @screen-md-min - 1px;
+
+.menu-list {
+  &.ant-menu-horizontal {
+    color: #fff;
+    background: @primary-color;
+    border: none;
+  }
+
+  .ant-menu {
+
+    &-item,
+    &-submenu-title {
+      padding: 0 15px;
+    }
+
+    &-item,
+    &-submenu {
+      margin-right: 10px;
+    }
+
+    &-item {
+      border-radius: 5px;
+
+      &:hover,
+      &-active,
+      &-open,
+      &-selected {
+        background: #fff;
+
+        a {
+          color: @primary-color;
+        }
+      }
+
+      a {
+        color: #fff;
+      }
+    }
+
+    &-submenu {
+      border-radius: 5px;
+
+      &:hover,
+      &-active,
+      &-open,
+      &-selected {
+        background: #fff;
+      }
+
+    }
+  }
+
+  // 部分样式无法修改
+  ::ng-deep {
+    .ant-menu-submenu-title {
+      padding: 0 15px;
+    }
+  }
+}
+
+
+@media (max-width: @screen-lg-max) {
+  .menu-list {
+    &__item-text {
+      display: none;
+    }
+
+    .anticon {
+      margin-right: 0;
+      font-size: 18px;
+    }
+  }
+}

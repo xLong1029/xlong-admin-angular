@@ -1,53 +1,71 @@
 <div class="alain-default__header-logo">
   <a [routerLink]="['/']" class="alain-default__header-logo-link">
-    <img class="alain-default__header-logo-expanded" src="./assets/logo-full.svg" alt="{{settings.app.name}}" style="max-height:40px;" />
-    <img class="alain-default__header-logo-collapsed" src="./assets/logo.svg" alt="{{settings.app.name}}" style="max-height:30px;" />
+    <img
+      class="alain-default__header-logo-expanded"
+      src="./assets/images/logo-white.png"
+      alt="{{ settings.app.name }}"
+      style="max-height:40px;"
+    />
+    <img
+      class="alain-default__header-logo-collapsed"
+      src="./assets/images/logo-white-sm.png"
+      alt="{{ settings.app.name }}"
+      style="max-height:30px;"
+    />
   </a>
 </div>
 <div class="alain-default__nav-wrap">
   <ul class="alain-default__nav">
+    <!-- 顶部导航菜单 -->
+    <header-nav-menu [menuList]="navMenu"></header-nav-menu>
     <!-- Menu -->
-    <li>
+    <!-- <li>
       <div class="alain-default__nav-item" (click)="toggleCollapsedSidebar()">
-        <i nz-icon nzType="menu-{{settings.layout.collapsed ? 'unfold' : 'fold'}}"></i>
+        <i nz-icon nzType="menu-{{ settings.layout.collapsed ? 'unfold' : 'fold' }}"></i>
       </div>
-    </li>
+    </li> -->
     <!-- Github Page -->
-    <li>
+    <!-- <li>
       <a class="alain-default__nav-item" href="//github.com/ng-alain/ng-alain" target="_blank">
         <i nz-icon nzType="github"></i>
       </a>
-    </li>
+    </li> -->
     <!-- Lock Page -->
-    <li class="hidden-mobile">
+    <!-- <li class="hidden-mobile">
       <div class="alain-default__nav-item" [routerLink]="['/lock']">
         <i nz-icon nzType="lock"></i>
       </div>
-    </li>
+    </li> -->
     <!-- Search Button -->
-    <li class="hidden-pc" (click)="searchToggleChange()">
+    <!-- <li class="hidden-pc" (click)="searchToggleChange()">
       <div class="alain-default__nav-item">
         <i nz-icon nzType="search"></i>
       </div>
-    </li>
+    </li> -->
   </ul>
-  <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search>
+  <!-- <header-search class="alain-default__search" [toggleChange]="searchToggleStatus"></header-search> -->
   <ul class="alain-default__nav">
     <!-- Notify -->
-    <li>
+    <!-- <li>
       <header-notify></header-notify>
-    </li>
+    </li> -->
     <!-- Task -->
-    <li class="hidden-mobile">
+    <!-- <li class="hidden-mobile">
       <header-task></header-task>
-    </li>
+    </li> -->
     <!-- App Icons -->
-    <li class="hidden-mobile">
+    <!-- <li class="hidden-mobile">
       <header-icon></header-icon>
-    </li>
+    </li> -->
     <!-- Settings -->
     <li class="hidden-mobile">
-      <div class="alain-default__nav-item" nz-dropdown [nzDropdownMenu]="settingsMenu" nzTrigger="click" nzPlacement="bottomRight">
+      <div
+        class="alain-default__nav-item"
+        nz-dropdown
+        [nzDropdownMenu]="settingsMenu"
+        nzTrigger="click"
+        nzPlacement="bottomRight"
+      >
         <i nz-icon nzType="setting"></i>
       </div>
       <nz-dropdown-menu #settingsMenu="nzDropdownMenu">
@@ -58,6 +76,9 @@
           <div nz-menu-item>
             <header-storage></header-storage>
           </div>
+          <!-- <div nz-menu-item>
+            <header-i18n></header-i18n>
+          </div> -->
         </div>
       </nz-dropdown-menu>
     </li>

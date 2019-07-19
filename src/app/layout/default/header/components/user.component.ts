@@ -17,17 +17,13 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">
-        <div nz-menu-item routerLink="/pro/account/center">
+        <div nz-menu-item routerLink="/account/center">
           <i nz-icon nzType="user" class="mr-sm"></i>
           个人中心
         </div>
-        <div nz-menu-item routerLink="/pro/account/settings">
+        <div nz-menu-item routerLink="/account/edit-password">
           <i nz-icon nzType="setting" class="mr-sm"></i>
           个人设置
-        </div>
-        <div nz-menu-item routerLink="/exception/trigger">
-          <i nz-icon nzType="close-circle" class="mr-sm"></i>
-          触发错误
         </div>
         <li nz-menu-divider></li>
         <div nz-menu-item (click)="logout()">
