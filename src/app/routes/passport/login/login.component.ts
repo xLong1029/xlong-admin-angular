@@ -79,7 +79,7 @@ export class UserLoginComponent implements OnDestroy {
           // 重新获取 StartupService 内容
           this.startupSrv.load().then(() => {
             this.router.navigate(['/']);
-            // 不知道是否是由于angular-cli升级到8.x的关系，偶尔会提示"ViewDestroyedError: Attempt to use a destroyed view: detectChanges"错误，但不影响功能使用
+            // 由于angular-cli升级到8.x的关系，偶尔会提示"ViewDestroyedError: Attempt to use a destroyed view: detectChanges"错误，但不影响功能使用
             this.change.detach();
           });
         } else {

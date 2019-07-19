@@ -1,32 +1,6 @@
 @primary-color: #00c5a3;
 
-// responsive
-@screen-xs: 480px;
-@screen-xs-min: @screen-xs;
-
-@screen-sm: 576px;
-@screen-sm-min: @screen-sm;
-
-@screen-md: 768px;
-@screen-md-min: @screen-md;
-
-@screen-lg: 992px;
-@screen-lg-min: @screen-lg;
-
-@screen-xl: 1200px;
-@screen-xl-min: @screen-xl;
-
-@screen-xxl: 1600px;
-@screen-xxl-min: @screen-xxl;
-
-@screen-xs-max: (@screen-sm-min - 1px);
-@screen-sm-max: (@screen-md-min - 1px);
-@screen-md-max: (@screen-lg-min - 1px);
-@screen-lg-max: (@screen-xl-min - 1px);
-@screen-xl-max: (@screen-xxl-min - 1px);
-
-@mobile-min: @screen-md-min;
-@mobile-max: @screen-md-min - 1px;
+@import './../../../../../assets/less/responsive';
 
 .menu-list {
   &.ant-menu-horizontal {

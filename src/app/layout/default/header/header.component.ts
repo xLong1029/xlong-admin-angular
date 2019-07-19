@@ -13,7 +13,6 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
 
   ngAfterViewInit(): void {
     this.menuService.change.subscribe(res => {
-      console.log(res);
       if (res.length) {
         this.navMenu = res.filter(item => !item.group);
       }
