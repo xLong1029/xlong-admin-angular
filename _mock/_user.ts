@@ -34,14 +34,14 @@ function genData(params: any) {
     ret = ret.filter(data => data.no.indexOf(params.no) > -1);
   }
 
-  return { total: ret.length, list: ret.slice(start, ps * pi) };
+  return { code: 200, total: ret.length, list: ret.slice(start, ps * pi) };
 }
 
 function saveData(id: number, value: any) {
   const item = list.find(w => w.id === id);
-  if (!item) return { msg: '无效用户信息' };
+  if (!item) return { code: 0, msg: '无效用户信息' };
   Object.assign(item, value);
-  return { msg: 'ok' };
+  return { code: 200, msg: 'ok' };
 }
 
 export const USERS = {
@@ -100,15 +100,17 @@ export const USERS = {
   'POST /user/avatar': 'ok',
   'POST /login/account': (req: MockRequest) => {
     const data = req.body;
-    if (!(data.userName === 'admin' || data.userName === 'user') || data.password !== 'ng-alain.com') {
-      return { msg: `Invalid username or password（admin/ng-alain.com）` };
+    if (!(data.userName === 'admin' || data.userName === 'user') || data.password !== '123456') {
+      return { code: 0, msg: `账号或者密码错误，提示（admin/123456）` };
     }
     return {
+      code: 200,
       msg: 'ok',
       user: {
         token: '123456789',
         name: data.userName,
-        email: `${data.userName}@qq.com`,
+        email: '381612175@qq.com',
+        avatar: './assets/images/avatar.jpg',
         id: 10000,
         time: +new Date(),
       },
