@@ -42,15 +42,15 @@ export class StartupService {
       .subscribe(
         ([appData]) => {
           // Application data
-          const res: any = appData;
+          const result: any = appData;
           // 应用信息：包括站点名、描述、年份
-          this.settingService.setApp(res.app);
+          this.settingService.setApp(result.app);
           // 用户信息：包括姓名、头像、邮箱地址
-          // this.settingService.setUser(res.user);
+          // this.settingService.setUser(result.user);
           // ACL：设置权限为全量, https://ng-alain.com/acl/getting-started
           // this.aclService.setFull(true);
           // 设置页面后缀标题, https://ng-alain.com/theme/title
-          this.titleService.suffix = res.app.name;
+          this.titleService.suffix = result.app.name;
 
           // token不存在则返回登录页
           if (
@@ -63,7 +63,6 @@ export class StartupService {
             return;
           }
 
-          // tslint:disable-next-line: no-shadowed-variable
           this.http.get('/getMenus?_allow_anonymous=true').subscribe((res: any) => {
             // tslint:disable-next-line: triple-equals
             if (res.code == 200) {
