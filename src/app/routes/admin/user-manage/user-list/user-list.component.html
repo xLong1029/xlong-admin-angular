@@ -1,0 +1,5 @@
+<nz-card>
+  <button (click)="add()" nz-button nzType="primary">新建</button>
+  <sf mode="search" [schema]="searchSchema" (formSubmit)="st.reset($event)" (formReset)="st.reset($event)"></sf>
+  <st #st [data]="url" [columns]="columns"></st>
+</nz-card>
