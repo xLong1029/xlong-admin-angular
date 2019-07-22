@@ -2,5 +2,15 @@
   <form nz-form #f="ngForm" se-container size="compact" gutter="0" [labelWidth]="95" class="mb-md">
     <button (click)="add()" nz-button nzType="primary">新建</button>
   </form>
-  <st #st [data]="data" [columns]="columns"></st>
+  <st
+    #st
+    [loading]="loading"
+    [data]="data"
+    [columns]="columns"
+    [(pi)]="page.page"
+    [(ps)]="page.pageSize"
+    [(page)]="page.pageConfig"
+    [(total)]="page.total"
+    (change)="change($event)"
+  ></st>
 </div>

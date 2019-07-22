@@ -14,13 +14,14 @@ import { Page } from './../../../../shared/common/page';
 })
 export class UserListComponent implements OnInit {
   @ViewChild('st', { static: false }) st: STComponent;
-
+  // 加载
+  loading = false;
   // 页码
   page = new Page();
   // 筛选
-  query = {};
+  query: any = {};
   // 表格数据
-  data: [];
+  data: any = [];
   // 表格列
   columns: STColumn[] = [
     { title: '用户编号', index: 'objectId' },
@@ -29,7 +30,7 @@ export class UserListComponent implements OnInit {
     { title: '邮箱', index: 'email' },
     { title: '手机号码', index: 'mobile' },
     { title: '职位', index: 'job' },
-    { title: '创建时间', type: 'date', index: 'updatedAt' },
+    { title: '创建时间', type: 'date', index: 'createdAt' },
     {
       title: '',
       buttons: [
@@ -47,16 +48,23 @@ export class UserListComponent implements OnInit {
   constructor(private modal: ModalHelper, public service: UserManageService) {}
 
   ngOnInit() {
-    this.list();
+    this.getList();
   }
 
   // 表格列表
-  list() {
+  getList() {
+    this.loading = true;
     this.service
       .GetAccList({}, this.page.page, this.page.pageSize)
       .then((res: any) => {
-        this.data = res.data;
-        console.log(res);
+        this.loading = false;
+        if (res.code === 200) {
+          this.data = res.data;
+          this.page.total = res.page.total;
+          console.log(res.page);
+
+          console.log(this.page.total);
+        }
       })
       .catch((err: any) => console.log(err));
   }
@@ -93,4 +101,7 @@ export class UserListComponent implements OnInit {
     //   .createStatic(FormEditComponent, { i: { id: 0 } })
     //   .subscribe(() => this.st.reload());
   }
+
+  // 表格变化回调
+  change(e) {}
 }
