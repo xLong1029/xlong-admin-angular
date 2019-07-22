@@ -1,30 +1,35 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc';
-import { SFSchema } from '@delon/form';
 
 import { UserDetailComponent } from './user-detail/user-detail.component';
+
+import { UserManageService } from './../user-manage.service';
+
+import { Page } from './../../../../shared/common/page';
 
 @Component({
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
 })
 export class UserListComponent implements OnInit {
-  url = `/user`;
-  searchSchema: SFSchema = {
-    properties: {
-      no: {
-        type: 'string',
-        title: '编号',
-      },
-    },
-  };
   @ViewChild('st', { static: false }) st: STComponent;
+
+  // 页码
+  page = new Page();
+  // 筛选
+  query = {};
+  // 表格数据
+  data: [];
+  // 表格列
   columns: STColumn[] = [
-    { title: '编号', index: 'no' },
-    { title: '调用次数', type: 'number', index: 'callNo' },
-    { title: '头像', type: 'img', width: '50px', index: 'avatar' },
-    { title: '时间', type: 'date', index: 'updatedAt' },
+    { title: '用户编号', index: 'objectId' },
+    { title: '真实姓名', index: 'realname' },
+    { title: '性别', index: 'gender' },
+    { title: '邮箱', index: 'email' },
+    { title: '手机号码', index: 'mobile' },
+    { title: '职位', index: 'job' },
+    { title: '创建时间', type: 'date', index: 'updatedAt' },
     {
       title: '',
       buttons: [
@@ -39,9 +44,22 @@ export class UserListComponent implements OnInit {
     },
   ];
 
-  constructor(private http: _HttpClient, private modal: ModalHelper) {}
+  constructor(private modal: ModalHelper, public service: UserManageService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.list();
+  }
+
+  // 表格列表
+  list() {
+    this.service
+      .GetAccList({}, this.page.page, this.page.pageSize)
+      .then((res: any) => {
+        this.data = res.data;
+        console.log(res);
+      })
+      .catch((err: any) => console.log(err));
+  }
 
   // 查看详情
   detail(record) {
@@ -50,6 +68,27 @@ export class UserListComponent implements OnInit {
 
   // 新增用户
   add() {
+    // this.modal
+    //   .createStatic(FormEditComponent, { i: { id: 0 } })
+    //   .subscribe(() => this.st.reload());
+  }
+
+  // 删除用户
+  delete() {
+    // this.modal
+    //   .createStatic(FormEditComponent, { i: { id: 0 } })
+    //   .subscribe(() => this.st.reload());
+  }
+
+  // 启用用户
+  enable() {
+    // this.modal
+    //   .createStatic(FormEditComponent, { i: { id: 0 } })
+    //   .subscribe(() => this.st.reload());
+  }
+
+  // 禁用用户
+  disable() {
     // this.modal
     //   .createStatic(FormEditComponent, { i: { id: 0 } })
     //   .subscribe(() => this.st.reload());

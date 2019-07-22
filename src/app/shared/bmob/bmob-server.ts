@@ -20,17 +20,17 @@ export default {
     return Bmob.Query(tableName);
   },
   // 获取列表数据
-  GetListData: (query: any, pageNo: number, pageSize: number) => {
+  GetListData: (query: any, pageNo: any, pageSize: any) => {
     return new Promise((resolve, reject) => {
       if (pageNo && pageSize) {
         // 统计满足query的结果集记录条数
         query.count().then((result: any) => {
-          // console.log(`共有${res}条记录`);
+          // console.log(`共有${result}条记录`);
           const page = {
             page: pageNo,
-            size: pageSize,
-            count: result,
-            pages: Math.ceil(result.length / pageSize),
+            pageSize,
+            total: result,
+            pages: Math.ceil(result / pageSize),
           };
 
           // 对createdAt字段降序排列

@@ -1,4 +1,4 @@
-import { SettingsService, _HttpClient } from '@delon/theme';
+import { SettingsService } from '@delon/theme';
 import { Component, OnDestroy, Inject, Optional, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -26,7 +26,6 @@ export class UserLoginComponent implements OnDestroy {
     private reuseTabService: ReuseTabService,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private startupSrv: StartupService,
-    public http: _HttpClient,
     public msg: NzMessageService,
     private change: ChangeDetectorRef,
     public service: PassportService,
@@ -98,26 +97,6 @@ export class UserLoginComponent implements OnDestroy {
       .catch(err => {
         this.error = '用户名或密码错误';
       });
-    // this.service.Login(this.userName.value, this.password.value).subscribe((res: any) => {
-
-    //   tslint:disable-next-line: triple-equals
-    //   if (res.code == 200) {
-    //     // 清空路由复用信息
-    //     this.reuseTabService.clear(true);
-    //     // 设置用户Token信息
-    //     this.tokenService.set(res.user);
-    //     // 设置用户信息
-    //     this.settingsService.setUser(res.user);
-    //     // 重新获取 StartupService 内容
-    //     this.startupSrv.load().then(() => {
-    //       this.router.navigate(['/']);
-    //       // 由于angular-cli升级到8.x的关系，偶尔会提示"ViewDestroyedError: Attempt to use a destroyed view: detectChanges"错误，但不影响功能使用
-    //       this.change.detach();
-    //     });
-    //   } else {
-    //     this.error = res.msg;
-    //   }
-    // });
   }
 
   ngOnDestroy(): void {}
