@@ -20,8 +20,6 @@ export class UserListComponent implements OnInit {
   page = new Page();
   // 筛选
   query: any = {};
-  // 表格数据
-  data: any = [];
   // 表格列
   columns: STColumn[] = [
     { title: '用户编号', index: 'objectId' },
@@ -59,11 +57,12 @@ export class UserListComponent implements OnInit {
       .then((res: any) => {
         this.loading = false;
         if (res.code === 200) {
-          this.data = res.data;
-          this.page.total = res.page.total;
-          console.log(res.page);
+          console.log(res);
 
-          console.log(this.page.total);
+          this.page.data = res.data;
+          this.page.totalCount = res.page.total;
+
+          console.log(this.page);
         }
       })
       .catch((err: any) => console.log(err));
@@ -103,5 +102,9 @@ export class UserListComponent implements OnInit {
   }
 
   // 表格变化回调
-  change(e) {}
+  tableChange(e) {
+    if (this.page.isPageChange(e)) {
+      this.getList();
+    }
+  }
 }

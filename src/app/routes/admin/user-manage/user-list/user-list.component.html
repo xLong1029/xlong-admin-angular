@@ -1,16 +1,16 @@
 <div class="content-container">
-  <form nz-form #f="ngForm" se-container size="compact" gutter="0" [labelWidth]="95" class="mb-md">
+  <!-- <form nz-form #f="ngForm" se-container size="compact" gutter="0" [labelWidth]="95" class="mb-md">
     <button (click)="add()" nz-button nzType="primary">新建</button>
-  </form>
+  </form> -->
   <st
     #st
     [loading]="loading"
-    [data]="data"
+    [data]="page.data"
     [columns]="columns"
     [(pi)]="page.page"
     [(ps)]="page.pageSize"
-    [(page)]="page.pageConfig"
-    [(total)]="page.total"
-    (change)="change($event)"
+    [page]="page.pageConfig"
+    [total]="page.totalCount"
+    (change)="tableChange($event)"
   ></st>
 </div>
