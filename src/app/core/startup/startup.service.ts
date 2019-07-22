@@ -63,7 +63,7 @@ export class StartupService {
             return;
           }
 
-          this.http.get('/getMenus?_allow_anonymous=true').subscribe((res: any) => {
+          this.http.get('/getMenus').subscribe((res: any) => {
             // tslint:disable-next-line: triple-equals
             if (res.code == 200) {
               this.menuService.add(res.data);

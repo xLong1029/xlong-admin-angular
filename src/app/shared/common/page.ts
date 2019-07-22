@@ -2,6 +2,11 @@
  * 表格分页
  */
 export class Page {
+  // 数据
+  data = [];
+  // 已选数据
+  checkedData = [];
+
   // 当前页码
   page = 1;
   // 页码总数
@@ -10,10 +15,6 @@ export class Page {
   pageSize = 10;
   // 数据总数
   totalCount = 0;
-  // 数据
-  data = [];
-  // 已选数据
-  checkedData = [];
 
   // 分页配置
   pageConfig = {
@@ -29,16 +30,27 @@ export class Page {
     total: true,
   };
 
+  // 搜索条件
+  query: any = {};
+
+  /**
+   * 构造函数
+   * @param params 筛选参数，例如：{ name : null , id : null }
+   */
+  constructor(params: any = {}) {
+    this.query = params;
+  }
+
   /**
    * 页码改变时更新页面
    */
-  resetPage(p) {
-    this.pageSize = p.ps;
+  resetPage(event) {
+    this.pageSize = event.ps;
     // tslint:disable-next-line: prefer-conditional-expression
-    if (p.type === 'ps') {
+    if (event.type === 'ps') {
       this.page = 1;
     } else {
-      this.page = p.pi;
+      this.page = event.pi;
     }
   }
 
@@ -59,6 +71,24 @@ export class Page {
       this.checkedData = [];
       this.resetPage(event);
     }
+
     return res;
+  }
+
+  /**
+   * 重置搜索
+   * @param args 搜索条件（不传入则参数默认设置为null）
+   */
+  resetSearch(params: any = null) {
+    this.page = 1;
+    if (params) {
+      this.query = params;
+    } else {
+      if (this.query) {
+        Object.keys(this.query).forEach(key => {
+          this.query[key] = null;
+        });
+      }
+    }
   }
 }

@@ -18,8 +18,6 @@ export class UserListComponent implements OnInit {
   loading = false;
   // 页码
   page = new Page();
-  // 筛选
-  query: any = {};
   // 表格列
   columns: STColumn[] = [
     { title: '用户编号', index: 'objectId' },
@@ -28,6 +26,8 @@ export class UserListComponent implements OnInit {
     { title: '邮箱', index: 'email' },
     { title: '手机号码', index: 'mobile' },
     { title: '职位', index: 'job' },
+    { title: '所在省市', index: 'province' },
+    // { title: '状态', index: 'enabledState' },
     { title: '创建时间', type: 'date', index: 'createdAt' },
     {
       title: '',
@@ -43,29 +43,55 @@ export class UserListComponent implements OnInit {
     },
   ];
 
-  constructor(private modal: ModalHelper, public service: UserManageService) {}
+  // 省市列表
+  cityList = [];
+  // 职位列表
+  jobList = [];
+
+  constructor(private modal: ModalHelper, private http: _HttpClient, public service: UserManageService) {}
 
   ngOnInit() {
-    this.getList();
+    this.getTableList();
+    this.getCityList();
+    this.getJobList();
+  }
+
+  // 获取省市列表
+  getCityList() {
+    this.http.get('/getCity').subscribe((res: any) => {
+      if (res.code === 200) {
+        this.cityList = res.data;
+      }
+    });
+  }
+
+  // 获取职位列表
+  getJobList() {
+    this.http.get('/getJob').subscribe((res: any) => {
+      if (res.code === 200) {
+        this.jobList = res.data;
+      }
+    });
   }
 
   // 表格列表
-  getList() {
+  getTableList() {
     this.loading = true;
     this.service
       .GetAccList({}, this.page.page, this.page.pageSize)
       .then((res: any) => {
         this.loading = false;
         if (res.code === 200) {
-          console.log(res);
-
           this.page.data = res.data;
           this.page.totalCount = res.page.total;
-
-          console.log(this.page);
         }
       })
       .catch((err: any) => console.log(err));
+  }
+
+  // 重置列表
+  resetTableList() {
+    this.page.resetSearch();
   }
 
   // 查看详情
@@ -104,7 +130,7 @@ export class UserListComponent implements OnInit {
   // 表格变化回调
   tableChange(e) {
     if (this.page.isPageChange(e)) {
-      this.getList();
+      this.getTableList();
     }
   }
 }
