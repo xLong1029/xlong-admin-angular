@@ -9,10 +9,10 @@ preloaderFinished();
 
 import { hmrBootstrap } from './hmr';
 
-import { APPLICATION_ID, REST_API_KEY } from './app/app.global';
+import BmobServer from './app/shared/bmob/bmob-server';
 
 // 初始化Bmob
-Bmob.initialize(APPLICATION_ID, REST_API_KEY);
+BmobServer.Init();
 
 if (environment.production) {
   enableProdMode();

@@ -65,34 +65,39 @@ export class UserLoginComponent implements OnDestroy {
     // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
     // 然一般来说登录请求不需要校验，因此可以在请求URL加上：`/login?_allow_anonymous=true` 表示不触发用户 Token 校验
 
-    this.service.Login(this.userName.value, this.password.value).then((res: any) => {
-      if (res.code === 200) {
-        // 清空路由复用信息
-        this.reuseTabService.clear(true);
+    this.service
+      .Login(this.userName.value, this.password.value)
+      .then((res: any) => {
+        if (res.code === 200) {
+          // 清空路由复用信息
+          this.reuseTabService.clear(true);
 
-        const user = {
-          token: res.data.token,
-          name: res.data.nickName,
-          avatar: res.data.userFace,
-          id: res.data.objectId,
-          time: +new Date(),
-        };
+          const user = {
+            token: res.data.token,
+            name: res.data.nickName,
+            avatar: res.data.userFace,
+            id: res.data.objectId,
+            time: +new Date(),
+          };
 
-        // 设置用户Token信息
-        this.tokenService.set(user);
+          // 设置用户Token信息
+          this.tokenService.set(user);
 
-        // 设置用户信息
-        this.settingsService.setUser(user);
-        // 重新获取 StartupService 内容
-        this.startupSrv.load().then(() => {
-          this.router.navigate(['/']);
-          // 由于angular-cli升级到8.x的关系，偶尔会提示"ViewDestroyedError: Attempt to use a destroyed view: detectChanges"错误，但不影响功能使用
-          this.change.detach();
-        });
-      } else {
+          // 设置用户信息
+          this.settingsService.setUser(user);
+          // 重新获取 StartupService 内容
+          this.startupSrv.load().then(() => {
+            this.router.navigate(['/']);
+            // 由于angular-cli升级到8.x的关系，偶尔会提示"ViewDestroyedError: Attempt to use a destroyed view: detectChanges"错误，但不影响功能使用
+            this.change.detach();
+          });
+        } else {
+          this.error = '用户名或密码错误';
+        }
+      })
+      .catch(err => {
         this.error = '用户名或密码错误';
-      }
-    });
+      });
     // this.service.Login(this.userName.value, this.password.value).subscribe((res: any) => {
 
     //   tslint:disable-next-line: triple-equals
