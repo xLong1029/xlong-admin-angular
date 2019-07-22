@@ -16,6 +16,13 @@ import { PassportService } from './../passport.service';
   providers: [PassportService],
 })
 export class UserLoginComponent implements OnDestroy {
+  // 表单对象
+  form: FormGroup;
+  // 错误信息
+  error = '';
+  // 加载
+  loading = false;
+
   constructor(
     fb: FormBuilder,
     modalSrv: NzModalService,
@@ -49,9 +56,6 @@ export class UserLoginComponent implements OnDestroy {
     return this.form.controls.password;
   }
 
-  form: FormGroup;
-  error = '';
-
   submit() {
     this.error = '';
     this.userName.markAsDirty();
@@ -61,12 +65,14 @@ export class UserLoginComponent implements OnDestroy {
     if (this.userName.invalid || this.password.invalid) {
       return;
     }
+
+    this.loading = true;
     // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
     // 然一般来说登录请求不需要校验，因此可以在请求URL加上：`/login?_allow_anonymous=true` 表示不触发用户 Token 校验
-
     this.service
       .Login(this.userName.value, this.password.value)
       .then((res: any) => {
+        this.loading = false;
         if (res.code === 200) {
           // 清空路由复用信息
           this.reuseTabService.clear(true);

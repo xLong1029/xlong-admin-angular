@@ -1,12 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent } from '@delon/abc';
+import { STColumn, STComponent, STColumnTag } from '@delon/abc';
 
 import { UserDetailComponent } from './user-detail/user-detail.component';
 
 import { UserManageService } from './../user-manage.service';
 
 import { Page } from './../../../../shared/common/page';
+
+import { EnabledStateTag } from './../../../../shared/common/enableStateTag';
 
 @Component({
   selector: 'app-user-list',
@@ -27,7 +29,7 @@ export class UserListComponent implements OnInit {
     { title: '手机号码', index: 'mobile' },
     { title: '职位', index: 'job' },
     { title: '所在省市', index: 'province' },
-    // { title: '状态', index: 'enabledState' },
+    { title: '状态', index: 'enabledState', type: 'tag', tag: EnabledStateTag },
     { title: '创建时间', type: 'date', index: 'createdAt' },
     {
       title: '',
@@ -78,7 +80,7 @@ export class UserListComponent implements OnInit {
   getTableList() {
     this.loading = true;
     this.service
-      .GetAccList({}, this.page.page, this.page.pageSize)
+      .GetAccList(this.page.query, this.page.page, this.page.pageSize)
       .then((res: any) => {
         this.loading = false;
         if (res.code === 200) {
@@ -91,7 +93,8 @@ export class UserListComponent implements OnInit {
 
   // 重置列表
   resetTableList() {
-    this.page.resetSearch();
+    this.page.resetQuery();
+    this.getTableList();
   }
 
   // 查看详情

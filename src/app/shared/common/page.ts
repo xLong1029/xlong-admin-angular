@@ -30,7 +30,7 @@ export class Page {
     total: true,
   };
 
-  // 搜索条件
+  // 查询条件
   query: any = {};
 
   /**
@@ -76,11 +76,12 @@ export class Page {
   }
 
   /**
-   * 重置搜索
-   * @param args 搜索条件（不传入则参数默认设置为null）
+   * 重置查询
+   * @param params 筛选参数（不传入则参数默认设置为null）
    */
-  resetSearch(params: any = null) {
+  resetQuery(params: any = null) {
     this.page = 1;
+
     if (params) {
       this.query = params;
     } else {
