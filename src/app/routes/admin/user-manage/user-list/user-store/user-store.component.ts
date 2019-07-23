@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd';
 import { _HttpClient } from '@delon/theme';
+import { differenceInCalendarDays } from 'date-fns';
 // service
 import { UserManageService } from '../../user-manage.service';
 // ts
@@ -15,7 +16,7 @@ export class UserStoreComponent implements OnInit {
   // 操作方式：1 新增；2 编辑
   action = 1;
   // 编辑内容
-  model = {
+  editForm = {
     face: null,
     realname: null,
     gender: null,
@@ -45,6 +46,13 @@ export class UserStoreComponent implements OnInit {
   // 工作相关信息
   workInfo: any;
 
+  today = new Date();
+
+  // 禁用时间
+  disabledDate = (current: Date): boolean => {
+    return differenceInCalendarDays(current, this.today) > 0;
+  };
+
   constructor(private modal: NzModalRef, private http: _HttpClient, public service: UserManageService) {
     this.workInfo = new WorkInfo(http);
   }
@@ -67,10 +75,10 @@ export class UserStoreComponent implements OnInit {
       .then((res: any) => {
         this.loading = false;
         if (res.code === 200) {
-          this.model = res.data;
+          this.editForm = res.data;
           this.selectCity = [res.data.province, res.data.city, res.data.area];
           // tslint:disable-next-line: triple-equals
-          if (res.data.job == '') this.model.job = null;
+          if (res.data.job == '') this.editForm.job = null;
           // tslint:disable-next-line: triple-equals
           if (res.data.province == '') this.selectCity = [];
         }
@@ -126,6 +134,13 @@ export class UserStoreComponent implements OnInit {
 
   // 提交表单
   submit() {}
+
+  // ”尚未毕业“勾选
+  graduateChange(e) {
+    if (e) {
+      this.editForm.workTime = '';
+    }
+  }
 
   close() {
     this.modal.destroy();
