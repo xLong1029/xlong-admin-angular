@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalRef, NzMessageService } from 'ng-zorro-antd';
-
+// service
 import { UserManageService } from './../../user-manage.service';
 
 @Component({
   selector: 'app-user-detail',
   templateUrl: './user-detail.component.html',
+  styleUrls: [`./user-detail.component.less`],
 })
 export class UserDetailComponent implements OnInit {
   // 传递的记录
@@ -18,9 +19,6 @@ export class UserDetailComponent implements OnInit {
   constructor(private modal: NzModalRef, public msgSrv: NzMessageService, public service: UserManageService) {}
 
   ngOnInit(): void {
-    // this.http.get(`/user/${this.record.id}`).subscribe(res => {
-    //   this.detail = res;
-    // });
     this.getDetail(this.record.objectId);
   }
 

@@ -4,11 +4,12 @@ import { UserManageRoutingModule } from './user-manage-routing.module';
 
 import { UserListComponent } from './user-list/user-list.component';
 import { UserDetailComponent } from './user-list/user-detail/user-detail.component';
+import { UserStoreComponent } from './user-list/user-store/user-store.component';
 
 import { UserManageService } from './user-manage.service';
 
 const COMPONENTS = [UserListComponent];
-const COMPONENTS_NOROUNT = [UserDetailComponent];
+const COMPONENTS_NOROUNT = [UserDetailComponent, UserStoreComponent];
 
 const SERVICES = [UserManageService];
 

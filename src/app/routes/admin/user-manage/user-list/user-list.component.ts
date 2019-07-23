@@ -2,12 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent, STColumnTag } from '@delon/abc';
 
+// component
 import { UserDetailComponent } from './user-detail/user-detail.component';
-
+import { UserStoreComponent } from './user-store/user-store.component';
+// service
 import { UserManageService } from './../user-manage.service';
-
+// ts
 import { Page } from './../../../../shared/common/page';
-
 import { EnabledStateTag } from './../../../../shared/common/enableStateTag';
 
 @Component({
@@ -40,7 +41,12 @@ export class UserListComponent implements OnInit {
             this.detail(record);
           },
         },
-        // { text: '编辑', type: 'static', component: FormEditComponent, click: 'reload' },
+        {
+          text: '编辑',
+          click: record => {
+            this.store(record);
+          },
+        },
       ],
     },
   ];
@@ -102,11 +108,13 @@ export class UserListComponent implements OnInit {
     this.modal.createStatic(UserDetailComponent, { record }).subscribe(() => this.st.reload());
   }
 
-  // 新增用户
-  add() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
+  // 新增/编辑用户
+  store(record) {
+    if (record) {
+      this.modal.createStatic(UserStoreComponent, { action: 2, id: record.objectId }).subscribe(() => this.st.reload());
+      return;
+    }
+    this.modal.createStatic(UserStoreComponent, { action: 1 }).subscribe(() => this.st.reload());
   }
 
   // 删除用户
