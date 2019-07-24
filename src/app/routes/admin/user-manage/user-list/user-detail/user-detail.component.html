@@ -24,7 +24,9 @@
     <sv-container>
       <sv label="单位名称">{{ detail.companyName }}</sv>
       <sv label="职位">{{ detail.job }}</sv>
-      <sv label="专业领域">{{ detail.profession }}</sv>
+      <sv label="专业领域">
+        <nz-tag *ngFor="let tag of professionTags" nzColor="#19be6b" class="mr-sm">{{ tag }}</nz-tag>
+      </sv>
       <sv label="所在省市">
         <span *ngIf="detail.province && detail.city && detail.area">
           {{ detail.province }}/{{ detail.city }}/{{ detail.area }}
@@ -34,32 +36,4 @@
       <sv label="是否毕业">{{ detail.isGraduate ? '是' : '否' }}</sv>
     </sv-container>
   </div>
-  <!-- <nz-descriptions nzTitle="基本信息" class="mb-md">
-    <nz-descriptions-item nzTitle="用户头像">
-      <nz-avatar nzIcon="user" [nzSrc]="detail.face"></nz-avatar>
-    </nz-descriptions-item>
-    <nz-descriptions-item nzTitle="用户编号">{{ detail.objectId }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="创建时间">{{ detail.updatedAt | date }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="真实姓名">{{ detail.realname }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="性别">{{ detail.gender }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="出生日期">{{ detail.birthdate | date }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="手机号码">{{ detail.mobile }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="邮箱">{{ detail.email }}</nz-descriptions-item>
-  </nz-descriptions>
-  <nz-descriptions nzTitle="工作信息">
-    <nz-descriptions-item nzTitle="单位名称">{{ detail.companyName }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="职位">{{ detail.job }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="专业领域">{{ detail.profession }}</nz-descriptions-item>
-    <nz-descriptions-item nzTitle="所在省市">
-      <span *ngIf="detail.province != '-' && detail.city != '-' && detail.area != '-'">
-        {{ detail.province }}/{{ detail.city }}/{{ detail.area }}
-      </span>
-    </nz-descriptions-item>
-    <nz-descriptions-item *ngIf="detail.isGraduate" nzTitle="工作时间">
-      {{ detail.workTime | date }}
-    </nz-descriptions-item>
-    <nz-descriptions-item nzTitle="是否毕业">
-      {{ detail.isGraduate ? '是' : '否' }}
-    </nz-descriptions-item>
-  </nz-descriptions> -->
 </ng-template>

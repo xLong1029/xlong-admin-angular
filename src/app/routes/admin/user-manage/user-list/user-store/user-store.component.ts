@@ -14,7 +14,7 @@ import { WorkInfo } from './../../../../../shared/common/workInfo';
 })
 export class UserStoreComponent implements OnInit {
   // 操作方式：1 新增；2 编辑
-  action = 1;
+  action: 1 | 2;
   // 编辑内容
   editForm = {
     face: null,
@@ -37,8 +37,6 @@ export class UserStoreComponent implements OnInit {
   id: any = {};
   // 加载
   loading = false;
-  // 详情内容
-  detail: any;
 
   // 省市列表
   cityList: any[] | null = null;
@@ -46,8 +44,8 @@ export class UserStoreComponent implements OnInit {
   // 工作相关信息
   workInfo: any;
 
+  // 今日日期
   today = new Date();
-
   // 禁用时间
   disabledDate = (current: Date): boolean => {
     return differenceInCalendarDays(current, this.today) > 0;

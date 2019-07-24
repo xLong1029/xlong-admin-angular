@@ -15,6 +15,8 @@ export class UserDetailComponent implements OnInit {
   loading = false;
   // 详情内容
   detail: any;
+  // 专业领域标签
+  professionTags: any = [];
 
   constructor(private modal: NzModalRef, public msgSrv: NzMessageService, public service: UserManageService) {}
 
@@ -31,6 +33,7 @@ export class UserDetailComponent implements OnInit {
         this.loading = false;
         if (res.code === 200) {
           this.detail = res.data;
+          this.professionTags = res.data.profession.split(',');
         }
       })
       .catch((err: any) => console.log(err));
