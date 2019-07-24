@@ -57,7 +57,7 @@ export class UserStoreComponent implements OnInit {
 
   constructor(
     private message: NzMessageService,
-    private modal: NzModalRef,
+    private _NzModalRef: NzModalRef,
     public publicService: AdminPublicService,
     public service: UserManageService,
   ) {}
@@ -185,7 +185,7 @@ export class UserStoreComponent implements OnInit {
         .then((res: any) => {
           if (res.code === 200) {
             this.message.success(res.msg);
-            this.close();
+            this.close(true);
           } else {
             this.message.error(res.msg);
           }
@@ -199,7 +199,7 @@ export class UserStoreComponent implements OnInit {
         .then((res: any) => {
           if (res.code === 200) {
             this.message.success(res.msg);
-            this.close();
+            this.close(true);
           } else {
             this.message.error(res.msg);
           }
@@ -220,7 +220,7 @@ export class UserStoreComponent implements OnInit {
     this.professionSelected = e;
   }
 
-  close() {
-    this.modal.destroy();
+  close(isRefresh) {
+    this._NzModalRef.destroy(isRefresh);
   }
 }

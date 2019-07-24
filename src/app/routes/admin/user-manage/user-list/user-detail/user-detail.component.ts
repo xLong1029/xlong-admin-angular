@@ -18,7 +18,7 @@ export class UserDetailComponent implements OnInit {
   // 专业领域标签
   professionTags: any = [];
 
-  constructor(private modal: NzModalRef, public msgSrv: NzMessageService, public service: UserManageService) {}
+  constructor(private _NzModalRef: NzModalRef, public msgSrv: NzMessageService, public service: UserManageService) {}
 
   ngOnInit(): void {
     this.getDetail(this.record.objectId);
@@ -42,6 +42,6 @@ export class UserDetailComponent implements OnInit {
   }
 
   close() {
-    this.modal.destroy();
+    this._NzModalRef.destroy();
   }
 }

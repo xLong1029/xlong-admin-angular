@@ -110,16 +110,24 @@ export class UserListComponent implements OnInit {
 
   // 查看详情
   detail(record) {
-    this.modal.createStatic(UserDetailComponent, { record }).subscribe(() => this.st.reload());
+    this.modal.createStatic(UserDetailComponent, { record }).subscribe();
   }
 
   // 新增/编辑用户
   store(record) {
     if (record) {
-      this.modal.createStatic(UserStoreComponent, { action: 2, id: record.objectId }).subscribe(() => this.st.reload());
+      this.modal.createStatic(UserStoreComponent, { action: 2, id: record.objectId }).subscribe(res => {
+        if (res) {
+          this.getTableList();
+        }
+      });
       return;
     }
-    this.modal.createStatic(UserStoreComponent, { action: 1 }).subscribe(() => this.st.reload());
+    this.modal.createStatic(UserStoreComponent, { action: 1 }).subscribe(res => {
+      if (res) {
+        this.getTableList();
+      }
+    });
   }
 
   // 删除用户
