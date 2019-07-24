@@ -153,12 +153,8 @@ export class UserStoreComponent implements OnInit {
 
           if (res.data.profession) {
             this.professionSelected = res.data.profession.split(',');
-
-            console.log(this.professionSelected);
           }
           this.professionList = dataCheckedFormat(this.professionList, this.professionSelected);
-
-          console.log(this.professionList);
         }
       })
       .catch((err: any) => console.log(err));

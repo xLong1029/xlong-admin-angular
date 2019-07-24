@@ -6,6 +6,8 @@ export class Page {
   data = [];
   // 已选数据
   checkedData = [];
+  // 已选Ids
+  checkedIds = [];
 
   // 当前页码
   page = 1;
@@ -46,6 +48,8 @@ export class Page {
    */
   resetPage(event) {
     this.pageSize = event.ps;
+    this.checkedData = [];
+
     // tslint:disable-next-line: prefer-conditional-expression
     if (event.type === 'ps') {
       this.page = 1;
@@ -58,14 +62,18 @@ export class Page {
    * 是否页码改变（包含每页数量跟页码）
    */
   isPageChange(event) {
+    // 复选
     if (event.type === 'checkbox') {
       this.checkedData = event.checkbox;
+      this.checkedIds = this.checkedData.map(e => {
+        return e.objectId;
+      });
     }
-
+    // 单选
     if (event.type === 'radio') {
       this.checkedData.push(event.radio);
     }
-
+    // 切换页码或数量
     const res = event.type === 'pi' || event.type === 'ps';
     if (res) {
       this.checkedData = [];
@@ -81,6 +89,7 @@ export class Page {
    */
   resetQuery(params: any = null) {
     this.page = 1;
+    this.checkedData = [];
 
     if (params) {
       this.query = params;

@@ -29,9 +29,22 @@
       <button (click)="getTableList()" nz-button nzType="primary">查询</button>
       <button (click)="resetTableList()" nz-button>重置</button>
       <button (click)="store()" nz-button nzType="primary">添加</button>
-      <!-- <button (click)="enable()" nz-button nzType="primary">删除</button>
-      <button (click)="enable()" nz-button nzType="primary">启用</button>
-      <button (click)="disable()" nz-button nzType="primary">禁用</button> -->
+      <button
+        nz-popconfirm
+        nzTitle="删除后不可撤销，确认删除吗?"
+        (nzOnConfirm)="delete()"
+        nz-button
+        nzType="primary"
+        [disabled]="!page.checkedData.length"
+      >
+        删除
+      </button>
+      <button (click)="enableOrDisable(1)" nz-button nzType="primary" [disabled]="!page.checkedData.length">
+        启用
+      </button>
+      <button (click)="enableOrDisable(-1)" nz-button nzType="primary" [disabled]="!page.checkedData.length">
+        禁用
+      </button>
     </se>
   </form>
   <st

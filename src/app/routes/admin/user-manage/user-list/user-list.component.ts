@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
-import { STColumn, STComponent, STColumnTag } from '@delon/abc';
+import { STColumn, STComponent } from '@delon/abc';
+import { NzMessageService } from 'ng-zorro-antd';
 
 // component
 import { UserDetailComponent } from './user-detail/user-detail.component';
@@ -24,6 +25,7 @@ export class UserListComponent implements OnInit {
   page = new Page();
   // 表格列
   columns: STColumn[] = [
+    { title: '复选框', type: 'checkbox', index: 'objectId' },
     { title: '用户编号', index: 'objectId' },
     { title: '真实姓名', index: 'realname' },
     { title: '性别', index: 'gender' },
@@ -48,6 +50,14 @@ export class UserListComponent implements OnInit {
             this.store(record);
           },
         },
+        {
+          text: '删除',
+          pop: true,
+          popTitle: '删除后不可撤销，确认删除吗？',
+          click: record => {
+            this.delete(record);
+          },
+        },
       ],
     },
   ];
@@ -58,6 +68,7 @@ export class UserListComponent implements OnInit {
   jobList = [];
 
   constructor(
+    private message: NzMessageService,
     private modal: ModalHelper,
     public publicService: AdminPublicService,
     public service: UserManageService,
@@ -131,24 +142,45 @@ export class UserListComponent implements OnInit {
   }
 
   // 删除用户
-  delete() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
+  delete(record = null) {
+    let ids = [];
+    if (record) {
+      ids.push(record.objectId);
+    } else {
+      ids = this.page.checkedIds;
+    }
+    this.service
+      .DeleteAcc(ids)
+      .then((res: any) => {
+        if (res.code === 200) {
+          this.getTableList();
+
+          setTimeout(() => {
+            this.message.success(res.msg);
+          }, 300);
+        } else {
+          this.message.error(res.msg);
+        }
+      })
+      .catch((err: any) => console.log(err));
   }
 
-  // 启用用户
-  enable() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
-  }
+  // 启/禁用用户
+  enableOrDisable(enabledState = 1) {
+    this.service
+      .EnableAcc({ enabledState }, this.page.checkedIds)
+      .then((res: any) => {
+        if (res.code === 200) {
+          this.getTableList();
 
-  // 禁用用户
-  disable() {
-    // this.modal
-    //   .createStatic(FormEditComponent, { i: { id: 0 } })
-    //   .subscribe(() => this.st.reload());
+          setTimeout(() => {
+            this.message.success(res.msg);
+          }, 300);
+        } else {
+          this.message.error(res.msg);
+        }
+      })
+      .catch((err: any) => console.log(err));
   }
 
   // 表格变化回调
