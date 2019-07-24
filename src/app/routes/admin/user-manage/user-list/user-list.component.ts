@@ -53,7 +53,7 @@ export class UserListComponent implements OnInit {
         {
           text: '删除',
           pop: true,
-          popTitle: '删除后不可撤销，确认删除吗？',
+          popTitle: '删除后不可撤销，确定要删除吗？',
           click: record => {
             this.delete(record);
           },
