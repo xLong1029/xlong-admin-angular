@@ -1,6 +1,6 @@
 import { _HttpClient } from '@delon/theme';
 import { Injectable } from '@angular/core';
-
+// BmobServer
 import BmobServer from '@bmob/bmob-server';
 
 @Injectable()
@@ -94,9 +94,32 @@ export class UserManageService {
    * @param id 对象Id
    */
   EditAccount(params, id) {
+    const query = BmobServer.GetQuery('Account');
     return new Promise((resolve, reject) => {
-      BmobServer.EditOne('Account', id, params)
-        .then((res: any) => resolve(res))
+      query.equalTo('mobile', '==', params.mobile);
+      query.equalTo('objectId', '!=', id);
+
+      BmobServer.FindAllData(query)
+        .then((res: any) => {
+          if (res.data && res.data.length) resolve({ code: 404, msg: '手机号已存在！' });
+          else {
+            query.equalTo('email', '==', params.email);
+            query.equalTo('objectId', '!=', id);
+
+            BmobServer.FindAllData(query)
+              // tslint:disable-next-line: no-shadowed-variable
+              .then((res: any) => {
+                if (res.data && res.data.length) resolve({ code: 404, msg: '邮箱已存在！' });
+                else {
+                  BmobServer.EditOne('Account', id, params)
+                    // tslint:disable-next-line: no-shadowed-variable
+                    .then((res: any) => resolve(res))
+                    .catch((err: any) => reject(err));
+                }
+              })
+              .catch((err: any) => reject(err));
+          }
+        })
         .catch((err: any) => reject(err));
     });
   }

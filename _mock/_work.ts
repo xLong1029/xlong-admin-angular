@@ -10,42 +10,34 @@ export const WORK = {
         {
           id: 1,
           name: '建筑设计',
-          checked: false,
         },
         {
           id: 2,
           name: '网页设计',
-          checked: false,
         },
         {
           id: 3,
           name: 'UI设计',
-          checked: false,
         },
         {
           id: 4,
           name: 'WEB前端开发',
-          checked: false,
         },
         {
           id: 5,
           name: '.NET开发',
-          checked: false,
         },
         {
           id: 6,
           name: 'JAVA开发',
-          checked: false,
         },
         {
           id: 7,
           name: 'PHP开发',
-          checked: false,
         },
         {
           id: 8,
           name: '其他专业',
-          checked: false,
         },
       ],
     };

@@ -1,7 +1,7 @@
 /*
  * 功能 : 封装bmob的增删改查数据方法。
  * 作者 : 罗永梅（381612175@qq.com）
- * 日期 : 2019-7-22
+ * 日期 : 2019-7-24
  * 版本 : version 2.1
  */
 
@@ -53,6 +53,15 @@ export default {
       }
     });
   },
+  // 查找所有数据
+  FindAllData: (query: any) => {
+    return new Promise((resolve, reject) => {
+      query
+        .find()
+        .then((res: any) => resolve({ code: 200, data: res }))
+        .catch((err: any) => reject(err));
+    });
+  },
   // 查找一行数据
   FindOneData: (query: any) => {
     return new Promise((resolve, reject) => {
@@ -79,6 +88,8 @@ export default {
       // 循环执行set操作
       // tslint:disable-next-line: forin
       for (const i in params) {
+        // 对参数进行空处理
+        params[i] = params[i] == null ? '' : params[i];
         query.set(i, params[i]);
       }
       query
@@ -110,12 +121,16 @@ export default {
     ObjOmit(params, ['objectId', 'createdAt', 'updatedAt']);
     // 获取对象并修改
     return new Promise((resolve, reject) => {
+      console.log(params);
+
       query
         .get(objectId)
         .then(res => {
           // 循环执行set操作
           // tslint:disable-next-line: forin
           for (const i in params) {
+            // 对参数进行空处理
+            params[i] = params[i] == null ? '' : params[i];
             res.set(i, params[i]);
           }
           res
@@ -156,6 +171,8 @@ export default {
           // 循环执行set操作
           // tslint:disable-next-line: forin
           for (const i in params) {
+            // 对参数进行空处理
+            params[i] = params[i] == null ? '' : params[i];
             todos.set(i, params[i]);
           }
           todos

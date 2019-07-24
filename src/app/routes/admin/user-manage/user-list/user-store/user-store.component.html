@@ -39,14 +39,6 @@
         <se label="单位名称">
           <input nz-input placeholder="请输入单位名称" [(ngModel)]="editForm.companyName" name="companyName" />
         </se>
-        <se label="职位">
-          <nz-select nzPlaceHolder="请选择职位" [(ngModel)]="editForm.job" name="job">
-            <nz-option *ngFor="let item of jobList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
-          </nz-select>
-        </se>
-        <!-- <se required label="专业领域">
-        <nz-checkbox-group [(ngModel)]="editForm.profession" name="profession"></nz-checkbox-group>
-      </se> -->
         <se label="所在省市">
           <nz-cascader
             nzPlaceHolder="请选择省市"
@@ -54,6 +46,11 @@
             [(ngModel)]="selectCity"
             name="province"
           ></nz-cascader>
+        </se>
+        <se label="职位">
+          <nz-select nzPlaceHolder="请选择职位" [(ngModel)]="editForm.job" name="job">
+            <nz-option *ngFor="let item of jobList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
+          </nz-select>
         </se>
         <se required label="工作时间">
           <nz-date-picker
@@ -72,6 +69,18 @@
             >尚未毕业</label
           >
         </se>
+        <se required label="专业领域" col="1">
+          <nz-checkbox-wrapper (nzOnChange)="checkBoxChange($event)">
+            <label
+              *ngFor="let profession of professionList; let i = index"
+              nz-checkbox
+              [nzValue]="profession.value"
+              [(ngModel)]="profession.checked"
+              [name]="'profession' + i"
+              >{{ profession.label }}</label
+            >
+          </nz-checkbox-wrapper>
+        </se>
       </se-container>
     </div>
   </form>
@@ -79,5 +88,7 @@
 
 <div class="modal-footer">
   <button nz-button nzType="default" (click)="close()">取消</button>
-  <button nz-button nzType="primary" (click)="submit()" [disabled]="loading || f.invalid">提交</button>
+  <button nz-button nzType="primary" (click)="submit()" [disabled]="loading || f.invalid || !professionSelected.length">
+    提交
+  </button>
 </div>
