@@ -19,6 +19,7 @@
         </se>
         <se label="出生日期">
           <nz-date-picker
+            class="select-birthdate"
             [nzDisabledDate]="disabledDate"
             [(ngModel)]="editForm.birthdate"
             name="birthdate"
@@ -40,7 +41,7 @@
         </se>
         <se label="职位">
           <nz-select nzPlaceHolder="请选择职位" [(ngModel)]="editForm.job" name="job">
-            <nz-option *ngFor="let item of workInfo.jobList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
+            <nz-option *ngFor="let item of jobList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
           </nz-select>
         </se>
         <!-- <se required label="专业领域">

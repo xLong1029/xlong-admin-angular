@@ -33,7 +33,9 @@ export class UserDetailComponent implements OnInit {
         this.loading = false;
         if (res.code === 200) {
           this.detail = res.data;
-          this.professionTags = res.data.profession.split(',');
+          if (res.data.profession) {
+            this.professionTags = res.data.profession.split(',');
+          }
         }
       })
       .catch((err: any) => console.log(err));

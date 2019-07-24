@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NzModalRef } from 'ng-zorro-antd';
-import { _HttpClient } from '@delon/theme';
 import { differenceInCalendarDays } from 'date-fns';
 // service
+import { AdminPublicService } from '../../../../public/public.service';
 import { UserManageService } from '../../user-manage.service';
-// ts
-import { WorkInfo } from '@common/workInfo';
 
 @Component({
   selector: 'app-user-store',
@@ -15,6 +13,8 @@ import { WorkInfo } from '@common/workInfo';
 export class UserStoreComponent implements OnInit {
   // 操作方式：1 新增；2 编辑
   action: 1 | 2;
+  // 传递的ID
+  id = null;
   // 编辑内容
   editForm = {
     face: null,
@@ -33,16 +33,16 @@ export class UserStoreComponent implements OnInit {
     isGraduate: null,
   };
 
-  // 传递的ID
-  id: any = {};
   // 加载
   loading = false;
 
   // 省市列表
   cityList: any[] | null = null;
   selectCity: any[] | null = null;
-  // 工作相关信息
-  workInfo: any;
+  // 职位列表
+  jobList = [];
+  // 专业领域列表
+  professionList = [];
 
   // 今日日期
   today = new Date();
@@ -51,14 +51,12 @@ export class UserStoreComponent implements OnInit {
     return differenceInCalendarDays(current, this.today) > 0;
   };
 
-  constructor(private modal: NzModalRef, private http: _HttpClient, public service: UserManageService) {
-    this.workInfo = new WorkInfo(http);
-  }
+  constructor(private modal: NzModalRef, public publicService: AdminPublicService, public service: UserManageService) {}
 
   ngOnInit(): void {
     this.getCityList();
-    this.workInfo.getJobList();
-    this.workInfo.getProfessionList();
+    this.getJobList();
+    this.getProfessionList();
 
     if (this.action === 2) {
       this.getDetail(this.id);
@@ -79,6 +77,8 @@ export class UserStoreComponent implements OnInit {
           if (res.data.job == '') this.editForm.job = null;
           // tslint:disable-next-line: triple-equals
           if (res.data.province == '') this.selectCity = [];
+
+          console.log(this.professionList);
         }
       })
       .catch((err: any) => console.log(err));
@@ -86,9 +86,28 @@ export class UserStoreComponent implements OnInit {
 
   // 获取省市列表
   getCityList() {
-    this.http.get('/getCity').subscribe((res: any) => {
+    this.publicService.GetCityList().subscribe((res: any) => {
       if (res.code === 200) {
         this.cityList = this.cascaderFormat(res.data);
+      }
+    });
+  }
+
+  // 获取职位列表
+  getJobList() {
+    this.publicService.GetJobList().subscribe((res: any) => {
+      if (res.code === 200) {
+        this.jobList = res.data;
+      }
+    });
+  }
+
+  // 获取专业领域列表
+  getProfessionList() {
+    this.publicService.GetProfessionList().subscribe((res: any) => {
+      if (res.code === 200) {
+        this.professionList = res.data;
+        console.log(this.professionList);
       }
     });
   }
@@ -131,7 +150,30 @@ export class UserStoreComponent implements OnInit {
   }
 
   // 提交表单
-  submit() {}
+  submit() {
+    // 新增
+    if (this.action === 1) {
+      this.service
+        .AddAccount(this.editForm)
+        .then((res: any) => {
+          console.log(res);
+
+          // this.close();
+        })
+        .catch((err: any) => console.log(err));
+    }
+    // 编辑
+    else {
+      this.service
+        .EditAccount(this.editForm, this.id)
+        .then((res: any) => {
+          console.log(res);
+
+          // this.close();
+        })
+        .catch((err: any) => console.log(err));
+    }
+  }
 
   // ”尚未毕业“勾选
   graduateChange(e) {

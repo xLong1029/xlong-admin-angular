@@ -6,6 +6,7 @@ import { STColumn, STComponent, STColumnTag } from '@delon/abc';
 import { UserDetailComponent } from './user-detail/user-detail.component';
 import { UserStoreComponent } from './user-store/user-store.component';
 // service
+import { AdminPublicService } from './../../../public/public.service';
 import { UserManageService } from './../user-manage.service';
 // ts
 import { Page } from '@common/page';
@@ -56,7 +57,11 @@ export class UserListComponent implements OnInit {
   // 职位列表
   jobList = [];
 
-  constructor(private modal: ModalHelper, private http: _HttpClient, public service: UserManageService) {}
+  constructor(
+    private modal: ModalHelper,
+    public publicService: AdminPublicService,
+    public service: UserManageService,
+  ) {}
 
   ngOnInit() {
     this.getTableList();
@@ -66,7 +71,7 @@ export class UserListComponent implements OnInit {
 
   // 获取省市列表
   getCityList() {
-    this.http.get('/getCity').subscribe((res: any) => {
+    this.publicService.GetCityList().subscribe((res: any) => {
       if (res.code === 200) {
         this.cityList = res.data;
       }
@@ -75,7 +80,7 @@ export class UserListComponent implements OnInit {
 
   // 获取职位列表
   getJobList() {
-    this.http.get('/getJob').subscribe((res: any) => {
+    this.publicService.GetJobList().subscribe((res: any) => {
       if (res.code === 200) {
         this.jobList = res.data;
       }

@@ -13,6 +13,14 @@ export class UserManageService {
    * @param pageNo 当前页码
    * @param pageNo 每页显示几条数据
    */
+  GetCityList() {}
+
+  /**
+   * 获取所有账户列表
+   * @param params 查询参数
+   * @param pageNo 当前页码
+   * @param pageNo 每页显示几条数据
+   */
   GetAccList(params, pageNo, pageSize) {
     const query = BmobServer.GetQuery('Account');
 
