@@ -1,7 +1,7 @@
 import { _HttpClient } from '@delon/theme';
 import { Injectable } from '@angular/core';
 
-import BmobServer from './../../../shared/bmob/bmob-server';
+import BmobServer from '@bmob/bmob-server';
 
 @Injectable()
 export class UserManageService {

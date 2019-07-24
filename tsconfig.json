@@ -33,6 +33,15 @@
       ],
       "@env/*": [
         "src/environments/*"
+      ],
+      "@common/*": [
+        "src/common/*"
+      ],
+      "@bmob/*": [
+        "src/bmob/*"
+      ],
+      "@app/*": [
+        "src/app/*"
       ]
     }
   },

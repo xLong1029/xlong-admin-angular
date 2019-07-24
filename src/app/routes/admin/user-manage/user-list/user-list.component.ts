@@ -8,8 +8,8 @@ import { UserStoreComponent } from './user-store/user-store.component';
 // service
 import { UserManageService } from './../user-manage.service';
 // ts
-import { Page } from './../../../../shared/common/page';
-import { EnabledStateTag } from './../../../../shared/common/enableStateTag';
+import { Page } from '@common/page';
+import { EnabledStateTag } from '@common/enableStateTag';
 
 @Component({
   selector: 'app-user-list',

@@ -9,7 +9,7 @@ preloaderFinished();
 
 import { hmrBootstrap } from './hmr';
 
-import BmobServer from './app/shared/bmob/bmob-server';
+import BmobServer from '@bmob/bmob-server';
 
 // 初始化Bmob
 BmobServer.Init();

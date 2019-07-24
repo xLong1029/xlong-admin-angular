@@ -5,7 +5,7 @@ import { differenceInCalendarDays } from 'date-fns';
 // service
 import { UserManageService } from '../../user-manage.service';
 // ts
-import { WorkInfo } from './../../../../../shared/common/workInfo';
+import { WorkInfo } from '@common/workInfo';
 
 @Component({
   selector: 'app-user-store',
