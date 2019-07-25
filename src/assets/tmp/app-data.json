@@ -1,11 +1,11 @@
 {
   "app": {
-    "name": "Alain",
-    "description": "Ng-zorro admin panel front-end framework"
+    "name": "xlong-admin-angular",
+    "description": "A study project of angular"
   },
   "user": {
     "name": "Admin",
-    "avatar": "./assets/tmp/img/avatar.jpg",
+    "avatar": "./assets/images/avatar.jpg",
     "email": "381612175@qq.com"
   },
   "menu": [

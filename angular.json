@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "my-project": {
+    "xlong-admin-angular": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,7 +17,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/my-project",
+            "outputPath": "dist/xlong-admin-angular",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": "src/polyfills.ts",
@@ -76,15 +76,15 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "my-project:build",
+            "browserTarget": "xlong-admin-angular:build",
             "proxyConfig": "proxy.conf.json"
           },
           "configurations": {
             "production": {
-              "browserTarget": "my-project:build:production"
+              "browserTarget": "xlong-admin-angular:build:production"
             },
             "hmr": {
-              "browserTarget": "my-project:build:hmr",
+              "browserTarget": "xlong-admin-angular:build:hmr",
               "hmr": true
             }
           }
@@ -92,7 +92,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "my-project:build"
+            "browserTarget": "xlong-admin-angular:build"
           }
         },
         "test": {
@@ -134,18 +134,18 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "my-project:serve"
+            "devServerTarget": "xlong-admin-angular:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "my-project:serve:production"
+              "devServerTarget": "xlong-admin-angular:serve:production"
             }
           }
         }
       }
     }
   },
-  "defaultProject": "my-project",
+  "defaultProject": "xlong-admin-angular",
   "schematics": {
     "ng-alain:module": {
       "routing": true,

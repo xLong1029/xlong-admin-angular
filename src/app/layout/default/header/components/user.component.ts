@@ -12,8 +12,8 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       nzPlacement="bottomRight"
       [nzDropdownMenu]="userMenu"
     >
-      <nz-avatar nzIcon="user" [nzSrc]="settings.user.avatar" nzSize="small" class="mr-sm"></nz-avatar>
-      {{ settings.user.name }}
+      <nz-avatar nzIcon="user" [nzSrc]="settings.user.userFace" nzSize="small" class="mr-sm"></nz-avatar>
+      {{ settings.user.nickName }}
     </div>
     <nz-dropdown-menu #userMenu="nzDropdownMenu">
       <div nz-menu class="width-sm">

@@ -16,8 +16,8 @@ export class AccountCenterComponent implements OnInit {
 
   // 编辑内容
   editForm = {
-    face: null,
-    username: null,
+    userFace: null,
+    userName: null,
     nickName: null,
     realName: null,
     gender: null,
@@ -30,13 +30,7 @@ export class AccountCenterComponent implements OnInit {
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
   ) {}
 
-  ngOnInit() {
-    console.log(this.settings.user.name);
-
-    // this.tokenService.change().subscribe(res => {
-    //   console.log(res);
-    // });
-  }
+  ngOnInit() {}
 
   // 提交表单
   submit() {
