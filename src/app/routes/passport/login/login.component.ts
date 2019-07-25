@@ -8,7 +8,6 @@ import { ReuseTabService } from '@delon/abc';
 import { StartupService } from '@core';
 // service
 import { PassportService } from './../passport.service';
-import { getIconDefinitionFromAbbr } from '@ant-design/icons-angular';
 
 @Component({
   selector: 'passport-login',
@@ -34,7 +33,7 @@ export class UserLoginComponent implements OnDestroy {
     private reuseTabService: ReuseTabService,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
     private startupSrv: StartupService,
-    public msg: NzMessageService,
+    public msgSrv: NzMessageService,
     private change: ChangeDetectorRef,
     public service: PassportService,
   ) {
@@ -79,6 +78,8 @@ export class UserLoginComponent implements OnDestroy {
           this.reuseTabService.clear(true);
 
           const user = {
+            token: res.data.token,
+            username: res.data.username,
             nickName: res.data.nickName,
             realName: res.data.realName,
             userFace: res.data.userFace,
@@ -88,7 +89,7 @@ export class UserLoginComponent implements OnDestroy {
           };
 
           // 设置用户Token信息
-          this.tokenService.set({ token: res.data.token });
+          this.tokenService.set(user);
 
           // 设置用户信息
           this.settingsService.setUser(user);

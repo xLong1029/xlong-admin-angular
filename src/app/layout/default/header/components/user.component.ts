@@ -33,7 +33,7 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
       </div>
     </nz-dropdown-menu>
   `,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HeaderUserComponent {
   constructor(

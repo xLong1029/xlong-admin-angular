@@ -121,8 +121,6 @@ export default {
     ObjOmit(params, ['objectId', 'createdAt', 'updatedAt']);
     // 获取对象并修改
     return new Promise((resolve, reject) => {
-      console.log(params);
-
       query
         .get(objectId)
         .then(res => {

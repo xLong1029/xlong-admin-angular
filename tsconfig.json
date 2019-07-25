@@ -31,6 +31,12 @@
       "@core/*": [
         "src/app/core/*"
       ],
+      "@guard": [
+        "src/app/routes/guard"
+      ],
+      "@guard/*": [
+        "src/app/routes/guard/*"
+      ],
       "@env/*": [
         "src/environments/*"
       ],

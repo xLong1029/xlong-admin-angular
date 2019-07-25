@@ -2,17 +2,18 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SimpleGuard } from '@delon/auth';
 import { environment } from '@env/environment';
-// layout
+
+// 布局
 import { LayoutDefaultComponent } from '../layout/default/default.component';
 // import { LayoutFullScreenComponent } from '../layout/fullscreen/fullscreen.component';
 import { LayoutPassportComponent } from '../layout/passport/passport.component';
-// home pages
+// 首页
 import { HomeComponent } from './admin/home/home.component';
-// passport pages
+// 通行认证
 import { UserLoginComponent } from './passport/login/login.component';
 // import { UserRegisterComponent } from './passport/register/register.component';
 // import { UserRegisterResultComponent } from './passport/register-result/register-result.component';
-// single pages
+// 单页面
 import { CallbackComponent } from './callback/callback.component';
 // import { UserLockComponent } from './passport/lock/lock.component';
 

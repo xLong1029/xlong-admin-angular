@@ -5,7 +5,7 @@
       <form nz-form #f="ngForm">
         <se-container col="1" labelWidth="90" class="user-desc__content">
           <!-- <se label="用户头像"> </se> -->
-          <se label="账号">{{ id }}</se>
+          <se label="账号">{{ editForm.username }}</se>
           <se required label="昵称">
             <input required nz-input placeholder="请输入昵称" [(ngModel)]="editForm.nickName" name="nickName" />
           </se>

@@ -9,20 +9,20 @@ export class AccountService {
 
   /**
    * 获取个人资料
-   * @param token 用户token
+   * @param id 对象的objectId
    */
-  GetUserInfo(token) {
+  GetUserInfo(id) {
     const query = BmobServer.GetQuery('_User');
-    query.equalTo('token', '==', token);
+    query.equalTo('objectId', '==', id);
     // 只返回select的字段值
-    query.select('username', 'userFace', 'nickName', 'realName', 'nickName', 'gender');
+    query.select('username', 'userFace', 'nickName', 'realName', 'gender');
     return new Promise((resolve, reject) => {
       query
         .find()
-        .then(res => {
+        .then((res: any) => {
           resolve({ code: 200, data: res[0] });
         })
-        .catch(err => reject(err));
+        .catch((err: any) => reject(err));
     });
   }
   /**
@@ -54,19 +54,19 @@ export class AccountService {
     return new Promise((resolve, reject) => {
       query
         .find()
-        .then(res => {
+        .then((res: any) => {
           if (res.length) {
             // 只能批量修改
             res.set('password', params.newPassword);
             res
               .saveAll()
               .then(() => resolve({ code: 200, msg: '操作成功！' }))
-              .catch(err => reject(err));
+              .catch((err: any) => reject(err));
           } else {
             resolve({ code: 404, msg: '旧密码不正确！' });
           }
         })
-        .catch(err => reject(err));
+        .catch((err: any) => reject(err));
     });
   }
 }
