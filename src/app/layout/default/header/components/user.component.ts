@@ -22,8 +22,8 @@ import { DA_SERVICE_TOKEN, ITokenService } from '@delon/auth';
           个人中心
         </div>
         <div nz-menu-item routerLink="/account/edit-password">
-          <i nz-icon nzType="setting" class="mr-sm"></i>
-          个人设置
+          <i nz-icon nzType="edit" class="mr-sm"></i>
+          修改密码
         </div>
         <li nz-menu-divider></li>
         <div nz-menu-item (click)="logout()">

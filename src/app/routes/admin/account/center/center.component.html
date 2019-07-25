@@ -5,21 +5,15 @@
       <form nz-form #f="ngForm">
         <se-container col="1" labelWidth="90" class="user-desc__content">
           <!-- <se label="用户头像"> </se> -->
-          <se label="账号">{{ settings.user.objectId }}</se>
+          <se label="账号">{{ id }}</se>
           <se required label="昵称">
-            <input required nz-input placeholder="请输入昵称" [(ngModel)]="settings.user.nickName" name="nickName" />
+            <input required nz-input placeholder="请输入昵称" [(ngModel)]="editForm.nickName" name="nickName" />
           </se>
           <se required label="真实姓名">
-            <input
-              required
-              nz-input
-              placeholder="请输入真实姓名"
-              [(ngModel)]="settings.user.realName"
-              name="realName"
-            />
+            <input required nz-input placeholder="请输入真实姓名" [(ngModel)]="editForm.realName" name="realName" />
           </se>
           <se required label="性别">
-            <nz-radio-group required [(ngModel)]="settings.user.gender" name="gender">
+            <nz-radio-group required [(ngModel)]="editForm.gender" name="gender">
               <label nz-radio nzValue="男">男</label>
               <label nz-radio nzValue="女">女</label>
             </nz-radio-group>
