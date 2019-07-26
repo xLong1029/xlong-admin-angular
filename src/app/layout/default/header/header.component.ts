@@ -1,5 +1,5 @@
-import { Component, AfterViewInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { SettingsService, MenuService } from '@delon/theme';
+import { Component, AfterViewInit, OnDestroy } from '@angular/core';
+import { SettingsService } from '@delon/theme';
 
 @Component({
   selector: 'layout-header',
@@ -9,16 +9,7 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   navMenu = [];
   // searchToggleStatus: boolean;
 
-  constructor(public settings: SettingsService, public menuService: MenuService, private change: ChangeDetectorRef) {}
-
-  ngAfterViewInit(): void {
-    this.menuService.change.subscribe(res => {
-      if (res.length) {
-        this.navMenu = res.filter(item => !item.group);
-      }
-      this.change.detectChanges();
-    });
-  }
+  constructor(public settings: SettingsService) {}
 
   // toggleCollapsedSidebar() {
   //   this.settings.setLayout('collapsed', !this.settings.layout.collapsed);
@@ -27,8 +18,4 @@ export class HeaderComponent implements AfterViewInit, OnDestroy {
   // searchToggleChange() {
   //   this.searchToggleStatus = !this.searchToggleStatus;
   // }
-
-  ngOnDestroy(): void {
-    this.change.detach();
-  }
 }

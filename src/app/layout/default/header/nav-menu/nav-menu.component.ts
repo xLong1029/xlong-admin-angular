@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, AfterViewChecked, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
 import { fromEvent } from 'rxjs';
 import { Router, NavigationEnd } from '@angular/router';
+import { MenuService } from '@delon/theme';
 
 @Component({
   selector: 'header-nav-menu',
@@ -8,11 +9,12 @@ import { Router, NavigationEnd } from '@angular/router';
   styleUrls: [`./nav-menu.component.less`],
 })
 export class NavMenuComponent implements AfterViewInit, AfterViewChecked, OnDestroy {
-  @Input() menuList: any[] = [];
-
+  // 菜单列表
+  menuList = [];
+  // 是否显示提示文字
   showToolTip = false;
 
-  constructor(private router: Router, private change: ChangeDetectorRef) {}
+  constructor(private router: Router, public menuService: MenuService, private change: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.setToolTip();
@@ -24,19 +26,21 @@ export class NavMenuComponent implements AfterViewInit, AfterViewChecked, OnDest
         this.setToolTip();
       });
 
-    // 监听路由变化
+    // angular+ng-alain 8.x版本已包含监听路由改变处理，不用再自行监听
     // this.router.events.subscribe(event => {
     //   if (event instanceof NavigationEnd) {
     //     console.log(event);
 
-    //     this.menuLightHeight(this.menuList);
+    //     this.menuLightHeight(this.menuService);
     //   }
     // });
   }
 
   ngAfterViewChecked(): void {
-    if (this.menuList) {
-      this.menuLightHeight(this.menuList);
+    if (this.menuService.menus && this.menuService.menus.length) {
+      this.menuLightHeight(this.menuService.menus);
+      this.menuList = this.menuService.menus.filter(item => !item.group);
+      this.change.detectChanges();
     }
   }
 
@@ -52,7 +56,6 @@ export class NavMenuComponent implements AfterViewInit, AfterViewChecked, OnDest
         });
       }
     });
-    this.change.detectChanges();
   }
 
   // 文字提示设置

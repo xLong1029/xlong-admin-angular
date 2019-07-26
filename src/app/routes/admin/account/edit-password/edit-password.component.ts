@@ -1,5 +1,5 @@
-import { Component, OnInit, Inject, ViewChild } from '@angular/core';
-import { NzMessageService, NzFormDirective } from 'ng-zorro-antd';
+import { Component, OnInit, Inject } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd';
 import { SettingsService } from '@delon/theme';
 import { Router } from '@angular/router';
 import { ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
@@ -12,7 +12,6 @@ import { AccountService } from './../account.service';
   templateUrl: './edit-password.component.html',
 })
 export class AccountEditPasswordComponent implements OnInit {
-  // @ViewChild('f') f: FromComponent;
   // 编辑内容
   editForm = {
     oldPassword: null,
@@ -47,17 +46,5 @@ export class AccountEditPasswordComponent implements OnInit {
         }
       })
       .catch((err: any) => console.log(err));
-  }
-
-  // 重置表单
-  reset(e, form) {
-    e.preventDefault();
-    console.log(form);
-
-    // this.f.reset();
-    // for (const key in this.validateForm.controls) {
-    //   this.validateForm.controls[key].markAsPristine();
-    //   this.validateForm.controls[key].updateValueAndValidity();
-    // }
   }
 }
