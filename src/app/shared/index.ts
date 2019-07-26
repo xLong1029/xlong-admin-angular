@@ -1,7 +1,8 @@
 // Components
 
 // Utils
-export * from './utils/objOmit';
+export * from './utils/dataFormat';
+export * from './utils/objHandler';
 export * from './utils/timeTrans';
 
 // Module

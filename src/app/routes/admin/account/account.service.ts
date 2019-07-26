@@ -43,12 +43,12 @@ export class AccountService {
   /**
    * 修改密码
    * @param params 修改的参数对象
-   * @param token 用户token
+   * @param id 对象id
    */
-  ChangePwd(params, token) {
+  ChangePwd(params, id) {
     const query = BmobServer.GetQuery('_User');
-    // 根据唯一键查询对象
-    query.equalTo('token', '==', token);
+
+    query.equalTo('objectId', '==', id);
     query.equalTo('password', '==', params.oldPassword);
 
     return new Promise((resolve, reject) => {

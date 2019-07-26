@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { NzMessageService } from 'ng-zorro-antd';
+import { Component, OnInit, Inject, ViewChild } from '@angular/core';
+import { NzMessageService, NzFormDirective } from 'ng-zorro-antd';
 import { SettingsService } from '@delon/theme';
+import { Router } from '@angular/router';
+import { ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
 
 // service
 import { AccountService } from './../account.service';
@@ -10,8 +12,7 @@ import { AccountService } from './../account.service';
   templateUrl: './edit-password.component.html',
 })
 export class AccountEditPasswordComponent implements OnInit {
-  // 用户id
-  id = 0;
+  // @ViewChild('f') f: FromComponent;
   // 编辑内容
   editForm = {
     oldPassword: null,
@@ -19,21 +20,44 @@ export class AccountEditPasswordComponent implements OnInit {
     comfirPassword: null,
   };
 
-  constructor(private messageSrv: NzMessageService, public service: AccountService, public settings: SettingsService) {}
+  constructor(
+    private router: Router,
+    private messageSrv: NzMessageService,
+    public service: AccountService,
+    public settings: SettingsService,
+    @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
+  ) {}
 
   ngOnInit() {}
 
   // 提交表单
   submit() {
     this.service
-      .ChangePwd(this.editForm, this.id)
+      .ChangePwd(this.editForm, this.settings.user.objectId)
       .then((res: any) => {
         if (res.code === 200) {
-          this.messageSrv.success(res.msg);
+          this.messageSrv.success('密码修改成功！请重新登录');
+          // 清空信息
+          this.tokenService.clear();
+          this.settings.setUser(null);
+          // 跳转登录页
+          this.router.navigateByUrl(this.tokenService.login_url!);
         } else {
           this.messageSrv.error(res.msg);
         }
       })
       .catch((err: any) => console.log(err));
+  }
+
+  // 重置表单
+  reset(e, form) {
+    e.preventDefault();
+    console.log(form);
+
+    // this.f.reset();
+    // for (const key in this.validateForm.controls) {
+    //   this.validateForm.controls[key].markAsPristine();
+    //   this.validateForm.controls[key].updateValueAndValidity();
+    // }
   }
 }

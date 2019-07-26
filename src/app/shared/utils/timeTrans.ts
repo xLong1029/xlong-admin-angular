@@ -1,5 +1,5 @@
 /**
- * 根据时间辍返回对应的时间 如 yyyy-MM-dd HH:mm:ss  yyyy-MM-dd
+ * 根据时间辍转换对应的时间 如 yyyy-MM-dd HH:mm:ss  yyyy-MM-dd
  * @param date 时间 辍
  * @param format 时间格式 默认返回年月日时分秒 按照的格式化是 yyyy-MM-dd HH:mm:ss
  * @param timeWord 默认返回2018年01月15日 16:26:30  这种  如填写 - 的。则返回 2018-01-15 16:26:30

@@ -5,7 +5,7 @@ import { differenceInCalendarDays } from 'date-fns';
 import { AdminPublicService } from '../../../../public/public.service';
 import { UserManageService } from '../../user-manage.service';
 // utils
-import { dataCheckedFormat } from '@shared/utils/dataCheckedFormat';
+import { checkedFormat, cityCascaderFormat } from '@shared/utils/dataFormat';
 
 @Component({
   selector: 'app-user-store',
@@ -72,45 +72,8 @@ export class UserStoreComponent implements OnInit {
   getCityList() {
     this.publicService.GetCityList().subscribe((res: any) => {
       if (res.code === 200) {
-        this.cityList = this.cascaderFormat(res.data);
+        this.cityList = cityCascaderFormat(res.data);
       }
-    });
-  }
-
-  // 联级数据格式化
-  cascaderFormat(data: any = []) {
-    return data.map((province: any) => {
-      const p = {
-        value: province.name,
-        label: province.name,
-        children: [],
-        isLeaf: true,
-      };
-      if (province.childs.length) {
-        p.isLeaf = false;
-        p.children = province.childs.map((city: any) => {
-          const c = {
-            value: city.name,
-            label: city.name,
-            children: [],
-            isLeaf: true,
-          };
-          if (city.childs.length) {
-            c.isLeaf = false;
-            c.children = city.childs.map((area: any) => {
-              const a = {
-                value: area.name,
-                label: area.name,
-                children: [],
-                isLeaf: true,
-              };
-              return a;
-            });
-          }
-          return c;
-        });
-      }
-      return p;
     });
   }
 
@@ -154,7 +117,7 @@ export class UserStoreComponent implements OnInit {
           if (res.data.profession) {
             this.professionSelected = res.data.profession.split(',');
           }
-          this.professionList = dataCheckedFormat(this.professionList, this.professionSelected);
+          this.professionList = checkedFormat(this.professionList, this.professionSelected);
         }
       })
       .catch((err: any) => console.log(err));

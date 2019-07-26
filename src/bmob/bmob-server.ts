@@ -5,7 +5,7 @@
  * 版本 : version 2.1
  */
 
-import { ObjOmit } from '@shared/utils/objOmit';
+import { ObjOmit } from '@shared/utils/objHandler';
 import { APPLICATION_ID, REST_API_KEY } from '@app/app.global';
 
 export default {

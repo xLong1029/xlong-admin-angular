@@ -2,28 +2,26 @@
   <div nz-row>
     <div nz-col nzXs="0" nzSm="2" nzMd="4" nzLg="6" nzXl="8"></div>
     <div nz-col nzXs="24" nzSm="20" nzMd="16" nzLg="12" nzXl="8">
-      <form nz-form #f="ngForm">
-        <se-container col="1" labelWidth="90" class="user-desc__content">
-          <!-- <se label="用户头像"> </se> -->
-          <se label="账号">{{ editForm.username }}</se>
-          <se required label="昵称">
-            <input required nz-input placeholder="请输入昵称" [(ngModel)]="editForm.nickName" name="nickName" />
-          </se>
-          <se required label="真实姓名">
-            <input required nz-input placeholder="请输入真实姓名" [(ngModel)]="editForm.realName" name="realName" />
-          </se>
-          <se required label="性别">
-            <nz-radio-group required [(ngModel)]="editForm.gender" name="gender">
-              <label nz-radio nzValue="男">男</label>
-              <label nz-radio nzValue="女">女</label>
-            </nz-radio-group>
-          </se>
-          <se>
-            <button nz-button nzType="primary" (click)="submit()" [disabled]="loading || f.invalid">
-              提交
-            </button>
-          </se>
-        </se-container>
+      <form nz-form se-container="1" #f="ngForm" labelWidth="90">
+        <!-- <se label="用户头像"> </se> -->
+        <se label="账号">{{ editForm.username }}</se>
+        <se required label="昵称">
+          <input required nz-input placeholder="请输入昵称" [(ngModel)]="editForm.nickName" name="nickName" />
+        </se>
+        <se required label="真实姓名">
+          <input required nz-input placeholder="请输入真实姓名" [(ngModel)]="editForm.realName" name="realName" />
+        </se>
+        <se required label="性别">
+          <nz-radio-group required [(ngModel)]="editForm.gender" name="gender">
+            <label nz-radio nzValue="男">男</label>
+            <label nz-radio nzValue="女">女</label>
+          </nz-radio-group>
+        </se>
+        <se>
+          <button nz-button nzType="primary" (click)="submit()" [disabled]="loading || f.invalid">
+            提交
+          </button>
+        </se>
       </form>
     </div>
     <div nz-col nzXs="0" nzSm="2" nzMd="4" nzLg="6" nzXl="8"></div>
