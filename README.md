@@ -32,6 +32,12 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bomb 开发的单页面�
 
 * 用户管理功能
 
+![Image text](static/images/screen-3.gif)
+
+![Image text](static/images/screen-4.gif)
+
+* Cancas示例
+
 ![Image text](static/images/screen-5.gif)
 
 ## 目录结构
