@@ -33,7 +33,7 @@
         </span>
       </sv>
       <sv *ngIf="detail.isGraduate" label="工作时间">{{ detail.workTime | date }}</sv>
-      <sv label="是否毕业">{{ detail.isGraduate ? '是' : '否' }}</sv>
+      <sv label="是否毕业">{{ detail.isGraduate | getGraduate }}</sv>
     </sv-container>
   </div>
 </ng-template>
