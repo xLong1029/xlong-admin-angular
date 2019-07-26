@@ -7,7 +7,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 // 创建的管道的类
 export class GraduatePipe implements PipeTransform {
-  transform(value: string, exponent: string) {
+  transform(value: string) {
     return value ? '是' : '否';
   }
 }

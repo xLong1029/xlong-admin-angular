@@ -23,7 +23,7 @@ const COMPONENTS = [
   LayoutDefaultComponent,
   LayoutFullScreenComponent,
   HeaderComponent,
-  // SidebarComponent,
+  SidebarComponent,
   NavMenuComponent,
   ...SETTINGDRAWER,
 ];

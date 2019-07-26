@@ -87,7 +87,7 @@
 </nz-spin>
 
 <div class="modal-footer">
-  <button nz-button nzType="default" (click)="close()">取消</button>
+  <button nz-button nzType="default" (click)="close(false)">取消</button>
   <button nz-button nzType="primary" (click)="submit()" [disabled]="loading || f.invalid || !professionSelected.length">
     提交
   </button>
