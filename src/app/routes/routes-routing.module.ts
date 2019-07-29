@@ -10,7 +10,8 @@ import { LayoutPassportComponent } from '../layout/passport/passport.component';
 // 首页
 import { HomeComponent } from './admin/home/home.component';
 // 通行认证
-import { UserLoginComponent } from './passport/login/login.component';
+import { UserLoginComponent } from './passport/login/login.component'; // 新版
+import { UserLoginOldComponent } from './passport/login-old/login.component'; // 旧版-做保留使用
 // import { UserRegisterComponent } from './passport/register/register.component';
 // import { UserRegisterResultComponent } from './passport/register-result/register-result.component';
 // 单页面
@@ -59,7 +60,10 @@ const routes: Routes = [
     path: 'passport',
     component: LayoutPassportComponent,
     children: [
+      // 使用模板驱动表单的
       { path: 'login', component: UserLoginComponent, data: { title: '登录' } },
+      // 使用动态表单的
+      { path: 'login-old', component: UserLoginOldComponent, data: { title: '旧版登录页面' } },
       // { path: 'register', component: UserRegisterComponent, data: { title: '注册' } },
       // { path: 'register-result', component: UserRegisterResultComponent, data: { title: '注册结果' } },
       // { path: 'lock', component: UserLockComponent, data: { title: '锁屏' } },

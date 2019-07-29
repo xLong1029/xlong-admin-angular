@@ -1,17 +1,17 @@
-<form nz-form [formGroup]="form" (ngSubmit)="submit()" role="form">
+<form nz-form #f="ngForm" (ngSubmit)="submit()">
   <div>
     <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
     <nz-form-item>
       <nz-form-control nzErrorTip="请输入用户名">
         <nz-input-group nzSize="large" nzPrefixIcon="user">
-          <input nz-input formControlName="userName" placeholder="请输入用户名" />
+          <input required nz-input [(ngModel)]="form.userName" name="userName" placeholder="请输入用户名" (focus)="clearError($event)" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
     <nz-form-item>
       <nz-form-control nzErrorTip="请输入密码">
         <nz-input-group nzSize="large" nzPrefixIcon="lock">
-          <input nz-input type="password" formControlName="password" placeholder="请输入密码" />
+          <input required nz-input type="password" [(ngModel)]="form.password"  name="password" placeholder="请输入密码" (focus)="clearError($event)" />
         </nz-input-group>
       </nz-form-control>
     </nz-form-item>
