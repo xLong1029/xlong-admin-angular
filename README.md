@@ -2,7 +2,7 @@
 
 ## 介绍
 
-xlong-admin-angular 是一套基于 Angular + Ng Alain +Bomb 开发的单页面客户端渲染管理后台系统应用示例。
+xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面客户端渲染管理后台系统应用示例。
 
 *仅作学习参考，将持续添加功能
 
@@ -14,7 +14,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bomb 开发的单页面�
 
 #### 1. 前后端分离开发模式
 - **前端**：Angular + Ng Alain
-- **后端**：Bomb
+- **后端**：Bmob
 
 #### 2. 项目用到技术、框架与插件
 [angular](https://github.com/angular)<br/>
