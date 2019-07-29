@@ -1,4 +1,4 @@
-<form nz-form #f="ngForm" (ngSubmit)="submit()">
+<form nz-form #f="ngForm">
   <div>
     <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
     <nz-form-item>
@@ -17,7 +17,7 @@
     </nz-form-item>
   </div>
   <nz-form-item>
-    <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loading" nzBlock>
+    <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loading" nzBlock (click)="submit()">
       登录
     </button>
   </nz-form-item>

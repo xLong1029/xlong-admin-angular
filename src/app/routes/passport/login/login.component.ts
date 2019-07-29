@@ -47,10 +47,10 @@ export class UserLoginComponent implements OnInit {
 
   submit() {
     // 手动更新校验表单-start
-    // this.f.form.controls.userName.markAsDirty();
-    // this.f.form.controls.userName.updateValueAndValidity();
-    // this.f.form.controls.password.markAsDirty();
-    // this.f.form.controls.password.updateValueAndValidity();
+    this.f.form.controls.userName.markAsDirty();
+    this.f.form.controls.userName.updateValueAndValidity();
+    this.f.form.controls.password.markAsDirty();
+    this.f.form.controls.password.updateValueAndValidity();
 
     if (this.f.form.controls.userName.invalid || this.f.form.controls.password.invalid) {
       return;
