@@ -36,7 +36,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bomb 开发的单页面�
 
 ![Image text](static/images/screen-4.gif)
 
-* Cancas示例
+* Canvas示例
 
 ![Image text](static/images/screen-5.gif)
 
