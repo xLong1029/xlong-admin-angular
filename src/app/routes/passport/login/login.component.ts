@@ -43,16 +43,26 @@ export class UserLoginComponent implements OnInit {
     modalSrv.closeAll();
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    // 这里遇到个问题，表单页面在IE11下会自动进行校验，原理上使用markAsPristine()可以解决，但是IE11不支持此方法，暂时没找到解决方案
+    // for (const key of this.f.form.controls) {
+    //   this.form.controls[key].markAsPristine();
+    //   this.form.controls[key].updateValueAndValidity();
+    // }
+  }
 
   submit() {
     // 手动更新校验表单-start
-    this.f.form.controls.userName.markAsDirty();
-    this.f.form.controls.userName.updateValueAndValidity();
-    this.f.form.controls.password.markAsDirty();
-    this.f.form.controls.password.updateValueAndValidity();
+
 
     if (this.f.form.controls.userName.invalid || this.f.form.controls.password.invalid) {
+      this.f.form.controls.userName.markAsDirty();
+      this.f.form.controls.userName.updateValueAndValidity();
+      this.f.form.controls.password.markAsDirty();
+      this.f.form.controls.password.updateValueAndValidity();
+      console.log(this.f.form.controls.userName.invalid);
+      console.log(this.f.form.controls.password.invalid);
+
       return;
     }
     // 手动更新校验表单-end
