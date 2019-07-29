@@ -1,12 +1,13 @@
 import { SettingsService } from '@delon/theme';
-import { Component, OnInit, Inject, Optional, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, Inject, Optional, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NzMessageService, NzModalService } from 'ng-zorro-antd';
+import { NzMessageService, NzModalService} from 'ng-zorro-antd';
 import { ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
 import { ReuseTabService } from '@delon/abc';
 import { StartupService } from '@core';
 // service
 import { PassportService } from './../passport.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'passport-login',
@@ -15,6 +16,7 @@ import { PassportService } from './../passport.service';
   providers: [PassportService],
 })
 export class UserLoginComponent implements OnInit {
+  @ViewChild('f', { static: false }) f: NgForm;
   // 表单信息
   form = {
     userName: null,
@@ -44,10 +46,16 @@ export class UserLoginComponent implements OnInit {
   ngOnInit() {}
 
   submit() {
-    this.error = '';
-    // if (this.userName.invalid || this.password.invalid) {
-    //   return;
-    // }
+    // 手动更新校验表单-start
+    this.f.form.controls.userName.markAsDirty();
+    this.f.form.controls.userName.updateValueAndValidity();
+    this.f.form.controls.password.markAsDirty();
+    this.f.form.controls.password.updateValueAndValidity();
+
+    if (this.f.form.controls.userName.invalid || this.f.form.controls.password.invalid) {
+      return;
+    }
+    // 手动更新校验表单-end
 
     this.loading = true;
     // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
