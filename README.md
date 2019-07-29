@@ -8,7 +8,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面�
 
 ## 项目展示
 
-> DEMO地址：https://xlong1029.github.io/xlong-admin-angular/#/login
+> DEMO地址：https://xlong1029.github.io/xlong-admin-angular/#/passport/login
 
 ## 项目说明
 
