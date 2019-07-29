@@ -1,0 +1,61 @@
+<div class="content-container">
+  <form nz-form #f="ngForm" se-container="3" size="compact" gutter="0" [labelWidth]="95" class="mb-md">
+    <se label="用户编号">
+      <input nz-input placeholder="请输入用户编号" [(ngModel)]="page.query.id" name="id" />
+    </se>
+    <se label="手机号码">
+      <input nz-input placeholder="请输入手机号码" [(ngModel)]="page.query.mobile" name="mobile" />
+    </se>
+    <se label="邮箱">
+      <input nz-input placeholder="请输入邮箱" [(ngModel)]="page.query.email" name="email" />
+    </se>
+    <se label="职位">
+      <nz-select nzPlaceHolder="请选择职位" [(ngModel)]="page.query.job" name="job">
+        <nz-option *ngFor="let item of jobList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
+      </nz-select>
+    </se>
+    <se label="省市">
+      <nz-select nzPlaceHolder="请选择省市" [(ngModel)]="page.query.province" name="province">
+        <nz-option *ngFor="let item of cityList" [nzLabel]="item.name" [nzValue]="item.name"></nz-option>
+      </nz-select>
+    </se>
+    <se label="状态">
+      <nz-select nzPlaceHolder="请选择用户状态" [(ngModel)]="page.query.enabledState" name="enabledState">
+        <nz-option nzLabel="启用" nzValue="1"></nz-option>
+        <nz-option nzLabel="禁用" nzValue="-1"></nz-option>
+      </nz-select>
+    </se>
+    <se label="" col="1">
+      <button (click)="getTableList()" nz-button nzType="primary">查询</button>
+      <button (click)="resetTableList()" nz-button>重置</button>
+      <button (click)="store(null)" nz-button nzType="primary">添加</button>
+      <button
+        nz-popconfirm
+        nzTitle="删除后不可撤销，确定要删除吗?"
+        (nzOnConfirm)="delete()"
+        nz-button
+        nzType="primary"
+        [disabled]="!page.checkedData.length"
+      >
+        删除
+      </button>
+      <button (click)="enableOrDisable(1)" nz-button nzType="primary" [disabled]="!page.checkedData.length">
+        启用
+      </button>
+      <button (click)="enableOrDisable(-1)" nz-button nzType="primary" [disabled]="!page.checkedData.length">
+        禁用
+      </button>
+    </se>
+  </form>
+  <st
+    #st
+    [loading]="loading"
+    [data]="page.data"
+    [columns]="columns"
+    [(pi)]="page.page"
+    [(ps)]="page.pageSize"
+    [page]="page.pageConfig"
+    [total]="page.totalCount"
+    (change)="tableChange($event)"
+  ></st>
+</div>
