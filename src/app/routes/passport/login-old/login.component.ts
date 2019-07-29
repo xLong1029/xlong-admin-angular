@@ -1,12 +1,13 @@
 import { SettingsService } from '@delon/theme';
-import { Component, OnInit, Inject, Optional, ChangeDetectorRef } from '@angular/core';
+import { Component, OnDestroy, Inject, Optional, ChangeDetectorRef } from '@angular/core';
 import { Router } from '@angular/router';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { NzMessageService, NzModalService } from 'ng-zorro-antd';
 import { ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
 import { ReuseTabService } from '@delon/abc';
 import { StartupService } from '@core';
 // service
-import { PassportService } from './../passport.service';
+import { PassportService } from '../passport.service';
 
 @Component({
   selector: 'passport-login',
@@ -14,18 +15,16 @@ import { PassportService } from './../passport.service';
   styleUrls: ['./login.component.less'],
   providers: [PassportService],
 })
-export class UserLoginComponent implements OnInit {
-  // 表单信息
-  form = {
-    userName: null,
-    password: null
-  }
+export class UserLoginOldComponent implements OnDestroy {
+  // 表单对象
+  form: FormGroup;
   // 错误信息
   error = '';
   // 加载
   loading = false;
 
   constructor(
+    fb: FormBuilder,
     modalSrv: NzModalService,
     private router: Router,
     private settingsService: SettingsService,
@@ -38,22 +37,40 @@ export class UserLoginComponent implements OnInit {
     private change: ChangeDetectorRef,
     public service: PassportService,
   ) {
+    this.form = fb.group({
+      userName: [null, [Validators.required, Validators.minLength(4)]],
+      password: [null, Validators.required],
+      mobile: [null, [Validators.required, Validators.pattern(/^1\d{10}$/)]],
+      captcha: [null, [Validators.required]],
+      remember: [true],
+    });
     modalSrv.closeAll();
   }
 
-  ngOnInit() {}
+  // #region fields
+
+  get userName() {
+    return this.form.controls.userName;
+  }
+  get password() {
+    return this.form.controls.password;
+  }
 
   submit() {
     this.error = '';
-    // if (this.userName.invalid || this.password.invalid) {
-    //   return;
-    // }
+    this.userName.markAsDirty();
+    this.userName.updateValueAndValidity();
+    this.password.markAsDirty();
+    this.password.updateValueAndValidity();
+    if (this.userName.invalid || this.password.invalid) {
+      return;
+    }
 
     this.loading = true;
     // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
     // 然一般来说登录请求不需要校验，因此可以在请求URL加上：`/login?_allow_anonymous=true` 表示不触发用户 Token 校验
     this.service
-      .Login(this.form.userName, this.form.password)
+      .Login(this.userName.value, this.password.value)
       .then((res: any) => {
         this.loading = false;
         if (res.code === 200) {
@@ -92,8 +109,5 @@ export class UserLoginComponent implements OnInit {
       });
   }
 
-  // 清楚错误提示
-  clearError(e){
-    this.error = '';
-  }
+  ngOnDestroy(): void {}
 }
