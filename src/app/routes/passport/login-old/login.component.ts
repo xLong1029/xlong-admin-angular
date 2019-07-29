@@ -56,13 +56,13 @@ export class UserLoginOldComponent implements OnDestroy {
 
   submit() {
     this.error = '';
-    this.userName.markAsDirty();
-    this.userName.updateValueAndValidity();
-    this.password.markAsDirty();
-    this.password.updateValueAndValidity();
-    if (this.userName.invalid || this.password.invalid) {
-      return;
-    }
+    // this.userName.markAsDirty();
+    // this.userName.updateValueAndValidity();
+    // this.password.markAsDirty();
+    // this.password.updateValueAndValidity();
+    // if (this.userName.invalid || this.password.invalid) {
+    //   return;
+    // }
 
     this.loading = true;
     // 默认配置中对所有HTTP请求都会强制 [校验](https://ng-alain.com/auth/getting-started) 用户 Token
