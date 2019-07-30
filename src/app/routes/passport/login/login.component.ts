@@ -53,18 +53,19 @@ export class UserLoginComponent implements OnInit {
 
   submit() {
     // 手动更新校验表单-start
+    // this.f.form.controls.userName.markAsDirty();
+    // this.f.form.controls.userName.updateValueAndValidity();
+    // this.f.form.controls.password.markAsDirty();
+    // this.f.form.controls.password.updateValueAndValidity();
 
 
-    if (this.f.form.controls.userName.invalid || this.f.form.controls.password.invalid) {
-      this.f.form.controls.userName.markAsDirty();
-      this.f.form.controls.userName.updateValueAndValidity();
-      this.f.form.controls.password.markAsDirty();
-      this.f.form.controls.password.updateValueAndValidity();
-      console.log(this.f.form.controls.userName.invalid);
-      console.log(this.f.form.controls.password.invalid);
+    // if (this.f.form.controls.userName.invalid || this.f.form.controls.password.invalid) {
 
-      return;
-    }
+    //   console.log(this.f.form.controls.userName.invalid);
+    //   console.log(this.f.form.controls.password.invalid);
+
+    //   return;
+    // }
     // 手动更新校验表单-end
 
     this.loading = true;
