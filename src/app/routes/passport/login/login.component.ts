@@ -1,5 +1,5 @@
 import { SettingsService } from '@delon/theme';
-import { Component, OnInit, Inject, Optional, ChangeDetectorRef, ViewChild } from '@angular/core';
+import { Component, AfterViewInit, Inject, Optional, ChangeDetectorRef, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { NzMessageService, NzModalService} from 'ng-zorro-antd';
 import { ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
@@ -16,7 +16,7 @@ import { PassportService } from './../passport.service';
   styleUrls: ['./login.component.less'],
   providers: [PassportService],
 })
-export class UserLoginComponent implements OnInit {
+export class UserLoginComponent implements AfterViewInit {
   @ViewChild('f', { static: false }) f: NgForm;
   // 表单信息
   form = {
@@ -44,12 +44,20 @@ export class UserLoginComponent implements OnInit {
     modalSrv.closeAll();
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    // 解决IE11下，表单自动校验导致错误提示显示的问题
+    setTimeout(() => {
+        for (const key in this.f.form.controls) {
+            if (this.f.form.controls[key]) {
+                this.f.form.controls[key].markAsPristine();
+                this.f.form.controls[key].updateValueAndValidity();
+            }
+        }
+    });
   }
 
   submit() {
     // 手动更新校验表单-start
-    console.log(this.f);
     this.f.form.controls.userName.markAsDirty();
     this.f.form.controls.userName.updateValueAndValidity();
     this.f.form.controls.password.markAsDirty();
