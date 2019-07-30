@@ -1,25 +1,23 @@
+<nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
 <form nz-form #f="ngForm">
-  <div>
-    <nz-alert *ngIf="error" [nzType]="'error'" [nzMessage]="error" [nzShowIcon]="true" class="mb-lg"></nz-alert>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="请输入用户名">
-        <nz-input-group nzSize="large" nzPrefixIcon="user">
-          <input required nz-input [(ngModel)]="form.userName" name="userName" placeholder="请输入用户名" (focus)="clearError($event)" />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-    <nz-form-item>
-      <nz-form-control nzErrorTip="请输入密码">
-        <nz-input-group nzSize="large" nzPrefixIcon="lock">
-          <input required nz-input type="password" [(ngModel)]="form.password"  name="password" placeholder="请输入密码" (focus)="clearError($event)" />
-        </nz-input-group>
-      </nz-form-control>
-    </nz-form-item>
-  </div>
   <nz-form-item>
-    <button nz-button type="submit" nzType="primary" nzSize="large" [nzLoading]="loading" nzBlock (click)="submit()">
-      登录
-    </button>
+    <nz-form-control nzErrorTip="请输入用户名">
+      <nz-input-group nzSize="large" nzPrefixIcon="user">
+        <input required nz-input [(ngModel)]="form.userName" name="userName" placeholder="请输入用户名" (focus)="clearError($event)" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-control nzErrorTip="请输入密码">
+      <nz-input-group nzSize="large" nzPrefixIcon="lock">
+        <input required nz-input type="password" [(ngModel)]="form.password"  name="password" placeholder="请输入密码" (focus)="clearError($event)" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+      <button nz-button nzType="primary" nzSize="large" [nzLoading]="loading" nzBlock (click)="submit()">
+          登录
+      </button>
   </nz-form-item>
 </form>
 <div style="text-align: center">测试使用登录账号: 18888888888 密码: 666666</div>
