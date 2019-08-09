@@ -19,7 +19,9 @@
  */
 
 /** IE10 and IE11 requires the following for NgClass support on SVG elements */
-// import 'classlist.js';  // Run `npm install --save classlist.js`.
+import 'classlist.js';  // Run `npm install --save classlist.js`.
+// 解决IE11 不支持“padStart”属性或方法
+import 'core-js/es/string';
 
 /**
  * Web Animations `@angular/platform-browser/animations`

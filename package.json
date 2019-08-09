@@ -41,6 +41,7 @@
     "@delon/theme": "^8.1.0",
     "@delon/util": "^8.1.0",
     "ajv": "^6.10.0",
+    "classlist.js": "^1.1.20150312",
     "hydrogen-js-sdk": "^2.0.0",
     "ng-alain": "^8.1.0",
     "ng-zorro-antd": "^8.0.2",
