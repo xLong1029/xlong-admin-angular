@@ -41,11 +41,11 @@ const routes: Routes = [
       },
       {
         path: 'user-manage',
-        data: { title: '用户管理' },
         // 用户操作权限
-        // data: { title: '用户管理', guard: { role: [ 'admin', 'manager' ] } },
+        data: { title: '用户管理', guard: { role: [ 'admin', 'manage' ] } },
         loadChildren: () => import('./admin/user-manage/user-manage.module').then(m => m.UserManageModule),
         canLoad: [ ACLGuard ],
+        canActivateChild: [ ACLGuard ],
       },
       {
         path: 'exception',

@@ -28,7 +28,7 @@
     <se label="" col="1">
       <button (click)="getTableList()" nz-button nzType="primary">查询</button>
       <button (click)="resetTableList()" nz-button>重置</button>
-      <button (click)="store(null)" nz-button nzType="primary">添加</button>
+      <button (click)="store(null)" nz-button nzType="primary" *aclIf="['admin']">添加</button>
       <button
         nz-popconfirm
         nzTitle="删除后不可撤销，确定要删除吗?"
@@ -36,13 +36,14 @@
         nz-button
         nzType="primary"
         [disabled]="!page.checkedData.length"
+        *aclIf="['admin']"
       >
         删除
       </button>
-      <button (click)="enableOrDisable(1)" nz-button nzType="primary" [disabled]="!page.checkedData.length">
+      <button (click)="enableOrDisable(1)" nz-button nzType="primary" [disabled]="!page.checkedData.length" *aclIf="['admin', 'manage']">
         启用
       </button>
-      <button (click)="enableOrDisable(-1)" nz-button nzType="primary" [disabled]="!page.checkedData.length">
+      <button (click)="enableOrDisable(-1)" nz-button nzType="primary" [disabled]="!page.checkedData.length" *aclIf="['admin', 'manage']">
         禁用
       </button>
     </se>

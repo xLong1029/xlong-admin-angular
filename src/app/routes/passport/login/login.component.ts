@@ -6,6 +6,8 @@ import { ITokenService, DA_SERVICE_TOKEN } from '@delon/auth';
 import { ReuseTabService } from '@delon/abc';
 import { StartupService } from '@core';
 import { NgForm } from '@angular/forms';
+// 权限
+import { ACLService } from '@delon/acl';
 
 // service
 import { PassportService } from './../passport.service';
@@ -36,6 +38,7 @@ export class UserLoginComponent implements AfterViewInit {
     @Inject(ReuseTabService)
     private reuseTabService: ReuseTabService,
     @Inject(DA_SERVICE_TOKEN) private tokenService: ITokenService,
+    private aclService: ACLService,
     private startupSrv: StartupService,
     public msgSrv: NzMessageService,
     private change: ChangeDetectorRef,
@@ -79,7 +82,8 @@ export class UserLoginComponent implements AfterViewInit {
           this.reuseTabService.clear(true);
 
           const user = {
-            token: res.data.token,
+            token: res.data.sessionToken,
+            role: res.data.role,
             username: res.data.username,
             nickName: res.data.nickName,
             realName: res.data.realName,
@@ -91,6 +95,8 @@ export class UserLoginComponent implements AfterViewInit {
 
           // 设置用户Token信息
           this.tokenService.set(user);
+
+          this.aclService.setRole([res.data.role]);
 
           // 设置用户信息
           this.settingsService.setUser(user);

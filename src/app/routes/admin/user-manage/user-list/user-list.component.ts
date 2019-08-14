@@ -1,7 +1,8 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { _HttpClient, ModalHelper } from '@delon/theme';
 import { STColumn, STComponent } from '@delon/abc';
 import { NzMessageService } from 'ng-zorro-antd';
+import { ACLService } from '@delon/acl';
 
 // component
 import { UserDetailComponent } from './user-detail/user-detail.component';
@@ -17,7 +18,7 @@ import { EnabledStateTag } from '@common/enableStateTag';
   selector: 'app-user-list',
   templateUrl: './user-list.component.html',
 })
-export class UserListComponent implements OnInit {
+export class UserListComponent implements OnInit, AfterViewInit {
   @ViewChild('st', { static: false }) st: STComponent;
   // 加载
   loading = false;
@@ -49,6 +50,9 @@ export class UserListComponent implements OnInit {
           click: record => {
             this.store(record);
           },
+          acl: {
+            role: ['admin'],
+          },
         },
         {
           text: '删除',
@@ -56,6 +60,9 @@ export class UserListComponent implements OnInit {
           popTitle: '删除后不可撤销，确定要删除吗？',
           click: record => {
             this.delete(record);
+          },
+          acl: {
+            role: ['admin'],
           },
         },
       ],
@@ -68,6 +75,7 @@ export class UserListComponent implements OnInit {
   jobList = [];
 
   constructor(
+    private acl: ACLService,
     private message: NzMessageService,
     private modal: ModalHelper,
     public publicService: AdminPublicService,
@@ -78,6 +86,12 @@ export class UserListComponent implements OnInit {
     this.getTableList();
     this.getCityList();
     this.getJobList();
+  }
+
+  ngAfterViewInit() {
+    this.acl.change.subscribe(() => {
+      this.st.resetColumns();
+    });
   }
 
   // 获取省市列表

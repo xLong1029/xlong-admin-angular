@@ -63,7 +63,10 @@ export class StartupService {
             return;
           }
 
-          this.http.get('/getMenus').subscribe((res: any) => {
+          // 解决刷新页面后，角色权限丢失问题
+          this.aclService.setRole([this.tokenService.get().role]);
+
+          this.http.get(`/getMenus/${this.tokenService.get().role}`).subscribe((res: any) => {
             // tslint:disable-next-line: triple-equals
             if (res.code == 200) {
               this.menuService.add(res.data);
