@@ -33,6 +33,8 @@ export const ROUTES = {
           link: '/user-manage/list',
           group: false,
           icon: { type: 'icon', value: 'contacts', theme: 'fill' },
+          // 用户操作权限
+          // button: ['User_Add', 'User_Edit', 'User_Delete', 'User_Control'],
           hideInBreadcrumb: false,
         },
         {

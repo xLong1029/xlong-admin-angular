@@ -18,6 +18,9 @@ import { UserLoginOldComponent } from './passport/login-old/login.component'; //
 import { CallbackComponent } from './callback/callback.component';
 // import { UserLockComponent } from './passport/lock/lock.component';
 
+// 权限路由守卫
+import { ACLGuard } from '@delon/acl';
+
 const routes: Routes = [
   {
     path: '',
@@ -39,7 +42,10 @@ const routes: Routes = [
       {
         path: 'user-manage',
         data: { title: '用户管理' },
+        // 用户操作权限
+        // data: { title: '用户管理', guard: { role: [ 'admin', 'manager' ] } },
         loadChildren: () => import('./admin/user-manage/user-manage.module').then(m => m.UserManageModule),
+        canLoad: [ ACLGuard ],
       },
       {
         path: 'exception',
