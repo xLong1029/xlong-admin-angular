@@ -21,6 +21,13 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面�
 [ng-alain](https://github.com/ng-alain/ng-alain)<br/>
 [ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)<br/>
 
+## 权限功能
+账户分超级管理员、管理员和普通用户，不同角色拥有不同的操作权限：
+
+- **超级管理**： 查看、编辑、删除、启用、禁用
+- **管理员**：查看、启用、禁用
+- **普通用户**：查看
+
 ## 部分项目运行截图
 * 登录界面
 
