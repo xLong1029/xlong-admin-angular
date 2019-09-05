@@ -24,6 +24,6 @@ export function comfirmPswValidator(_password: string): ValidatorFn {
     if (!control.value) {
       return { required: true };
     }
-    return control.value !== _password ? { appConfirmPwdValidate: '确认密码和新密码不相同' } : null;
+    return control.value !== _password ? { difference: '两次密码不一致' } : null;
   };
 }

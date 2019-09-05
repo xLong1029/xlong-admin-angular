@@ -20,10 +20,11 @@ export class PasswordValidatorDirective implements Validator {
   // validate属性，会传入表单的formControl，返回 ValidationErrors 对象
   validate(control: AbstractControl): { [key: string]: any } {
     // 获取应用该指令，控件上的值
-    if (control.value) {
-      if (!this.regPassword.test(control.value)) {
-        return { appPasswordValidate: '密码格式为6-12位，字母、数字和下划线的组合' };
-      } else return null;
-    } else return null;
+    if (!control.value) {
+      return { required: true };
+    }
+    else {
+      return !this.regPassword.test(control.value) ? { regError: '密码格式为6-12位，字母、数字和下划线的组合' } : null;
+    }
   }
 }
