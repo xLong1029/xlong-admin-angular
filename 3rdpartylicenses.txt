@@ -614,6 +614,8 @@ ng-zorro-antd/cascader
 
 ng-zorro-antd/checkbox
 
+ng-zorro-antd/collapse
+
 ng-zorro-antd/date-picker
 
 ng-zorro-antd/divider
@@ -680,6 +682,8 @@ ng-zorro-antd/tree-select
 
 ng-zorro-antd/upload
 
+undefined
+
 ngx-countdown
 MIT
 MIT License
@@ -704,8 +708,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 
-
-undefined
 
 rxjs
 Apache-2.0
