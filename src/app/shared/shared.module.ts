@@ -18,6 +18,11 @@ import { GraduatePipe } from './pipe/graduate.pipe';
 // 自定义指令
 import { PasswordValidatorDirective } from './directive/password-validator.directive';
 import { ConfirmPwdValidatorDirective } from './directive/comfir-password-validator.directive';
+// 图表模块
+import { G2MultiTimelineModule } from './component/multi-timeline/public_api';
+
+const CHARTMODULES = [G2MultiTimelineModule];
+
 const COMPONENTS = [];
 const DIRECTIVES = [PasswordValidatorDirective, ConfirmPwdValidatorDirective];
 const PIPES = [GraduatePipe];
@@ -34,6 +39,7 @@ const PIPES = [GraduatePipe];
     DelonACLModule,
     DelonFormModule,
     ...THIRDMODULES,
+    ...CHARTMODULES,
   ],
   // 属于该模块的一组组件、指令和管道（统称可声明对象）, 在这个源数据中只能声明组件、管道、指令
   declarations: [...COMPONENTS, ...DIRECTIVES, ...PIPES],
@@ -48,6 +54,7 @@ const PIPES = [GraduatePipe];
     DelonACLModule,
     DelonFormModule,
     ...THIRDMODULES,
+    ...CHARTMODULES,
     ...COMPONENTS,
     ...DIRECTIVES,
     ...PIPES,

@@ -1,0 +1,62 @@
+<div class="content-container">
+  <nz-card class="example" nzType="inner" nzTitle="基于g2-timeline定制的多折线图">
+    <div class="hint-text">以下只是测试数据，仅供参考：</div>
+    <div class="example-show">
+      <g2-multi-timeline
+        [data]="powerData"
+        [titleMap]="{ eCurrent: '电流', voltage: '电压', power: '功率' }"
+        [colorMap]="{ eCurrent: '#1890FF', voltage: '#2FC25B', power: '#722ed1' }"
+        [unitMap]="{ eCurrent: 'A', voltage: 'V', power: 'W' }"
+        position="top"
+        x="updateTime"
+        mask="MM-DD"
+        height="300"
+        slider="false"
+      >
+      </g2-multi-timeline>
+    </div>
+    <div class="example-code">
+      <nz-collapse [nzBordered]="false">
+        <nz-collapse-panel
+          #p
+          nzHeader="使用方法"
+          [ngStyle]="panelStyle"
+          [nzExpandedIcon]="expandedIcon"
+        >
+          <div class="hint-text">数据格式：</div>
+          <textarea class="code-area">
+              // 随机能耗数据
+              for (let i = 0; i < 15; i ++) {
+                this.powerData.push({
+                  eCurrent: Math.ceil(Math.random() * 2),
+                  voltage: Math.ceil(Math.random() * 5),
+                  power: Math.ceil(Math.random() * 10),
+                  updateTime: (new Date().getTime()) + (1000 * 60 * 60 * 24 * i),
+                });
+              }
+          </textarea>
+          <div class="hint-text">使用组件（titleMap、colorMap和unitMap键值对需一一对应，否则失效）：</div>
+          <textarea class="code-area">
+              <g2-multi-timeline
+                [data]="powerData"
+                [titleMap]="{eCurrent: '电流', voltage: '电压', power: '功率'}"
+                [colorMap]="{eCurrent: '#1890FF', voltage: '#2FC25B', power: '#722ed1'}"
+                [unitMap]="{eCurrent: 'A', voltage: 'V', power: 'W'}"
+                position="top"
+                x="updateTime"
+                mask="MM-DD"
+                height="300"
+                slider="false"
+              >
+              </g2-multi-timeline>
+          </textarea>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </div>
+  </nz-card>
+</div>
+<!-- 添加的额外图标 -->
+<ng-template #expandedIcon let-active>
+  {{ active }}
+  <i nz-icon nzType="caret-right" class="ant-collapse-arrow" [nzRotate]="p.nzActive ? 90 : -90"></i>
+</ng-template>

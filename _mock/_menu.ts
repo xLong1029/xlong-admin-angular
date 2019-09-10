@@ -20,9 +20,14 @@ const menuList = [
     children: [
       {
         role: ['admin', 'manage', 'user'],
-        text: '日出日落',
+        text: '日出日落效果',
         link: '/example/sun',
-        icon: { type: 'icon', value: 'home', theme: 'fill' },
+        hideInBreadcrumb: false,
+      },
+      {
+        role: ['admin', 'manage', 'user'],
+        text: '自定义图表组件',
+        link: '/example/chart',
         hideInBreadcrumb: false,
       },
     ],
