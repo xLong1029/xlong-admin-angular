@@ -1,9 +1,7 @@
 // Components
 
 // Utils
-export * from './utils/dataFormat';
-export * from './utils/objHandler';
-export * from './utils/timeTrans';
+export * from './utils/index';
 
 // Module
 export * from './shared.module';
