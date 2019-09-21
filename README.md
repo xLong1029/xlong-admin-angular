@@ -21,6 +21,9 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面�
 [ng-alain](https://github.com/ng-alain/ng-alain)<br/>
 [ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)<br/>
 
+#### 3. 浏览器兼容性
+由于是响应式页面，PC和移动设备都能统一访问，并且用到了部分版本比较高的插件，所以主要兼容浏览器：IE10+、IE Edge、Safai、Firefox、Chrome等。
+
 ## 权限功能
 账户分超级管理员、管理员和普通用户，不同角色拥有不同的操作权限：
 
