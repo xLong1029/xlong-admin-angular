@@ -192,37 +192,6 @@ export class GisMapComponent implements OnInit, AfterViewInit {
   // 获取资源坐标点
   getResByPoints(bssw, bsne) {
     return new Promise((resolve, reject) => {
-      // this.service.getResByPoints(bssw.lng, bssw.lat, bsne.lng, bsne.lat).subscribe((res: any) => {
-
-      // 这里是测试数据，请根据实际场景更换请求数据
-      const res = [
-
-      ];
-
-      // res.forEach(element => {
-      //   let p = new BMap.Point(element.Lng, element.Lat);
-      //   this.createResIcon(
-      //     p,
-      //     element.SHResType,
-      //     element.InvolveCarrier,
-      //     element.RentStatus,
-      //     element.SHResTypeStr,
-      //     element.RCode,
-      //     element.Owner,
-      //     element.Id,
-      //   );
-      // });
-
-      resolve();
-      // console.log(res);
-      // if (res.RV == 0) {
-
-      //   resolve();
-      // }
-      // else {
-      //   reject();
-      // }
-      // });
     });
   }
 
@@ -236,11 +205,25 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     this.resListVisible = val;
   }
 
+  // 获取监控资源
+  getLocateRes(res) {
+    console.log("当前选中资源：", res);
+    this.clearAll();
+
+    // 关闭资源列表弹窗
+    this.setResListVisible(false);
+
+    // 显示监控灯杆资源
+    let p = new BMap.Point(res.lng, res.lat);
+    this.createResIcon(p, res);
+    this.map.setViewport([p]);
+    this.map.centerAndZoom(p, 19);
+  }
+
   /**
-   * 生成坐标，站址编码，站址名称，铁塔类型总数，铁塔总数-监控杆塔资源
-   * @param point
-   * @param element
-   * @param type
+   * 生成监控资源坐标
+   * @param point 坐标点
+   * @param element 对象
    */
   createResIcon(point, element) {
     let _this = this;
@@ -269,15 +252,20 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     this.resMarkers.push(myCompOverlay);
     this.map.addOverlay(myCompOverlay);
 
-    // 5G重点规划站点
-    if (element.type == 2) {
-      this.setWellCoverResLine(point, element);
-      this.setChargingPileResLine(point, element);
-      this.setWaterResLine(point, element);
-    }
+    // 附近资源
+    this.setNearbyResLine(point, element, 1);
+    this.setNearbyResLine(point, element, 2);
+    this.setNearbyResLine(point, element, 3);
   }
 
-  // 设置监控灯杆信息弹窗
+  /**
+   * 设置监控资源信息弹窗
+   * @param point 坐标点
+   * @param element 对象
+   * @param bmap 地图
+   * @param div 信息框div
+   * @param arrow 信息框箭头
+   */
   setMonitorTowerResOverlay(point, element, bmap, div, arrow) {
     div.style.position = 'absolute';
     // 默认情况下，纬度较低的标注会覆盖在纬度较高的标注之上，从而形成一种立体效果。通过此方法使某个标注覆盖在其他标注之上
@@ -290,7 +278,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     let centerimg = document.createElement('img');
     centerimg.style.width = '22px';
     centerimg.style.height = '40px';
-    centerimg.src = './assets/img/Icons/监控灯杆.png';
+    centerimg.src = './assets/images/map/icon-pole.png';
     arrow.append(centerimg);
     div.appendChild(arrow);
 
@@ -307,7 +295,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
         opts.height = 280;
       }
       let content = `
-        <div class="locate-title">重点监控区域：${element.monitorName}</div>
+        <div class="locate-title">${element.siteName}</div>
         <div class="locate-info">
           <div class="locate-info__left">
             <p>站址编码：${element.siteCode}</p>
@@ -316,21 +304,21 @@ export class GisMapComponent implements OnInit, AfterViewInit {
             <p>详细地址：${element.address}</p>
           </div>
           <div class="locate-info__right">
-            <img src="${element.imgUrl}"/>
+            <img src="assets/images/map/lamp.jpg"/>
             <div>站地址实景</div>
           </div>
         </div>
         <div class="locate-attr">
-        <span style="min-width:45px">操作：</span><div class="locate-icon-wrapper">`;
+        <span style="min-width:45px">功能：</span><div class="locate-icon-wrapper">`;
 
       content += `<div class="locate-icon" id="meteorologicalEnvBtn">
-            <img class="locate-icon__img" src="assets/img/gis-monitor/环境监测${element.hasMeteorologicalEnv ? "" : "（灰）"}.png"/>
+            <img class="locate-icon__img" src="assets/images/map/img-env${element.hasMeteorologicalEnv ? "" : "-disable"}.png"/>
             <span class="locate-icon__name ${ element.hasMeteorologicalEnv ? 'enable' : ''}">环境监测</span>
           </div>
           `
       content += `<div class="locate-icon" id="lampControlBtn">
-          <img class="locate-icon__img" src="assets/img/gis-monitor/单灯控制${element.hasLampControl ? "" : "（灰）"}.png"/>
-          <span class="locate-icon__name ${ element.hasLampControl ? 'enable' : ''}">单灯控制</span>
+          <img class="locate-icon__img" src="assets/images/map/img-light-control${element.hasLampControl ? "" : "-disable"}.png"/>
+          <span class="locate-icon__name ${ element.hasLampControl ? 'enable' : ''}">灯杆控制</span>
         </div>
         `
       content += `</div></div>`;
@@ -338,7 +326,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       let infoWindow = new BMap.InfoWindow(content, opts);
       bmap.openInfoWindow(infoWindow, point); //开启信息窗口
 
-      // 打开信息窗口加载“查看详情”按钮点击事件
+      // 打开信息窗口加载“功能”按钮点击事件
       setTimeout(() => {
 
       }, 100);
@@ -348,12 +336,13 @@ export class GisMapComponent implements OnInit, AfterViewInit {
   }
 
   /**
-   * 生成井盖资源标记
+   * 生成附近资源标记
    * 
-   * @param point
-   * @param element
+   * @param point 坐标点
+   * @param element 对象
+   * @param type 1 井盖 2 智能换电 3 水力资源
    */
-  createWellCoverResIcon(point, element) {
+  createNearbyResIcon(point, element, type) {
     let _this = this;
 
     function ComplexCustomOverlay(point) {
@@ -377,14 +366,29 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       let centerimg = document.createElement('img');
       centerimg.style.width = '22px';
       centerimg.style.height = '40px';
-      centerimg.src = `./assets/img/Icons/井盖${element.status === 1 ? "（关）" : "（开）"}.png`;
+
+      let imgUrl: any = "";
+      switch (type) {
+        case 1:
+          imgUrl = `./assets/images/map/${element.status === 1 ? "icon-well-open" : "icon-well-close"}.png`;
+          break;
+        case 2:
+          imgUrl = `./assets/images/map/icon-charge.png`;
+          break;
+        case 3:
+          imgUrl = `./assets/images/map/icon-water-res.png`;
+          break;
+        default: console.log("type is error");
+      }
+
+      centerimg.src = imgUrl;
       arrow.append(centerimg);
       div.appendChild(arrow);
 
       bmap.getPanes().labelPane.appendChild(div);
 
       div.onclick = () => {
-        _this.showWellCoverResDetail(true, element);
+        // _this.showWellCoverResDetail(true, element);
       };
 
       return div;
@@ -402,39 +406,46 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     this.map.addOverlay(myCompOverlay);
   }
 
-  // 设置井盖资源连线
-  setWellCoverResLine(point, element) {
-    if (element.wellCoverResources && element.wellCoverResources.length) {
-      // 连线坐标点
-      let linePoints = [];
-      element.wellCoverResources.forEach((e) => {
+  /**
+   * 设置附近资源连线
+   * 
+   * @param point 坐标点
+   * @param element 对象
+   * @param type 1 井盖 2 智能换电 3 水力资源
+   */
+  setNearbyResLine(point, element, type) {
+    let linePoints: any = [];
+    let resources: any = null;
+    let strokeColor: any = "";
+
+    switch (type) {
+      case 1:
+        resources = element.wellCoverResources;
+        strokeColor = "#2aa515";
+        break;
+      case 2:
+        resources = element.batteryCabinets;
+        strokeColor = "#e16631";
+        break;
+      case 3:
+        resources = element.hydrologicalResources;
+        strokeColor = "#e16631";
+        break;
+      default: console.log("type is error");
+    }
+
+    if (resources && resources.length) {
+      resources.forEach((e) => {
         linePoints.push(new BMap.Point(element.lng, element.lat));
         linePoints.push(new BMap.Point(e.lng, e.lat));
         let p = new BMap.Point(e.lng, e.lat);
-        this.createWellCoverResIcon(p, e);
-      })
+        this.createNearbyResIcon(p, e, type);
+      });
 
       // 添加连线
-      var polyline = new BMap.Polyline(linePoints, { strokeColor: "#2aa515", strokeWeight: 1, strokeStyle: "dashed", strokeOpacity: 0.8 });
+      var polyline = new BMap.Polyline(linePoints, { strokeColor, strokeWeight: 1, strokeStyle: "dashed", strokeOpacity: 0.8 });
       this.map.addOverlay(polyline);
     }
-
-    /* 测试数据-start */
-    // const wellCoverPoints = [
-    //   {
-    //     lng: 111.25221588,
-    //     lat: 23.41172763
-    //   },
-    //   {
-    //     lng: 111.25225817,
-    //     lat: 23.41195247
-    //   },
-    //   {
-    //     lng: 111.25130403,
-    //     lat: 23.41208646
-    //   }
-    // ]
-    /* 测试数据-end */
   }
 
   // 查看井盖资源详情
@@ -448,92 +459,6 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  /**
-   * 生成智能换电（充电桩）标记
-   * 
-   * @param point
-   * @param element
-   */
-  createChargingPileResIcon(point, element) {
-    let _this = this;
-
-    function ComplexCustomOverlay(point) {
-      this._point = point;
-    }
-
-    ComplexCustomOverlay.prototype = new BMap.Overlay();
-    ComplexCustomOverlay.prototype.initialize = function (bmap) {
-      this.map = bmap;
-      let div = (this._div = document.createElement('div'));
-      let arrow = (this._arrow = document.createElement('div'));
-
-      div.style.position = 'absolute';
-      // 默认情况下，纬度较低的标注会覆盖在纬度较高的标注之上，从而形成一种立体效果。通过此方法使某个标注覆盖在其他标注之上
-      // div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
-      div.style.zIndex = BMap.Overlay.getZIndex(1);
-
-      arrow.className = '_MapIcon';
-      arrow.style.position = 'relative';
-
-      let centerimg = document.createElement('img');
-      centerimg.style.width = '22px';
-      centerimg.style.height = '40px';
-      centerimg.src = './assets/img/Icons/智能换电.png';
-      arrow.append(centerimg);
-      div.appendChild(arrow);
-
-      bmap.getPanes().labelPane.appendChild(div);
-
-      div.onclick = () => {
-        _this.showChargingPileResDetail(true, element);
-      };
-
-      return div;
-    };
-    ComplexCustomOverlay.prototype.draw = function () {
-      let map = this.map;
-      let pixel = map.pointToOverlayPixel(this._point);
-
-      this._div.style.left = pixel.x - 10 + 'px';
-      this._div.style.top = pixel.y - 20 + 'px';
-    };
-
-    let myCompOverlay = new ComplexCustomOverlay(point);
-    this.resMarkers.push(myCompOverlay);
-    this.map.addOverlay(myCompOverlay);
-  }
-
-  // 设置智能换电（充电桩）资源连线
-  setChargingPileResLine(point, element) {
-    if (element.batteryCabinets && element.batteryCabinets.length) {
-      // 连线坐标点
-      let linePoints = [];
-      element.batteryCabinets.forEach((e) => {
-        linePoints.push(new BMap.Point(element.lng, element.lat));
-        linePoints.push(new BMap.Point(e.lng, e.lat));
-        let p = new BMap.Point(e.lng, e.lat);
-        this.createChargingPileResIcon(p, e);
-      })
-
-      // 添加连线
-      var polyline = new BMap.Polyline(linePoints, { strokeColor: "#e16631", strokeWeight: 1, strokeStyle: "dashed", strokeOpacity: 0.8 });
-      this.map.addOverlay(polyline);
-    }
-
-    /* 测试数据-start */
-    // const chargingPilePoints = [
-    //   {
-    //     lng: 111.25161239,
-    //     lat: 23.41205693
-    //   },
-    //   {
-    //     lng: 111.25273299,
-    //     lat: 23.41205677
-    //   }
-    // ]
-    /* 测试数据-end */
-  }
-
   // 查看智能换电（充电桩）资源详情
   showChargingPileResDetail(visible: boolean, resource: any) {
     if (visible) {
@@ -543,87 +468,6 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       //   }
       // );
     }
-  }
-
-  /**
-   * 生成水利资源标记
-   * 
-   * @param point
-   * @param element
-   */
-  createWaterResIcon(point, element) {
-    let _this = this;
-
-    function ComplexCustomOverlay(point) {
-      this._point = point;
-    }
-
-    ComplexCustomOverlay.prototype = new BMap.Overlay();
-    ComplexCustomOverlay.prototype.initialize = function (bmap) {
-      this.map = bmap;
-      let div = (this._div = document.createElement('div'));
-      let arrow = (this._arrow = document.createElement('div'));
-
-      div.style.position = 'absolute';
-      // 默认情况下，纬度较低的标注会覆盖在纬度较高的标注之上，从而形成一种立体效果。通过此方法使某个标注覆盖在其他标注之上
-      // div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
-      div.style.zIndex = BMap.Overlay.getZIndex(1);
-
-      arrow.className = '_MapIcon';
-      arrow.style.position = 'relative';
-
-      let centerimg = document.createElement('img');
-      centerimg.style.width = '22px';
-      centerimg.style.height = '40px';
-      centerimg.src = './assets/img/Icons/水利资源.png';
-      arrow.append(centerimg);
-      div.appendChild(arrow);
-
-      bmap.getPanes().labelPane.appendChild(div);
-
-      div.onclick = () => {
-        _this.showWaterResDetail(true, element);
-      };
-
-      return div;
-    };
-    ComplexCustomOverlay.prototype.draw = function () {
-      let map = this.map;
-      let pixel = map.pointToOverlayPixel(this._point);
-
-      this._div.style.left = pixel.x - 10 + 'px';
-      this._div.style.top = pixel.y - 20 + 'px';
-    };
-
-    let myCompOverlay = new ComplexCustomOverlay(point);
-    this.map.addOverlay(myCompOverlay);
-  }
-
-  // 设置水利资源连线
-  setWaterResLine(point, element) {
-    if (element.hydrologicalResources && element.hydrologicalResources.length) {
-      // 连线坐标点
-      let linePoints = [];
-      element.hydrologicalResources.forEach((e) => {
-        linePoints.push(new BMap.Point(element.lng, element.lat));
-        linePoints.push(new BMap.Point(e.lng, e.lat));
-        let p = new BMap.Point(e.lng, e.lat);
-        this.createWaterResIcon(p, e);
-      })
-
-      // 添加连线
-      var polyline = new BMap.Polyline(linePoints, { strokeColor: "#be2c86", strokeWeight: 1, strokeStyle: "dashed", strokeOpacity: 0.8 });
-      this.map.addOverlay(polyline);
-    }
-    /* 测试数据-start */
-    // // 水利数据
-    // const wellCoverResources = [
-    //   {
-    //     lng: 111.25198687,
-    //     lat: 23.41203098
-    //   }
-    // ]
-    /* 测试数据-end */
   }
 
   // 查看水利资源详情

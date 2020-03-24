@@ -32,11 +32,11 @@ export class GisResListComponent implements OnInit {
   page = new Page();
   // 表格列
   columns: STColumn[] = [
-    { title: '站址名称', render: 'siteName', width:"150px" },
-    { title: '挂载功能', render: 'function', width:"200px" },
-    { title: '关联资源', render: 'res', width:"150px" },
-    { title: '站址编码', index: 'siteCode', width:"150px" },
-    { title: '地址', index: 'address', width:"150px" },
+    { title: '站址名称', render: 'siteName', width: 150 },
+    { title: '挂载功能', render: 'function', width: 200 },
+    { title: '关联资源', render: 'res', width: 150 },
+    { title: '站址编码', index: 'siteCode', width: 150 },
+    { title: '地址', index: 'address', width: 150 },
   ];
 
   constructor(
