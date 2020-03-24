@@ -1,0 +1,10 @@
+<div class="gis-map">
+    <div id="bmap" [ngStyle]="{ 'height.px': pageH, width: '100%' }">
+    </div>
+    <div class="gis-map__control-bar">
+        <!-- <button nz-button nzType="primary" (click)="resourcesLocate()"
+            [disabled]="loading || currentView == viewEnum.DrawStart">资源定位</button> -->
+        <button nz-button nzType="primary" (click)="showResources()"
+            [disabled]="loading || currentView == viewEnum.DrawStart">显示资源</button>
+    </div>
+</div>

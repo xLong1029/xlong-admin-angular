@@ -14,7 +14,7 @@ export class NavMenuComponent implements AfterViewInit, AfterViewChecked, OnDest
   // 是否显示提示文字
   showToolTip = false;
 
-  constructor(private router: Router, public menuService: MenuService, private change: ChangeDetectorRef) {}
+  constructor(private router: Router, public menuService: MenuService, private change: ChangeDetectorRef) { }
 
   ngAfterViewInit(): void {
     this.setToolTip();
@@ -40,7 +40,10 @@ export class NavMenuComponent implements AfterViewInit, AfterViewChecked, OnDest
     if (this.menuService.menus && this.menuService.menus.length) {
       this.menuLightHeight(this.menuService.menus);
       this.menuList = this.menuService.menus.filter(item => !item.group);
-      this.change.detectChanges();
+
+      if (!this.change['destroyed']) {
+        this.change.detectChanges();
+      }
     }
   }
 
@@ -60,8 +63,15 @@ export class NavMenuComponent implements AfterViewInit, AfterViewChecked, OnDest
 
   // 文字提示设置
   setToolTip() {
-    this.showToolTip = document.body.clientWidth < 1200 ? true : false;
-    this.change.detectChanges();
+    const menuList: any = document.getElementsByClassName("menu-list");
+    if (menuList.length) {
+      this.showToolTip = document.body.clientWidth < 1200 ? true : false;
+      this.change.detectChanges();
+
+      if (!this.change['destroyed']) {
+        this.change.detectChanges();
+      }
+    }
   }
 
   gotoLink(link) {

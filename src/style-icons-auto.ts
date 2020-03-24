@@ -13,6 +13,7 @@ import {
   UserOutline,
   LockOutline,
   CopyrightOutline,
+  EnvironmentFill,
 } from '@ant-design/icons-angular/icons';
 
 export const ICONS_AUTO = [
@@ -25,4 +26,5 @@ export const ICONS_AUTO = [
   UserOutline,
   LockOutline,
   CopyrightOutline,
+  EnvironmentFill
 ];

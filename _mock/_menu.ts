@@ -10,6 +10,7 @@ const menuList = [
     group: false,
     icon: { type: 'icon', value: 'home', theme: 'fill' },
     hideInBreadcrumb: false,
+    hideBreadcrumb: false,
   },
   {
     text: '组件示例',
@@ -17,20 +18,32 @@ const menuList = [
     group: false,
     icon: { type: 'icon', value: 'appstore', theme: 'fill' },
     hideInBreadcrumb: false,
+    hideBreadcrumb: false,
     children: [
       {
         role: ['admin', 'manage', 'user'],
         text: '日出日落效果',
         link: '/example/sun',
         hideInBreadcrumb: false,
+        hideBreadcrumb: false,
       },
       {
         role: ['admin', 'manage', 'user'],
         text: '自定义图表组件',
         link: '/example/chart',
         hideInBreadcrumb: false,
+        hideBreadcrumb: false,
       },
     ],
+  },
+  {
+    role: ['admin', 'manage', 'user'],
+    text: 'GIS地图示例',
+    link: '/map/gis-map',
+    group: false,
+    icon: { type: 'icon', value: 'environment', theme: 'fill' },
+    hideInBreadcrumb: false,
+    hideBreadcrumb: true
   },
   {
     role: ['admin', 'manage'],
@@ -41,6 +54,7 @@ const menuList = [
     // 用户操作权限
     // button: ['User_Add', 'User_Edit', 'User_Delete', 'User_Control'],
     hideInBreadcrumb: false,
+    hideBreadcrumb: false,
   },
   {
     role: ['admin', 'manage', 'user'],
@@ -49,6 +63,7 @@ const menuList = [
     group: true,
     icon: null,
     hideInBreadcrumb: false,
+    hideBreadcrumb: false,
   },
   {
     role: ['admin', 'manage', 'user'],
@@ -57,6 +72,7 @@ const menuList = [
     group: true,
     icon: null,
     hideInBreadcrumb: false,
+    hideBreadcrumb: false,
   },
 ];
 

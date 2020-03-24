@@ -1,0 +1,21 @@
+.gis-map{
+  padding: 0;
+  position: relative;
+
+  &__control-bar{
+    position: absolute;
+    z-index: 999;
+    top: 20px;
+    left: 20px;
+  }
+}
+
+:host ::ng-deep {
+    #bmap{
+      background: #08304a !important;
+    }
+  
+    .BMap_cpyCtrl,.anchorBL{
+        display: none;
+    }
+  }

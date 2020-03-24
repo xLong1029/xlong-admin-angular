@@ -24,34 +24,28 @@ export default {
     return new Promise((resolve, reject) => {
       if (pageNo && pageSize) {
         // 统计满足query的结果集记录条数
-        query.count().then((result: any) => {
-          // console.log(`共有${result}条记录`);
-          const page = {
+        query.count().then(res => {
+          // console.log(`共有${res}条记录`)
+          let page = {
             page: pageNo,
-            pageSize,
-            total: result,
-            pages: Math.ceil(result / pageSize),
-          };
+            size: pageSize,
+            count: res
+          }
 
           // 对createdAt字段降序排列
-          query.order('-createdAt');
+          query.order("-createdAt")
           // 返回数据条数，默认返回10条数据
-          query.limit(pageSize);
+          query.limit(pageSize)
           // 跳过前面几条数据开始
-          query.skip((pageNo - 1) * pageSize);
+          query.skip((pageNo - 1) * pageSize)
 
-          query
-            .find()
-            .then((res: any) => resolve({ code: 200, data: res, page }))
-            .catch((err: any) => reject(err));
-        });
-      } else {
-        query
-          .find()
-          .then((res: any) => resolve({ code: 200, data: res }))
-          .catch((err: any) => reject(err));
+          query.find().then(res => resolve({ code: 200, data: res, page })).catch(err => reject(err))
+        })
       }
-    });
+      else {
+        query.find().then(res => resolve({ code: 200, data: res })).catch(err => reject(err))
+      }
+    })
   },
   // 查找所有数据
   FindAllData: (query: any) => {

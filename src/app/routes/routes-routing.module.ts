@@ -40,12 +40,19 @@ const routes: Routes = [
         loadChildren: () => import('./admin/example/example.module').then(m => m.ExampleModule),
       },
       {
+        path: 'map',
+        data: { title: 'GIS地图示例', guard: { role: ['admin', 'manage', 'user'] } },
+        loadChildren: () => import('./admin/map/map.module').then(m => m.MapModule),
+        canLoad: [ACLGuard],
+        canActivateChild: [ACLGuard],
+      },
+      {
         path: 'user-manage',
         // 用户操作权限
-        data: { title: '用户管理', guard: { role: [ 'admin', 'manage' ] } },
+        data: { title: '用户管理', guard: { role: ['admin', 'manage'] } },
         loadChildren: () => import('./admin/user-manage/user-manage.module').then(m => m.UserManageModule),
-        canLoad: [ ACLGuard ],
-        canActivateChild: [ ACLGuard ],
+        canLoad: [ACLGuard],
+        canActivateChild: [ACLGuard],
       },
       {
         path: 'exception',
@@ -91,4 +98,4 @@ const routes: Routes = [
   ],
   exports: [RouterModule],
 })
-export class RouteRoutingModule {}
+export class RouteRoutingModule { }
