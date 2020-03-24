@@ -139,14 +139,6 @@ export class GisMapComponent implements OnInit, AfterViewInit {
 
   // 资源定位
   resourcesLocate() {
-    // this.modal.static(SmartcityResourcesLocateComponent).subscribe(
-    //   (res: any) => {
-    //     if (res) {
-    //       this.clearAll();
-    //       this.GetLocate(res);
-    //     }
-    //   }
-    // );
   }
 
   /**
@@ -224,7 +216,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       resolve();
       // console.log(res);
       // if (res.RV == 0) {
-        
+
       //   resolve();
       // }
       // else {
@@ -232,6 +224,16 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       // }
       // });
     });
+  }
+
+  /**
+   * 资源列表弹窗
+   */
+  // 弹窗可见性
+  resListVisible: any = false;
+  // 接收子组件传递的可见性
+  setResListVisible(val: boolean) {
+    this.resListVisible = val;
   }
 
   /**
@@ -301,7 +303,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
         // title: "信息窗口", // 信息窗口标题
         enableMessage: true, //设置允许信息窗发送短息
       };
-      if(element.siteName.length>21){
+      if (element.siteName.length > 21) {
         opts.height = 280;
       }
       let content = `
@@ -321,67 +323,16 @@ export class GisMapComponent implements OnInit, AfterViewInit {
         <div class="locate-attr">
         <span style="min-width:45px">操作：</span><div class="locate-icon-wrapper">`;
 
-      // 重点监控区域
-      if (element.type == 1) {
-        content += `<div class="locate-icon" id="thermographyBtn">
-            <img class="locate-icon__img" src="assets/img/gis-monitor/热成像${element.hasThermography ? "" : "（灰）"}.png"/>
-            <span class="locate-icon__name ${ element.hasThermography ? 'enable' : ''}">热成像</span>
-          </div>
-          `
-        content += `<div class="locate-icon" id="videoMonitorBtn">
-          <img class="locate-icon__img" src="assets/img/gis-monitor/视频监控${element.hasVideoMonitor ? "" : "（灰）"}.png"/>
-          <span class="locate-icon__name ${ element.hasVideoMonitor ? 'enable' : ''}">视频监控</span>
-        </div>
-        `
-        content += `<div class="locate-icon" id="voiceIntercomBtn">
-            <img class="locate-icon__img" src="assets/img/gis-monitor/语音${element.hasVoiceIntercom ? "" : "（灰）"}.png"/>
-            <span class="locate-icon__name ${ element.hasVoiceIntercom ? 'enable' : ''}">语音</span>
-          </div>
-          `
-        content += `<div class="locate-icon" id="meteorologicalEnvBtn">
+      content += `<div class="locate-icon" id="meteorologicalEnvBtn">
             <img class="locate-icon__img" src="assets/img/gis-monitor/环境监测${element.hasMeteorologicalEnv ? "" : "（灰）"}.png"/>
             <span class="locate-icon__name ${ element.hasMeteorologicalEnv ? 'enable' : ''}">环境监测</span>
           </div>
           `
-        content += `<div class="locate-icon" id="lampControlBtn">
+      content += `<div class="locate-icon" id="lampControlBtn">
           <img class="locate-icon__img" src="assets/img/gis-monitor/单灯控制${element.hasLampControl ? "" : "（灰）"}.png"/>
           <span class="locate-icon__name ${ element.hasLampControl ? 'enable' : ''}">单灯控制</span>
         </div>
         `
-        content += `<div class="locate-icon" id="hubsControlBtn">
-          <img class="locate-icon__img" src="assets/img/gis-monitor/集中控制${element.hasHubsControl ? "" : "（灰）"}.png"/>
-          <span class="locate-icon__name ${ element.hasHubsControl ? 'enable' : ''}">集中控制</span>
-        </div>`
-      }
-
-      // 5G重点规划站点
-      if (element.type == 2) {
-        content += `<div class="locate-icon" id="adScreenBtn">
-          <img class="locate-icon__img" class="locate-icon" src="assets/img/gis-monitor/LED监控${element.hasAdScreen ? "" : "（灰）"}.png"/>
-          <span class="locate-icon__name ${ element.hasAdScreen ? 'enable' : ''}">LED广告屏</span>
-        </div>
-        `
-        content += `<div class="locate-icon" id="radiationEnvBtn">
-          <img class="locate-icon__img" class="locate-icon" src="assets/img/gis-monitor/辐射环评${element.hasRadiationEnv ? "" : "（灰）"}.png"/>
-          <span class="locate-icon__name ${ element.hasRadiationEnv ? 'enable' : ''}">辐射环评</span>
-        </div>
-        `
-        // content += `<div class="locate-icon" id="wirelessMonitorBtn">
-        //   <img class="locate-icon__img" class="locate-icon" src="assets/img/gis-monitor/无线电监控${element.hasWirelessMonitor ? "" : "（灰）"}.png"/>
-        //   <span class="locate-icon__name ${ element.hasWirelessMonitor ? 'enable' : ''}">无线电监控</span>
-        // </div>
-        // `
-        content += `<div class="locate-icon" id="broadcastBtn">
-          <img class="locate-icon__img" class="locate-icon" src="assets/img/gis-monitor/应急广播${element.hasBroadcast ? "" : "（灰）"}.png"/>
-          <span class="locate-icon__name ${ element.hasBroadcast ? 'enable' : ''}">应急广播</span>
-        </div>
-        `
-        content += `<div class="locate-icon" id="logisticsBtn">
-          <img class="locate-icon__img" class="locate-icon" src="assets/img/gis-monitor/智慧物流${element.hasLogistics ? "" : "（灰）"}.png"/>
-          <span class="locate-icon__name ${ element.hasLogistics ? 'enable' : ''}">智慧物流</span>
-        </div>
-        `
-      }
       content += `</div></div>`;
 
       let infoWindow = new BMap.InfoWindow(content, opts);

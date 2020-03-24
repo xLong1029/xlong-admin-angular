@@ -29,7 +29,7 @@ export default {
           let page = {
             page: pageNo,
             size: pageSize,
-            count: res
+            total: res
           }
 
           // 对createdAt字段降序排列

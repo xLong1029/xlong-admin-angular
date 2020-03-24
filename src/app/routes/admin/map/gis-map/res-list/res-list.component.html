@@ -1,0 +1,35 @@
+<nz-drawer [nzClosable]="true" [nzVisible]="resListVisible" [nzPlacement]="'left'" nzTitle="5G重点规划站点"
+  (nzOnClose)="setResListVisible(false)" [nzWidth]="600">
+  <st #st [loading]="loading" [data]="page.data" [columns]="columns" [(pi)]="page.page" [(ps)]="page.pageSize"
+    [page]="page.pageConfig" [total]="page.totalCount" (change)="tableChange($event)">
+    <ng-template st-row="siteName" let-c let-item let-index="index">
+      <div class="site-name">{{ item.siteName }}</div>
+    </ng-template>
+    <ng-template st-row="function" let-c let-item let-index="index">
+      <img *ngIf="item.hasAdScreen" class="function-icon" src="assets/img/gis-monitor/LED监控.png" />
+      <img *ngIf="!item.hasAdScreen" class="function-icon" src="assets/img/gis-monitor/LED监控（灰）.png" />
+
+      <img *ngIf="item.hasRadiationEnv" class="function-icon" src="assets/img/gis-monitor/辐射环评.png" />
+      <img *ngIf="!item.hasRadiationEnv" class="function-icon" src="assets/img/gis-monitor/辐射环评（灰）.png" />
+
+      <img *ngIf="item.hasWirelessMonitor" class="function-icon" src="assets/img/gis-monitor/无线电监控.png" />
+      <img *ngIf="!item.hasWirelessMonitor" class="function-icon" src="assets/img/gis-monitor/无线电监控（灰）.png" />
+
+      <img *ngIf="item.hasBroadcast" class="function-icon" src="assets/img/gis-monitor/应急广播.png" />
+      <img *ngIf="!item.hasBroadcast" class="function-icon" src="assets/img/gis-monitor/应急广播（灰）.png" />
+
+      <img *ngIf="item.hasLogistics" class="function-icon" src="assets/img/gis-monitor/智慧物流.png" />
+      <img *ngIf="!item.hasLogistics" class="function-icon" src="assets/img/gis-monitor/智慧物流（灰）.png" />
+    </ng-template>
+    <ng-template st-row="res" let-c let-item let-index="index">
+      <img *ngIf="item.wellCoverResources && item.wellCoverResources.length" class="res-icon"
+        src="assets/img/Icons/井盖（关）.png" />
+
+      <img *ngIf="item.batteryCabinets && item.batteryCabinets.length" class="res-icon"
+        src="assets/img/Icons/智能换电.png" />
+
+      <img *ngIf="item.hydrologicalResources && item.hydrologicalResources.length" class="res-icon"
+        src="assets/img/Icons/水利资源.png" />
+    </ng-template>
+  </st>
+</nz-drawer>
