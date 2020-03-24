@@ -1,4 +1,4 @@
-<nz-drawer [nzClosable]="true" [nzVisible]="resListVisible" [nzPlacement]="'left'" nzTitle="5G重点规划站点"
+<nz-drawer [nzClosable]="true" [nzVisible]="resListVisible" [nzPlacement]="'left'" nzTitle="监控资源列表"
   (nzOnClose)="setResListVisible(false)" [nzWidth]="600">
   <st #st [loading]="loading" [data]="page.data" [columns]="columns" [(pi)]="page.page" [(ps)]="page.pageSize"
     [page]="page.pageConfig" [total]="page.totalCount" (change)="tableChange($event)" [scroll]="{ x: '380px' }">
