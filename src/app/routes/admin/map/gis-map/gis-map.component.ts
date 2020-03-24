@@ -19,7 +19,15 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       featureType: 'all',
       elementType: 'all',
       stylers: {
-        color: '#1c1c1cff',
+        color: '#1d1778',
+      },
+    },
+    // 道路
+    {
+      featureType: 'road',
+      elementType: 'geometry',
+      stylers: {
+        color: '#100e5eff',
       },
     },
     // 背景
@@ -27,23 +35,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       featureType: 'background',
       elementType: 'all',
       stylers: {
-        color: '#08304aff',
-      },
-    },
-    // 道路
-    {
-      featureType: 'road',
-      elementType: 'all',
-      stylers: {
-        color: '#010100ff',
-      },
-    },
-    // 文本填充
-    {
-      featureType: 'all',
-      elementType: 'labels',
-      stylers: {
-        color: '#aaaaaaff',
+        color: '#1b196aff',
       },
     },
     // 文本描边
@@ -51,37 +43,37 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       featureType: 'all',
       elementType: 'labels.text.stroke',
       stylers: {
-        color: '#000000ff',
+        color: '#110f60ff',
       },
     },
-    // 绿地
-    // {
-    //   featureType: 'green',
-    //   elementType: 'all',
-    //   stylers: {
-    //     color: '#072031ff',
-    //   },
-    // },
+    // 文本填充
+    {
+      featureType: 'all',
+      elementType: 'labels.text.fill',
+      stylers: {
+        color: '#8684dbff',
+      },
+    },
     // 人造区域
     {
       featureType: 'manmade',
       elementType: 'all',
       stylers: {
-        color: '#072031ff',
-      },
-    },
-    // 水系
-    {
-      featureType: 'water',
-      elementType: 'all',
-      stylers: {
-        color: '#021019ff',
+        color: '#252374ff',
       },
     },
     // 隐藏兴趣点
     {
       featureType: 'poilabel',
       elementType: 'labels.icon',
+      stylers: {
+        visibility: 'off',
+      },
+    },
+    // 隐藏地铁
+    {
+      featureType: 'subway',
+      elementType: 'all',
       stylers: {
         visibility: 'off',
       },
