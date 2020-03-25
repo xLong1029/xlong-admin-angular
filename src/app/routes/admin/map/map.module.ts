@@ -10,9 +10,13 @@ import { GisResListComponent } from './gis-map/res-list/res-list.component';
 import { GisWellResDetailComponent } from './gis-map/well-res-detail/well-res-detail.component';
 import { GisChargingResDetailComponent } from './gis-map/charging-res-detail/charging-res-detail.component';
 import { GisWaterResDetailComponent } from './gis-map/water-res-detail/water-res-detail.component';
+import { GisResDetailComponent } from './gis-map/res-detail/res-detail.component';
+import { GisMeteorologicalEnvComponent } from './gis-map/res-detail/meteorological-env/meteorological-env.component';
+import { GisLampControlComponent } from './gis-map/res-detail/lamp-control/lamp-control.component';
+import { GisImgPreviewComponent } from './gis-map/res-detail/img-preview/img-preview.component';
 
 const COMPONENTS = [GisMapComponent];
-const COMPONENTS_NOROUNT = [GisResListComponent, GisWellResDetailComponent, GisChargingResDetailComponent, GisWaterResDetailComponent];
+const COMPONENTS_NOROUNT = [GisResListComponent, GisWellResDetailComponent, GisChargingResDetailComponent, GisWaterResDetailComponent, GisResDetailComponent, GisMeteorologicalEnvComponent, GisLampControlComponent, GisImgPreviewComponent];
 
 const SERVICES = [MapService];
 

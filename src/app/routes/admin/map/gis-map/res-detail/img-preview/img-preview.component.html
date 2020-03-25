@@ -1,0 +1,11 @@
+<nz-modal [(nzVisible)]="imgPreviewVisible" [nzTitle]="modalTitle" [nzFooter]="null" nzWidth="1000">
+    <ng-template #modalTitle>
+        <div class="img-preview-header">
+            <div class="modal-title">查看图片</div>
+            <i nz-icon nzType="close" class="close-btn" nzTheme="outline" (click)="close()"></i>
+        </div>
+    </ng-template>
+    <div class="img-preview-content">
+        <img [src]="imgUrl"/>
+    </div>
+</nz-modal>

@@ -5,6 +5,9 @@ import { ModalHelper } from '@delon/theme';
 import { GisWellResDetailComponent } from './well-res-detail/well-res-detail.component';
 import { GisChargingResDetailComponent } from './charging-res-detail/charging-res-detail.component';
 import { GisWaterResDetailComponent } from './water-res-detail/water-res-detail.component';
+import { GisResDetailComponent } from './res-detail/res-detail.component';
+// enum
+import { MonitorTypeEnum } from '@shared/enum/monitor-type.enum';
 
 @Component({
   selector: 'app-gis-map',
@@ -96,6 +99,12 @@ export class GisMapComponent implements OnInit, AfterViewInit {
 
   // 加载
   loading = false;
+
+  // 监控类型
+  monitorType = MonitorTypeEnum;
+
+  // 资源列表弹窗可见性
+  resListVisible: any = false;
 
   constructor(private change: ChangeDetectorRef, private modal: ModalHelper, ) { }
 
@@ -191,12 +200,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     return new Promise((resolve, reject) => {
     });
   }
-
-  /**
-   * 资源列表弹窗
-   */
-  // 弹窗可见性
-  resListVisible: any = false;
+  
   // 接收子组件传递的可见性
   setResListVisible(val: boolean) {
     this.resListVisible = val;
@@ -204,7 +208,6 @@ export class GisMapComponent implements OnInit, AfterViewInit {
 
   // 获取监控资源
   getLocateRes(res) {
-    console.log("当前选中资源：", res);
     this.clearAll();
 
     // 关闭资源列表弹窗
@@ -325,11 +328,29 @@ export class GisMapComponent implements OnInit, AfterViewInit {
 
       // 打开信息窗口加载“功能”按钮点击事件
       setTimeout(() => {
-
+        document.getElementById('meteorologicalEnvBtn').onclick = () => {
+          this.showMonitorTowerResDetail(true, element, this.monitorType.meteorologicalEnv);
+        }
+        document.getElementById('lampControlBtn').onclick = () => {
+          this.showMonitorTowerResDetail(true, element, this.monitorType.lampControl);
+        }
       }, 100);
     };
 
     return div;
+  }
+
+  /**
+   * 查看监控资源详情
+   * 
+   * @param visible 可见性
+   * @param resource 资源对象
+   * @param currentMonitorType 当前监控类型
+   */
+  showMonitorTowerResDetail(visible: boolean, resource: any, currentMonitorType) {
+    if (visible) {
+      this.modal.static(GisResDetailComponent, { resource, currentMonitorType }, 1200).subscribe((res: any) => {});
+    }
   }
 
   /**

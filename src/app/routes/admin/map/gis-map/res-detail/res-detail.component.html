@@ -1,0 +1,17 @@
+<!-- 监控杆塔资源详情弹窗 -->
+<div class="modal-header">
+  <div class="modal-title">{{ resource.siteName }}-监控情况</div>
+</div>
+<div class="modal-content">
+  <nz-tabset class="gis-monitor-tabs" nzAnimated="false" nzTabPosition="left" [(nzSelectedIndex)]="currentMonitorType"
+    (nzSelectChange)="nzSelectChange($event)">
+      <nz-tab nzTitle="环境监测" [nzDisabled]="!resource.hasMeteorologicalEnv">
+        <gis-meteorological-env [resource]="resource" [currentMonitorType]="currentMonitorType"
+          [monitorType]="monitorType"></gis-meteorological-env>
+      </nz-tab>
+      <nz-tab nzTitle="单灯控制" [nzDisabled]="!resource.hasLampControl">
+        <gis-lamp-control [resource]="resource" [currentMonitorType]="currentMonitorType" [monitorType]="monitorType">
+        </gis-lamp-control>
+      </nz-tab>
+  </nz-tabset>
+</div>

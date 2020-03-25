@@ -1,0 +1,80 @@
+<ng-container *ngIf="resource.hasLampControl">
+  单灯控制
+  <!-- <nz-card class="lamp-container">
+      <div class="device">
+        <div class="device__left">
+          <div class="device-detail">
+            <div class="lamp-info">
+              <img class="lamp-info__img" src="assets/img/gis-monitor/img_lamp.png" />
+              <div class="lamp-info__name">UID：{{ lampInfo.uid }}</div>
+            </div>
+            <div se-container class="lamp-action">
+              <se label="开关设置" col="1" labelWidth="70">
+                <ng-container *ngIf="!firstLoading; else disableSwitch">
+                  <nz-radio-group [(ngModel)]="switchValue" nzButtonStyle="solid">
+                    <label nz-radio-button [nzValue]="1" nz-popconfirm nzTitle="确定下发开/关指令?"
+                      (nzOnConfirm)="controlSwitch(1)" (nzOnCancel)="setSwitchValue(beforeSwitchValue)">开</label>
+                    <label nz-radio-button [nzValue]="2" nz-popconfirm nzTitle="确定下发开/关指令?"
+                      (nzOnConfirm)="controlSwitch(2)" (nzOnCancel)="setSwitchValue(beforeSwitchValue)">关</label>
+                  </nz-radio-group>
+                </ng-container>
+                <ng-template #disableSwitch>
+                  <nz-radio-group [(ngModel)]="switchValue" nzButtonStyle="solid" [nzDisabled]="true">
+                    <label nz-radio-button [nzValue]="1">开</label>
+                    <label nz-radio-button [nzValue]="2">关</label>
+                  </nz-radio-group>
+                </ng-template>
+              </se>
+              <se label="亮度设置" col="1" labelWidth="70">
+                <ng-container *ngIf="!firstLoading && switchValue === 1; else disableControl">
+                  <nz-radio-group [(ngModel)]="lightValue" nzButtonStyle="solid">
+                    <label nz-radio-button [nzValue]="1" nz-popconfirm nzTitle="确定调节此亮度?"
+                      (nzOnConfirm)="controlLight(1)" (nzOnCancel)="setSwitchValue(beforeLightValue)">低</label>
+                    <label nz-radio-button [nzValue]="2" nz-popconfirm nzTitle="确定调节此亮度?"
+                      (nzOnConfirm)="controlLight(2)" (nzOnCancel)="setSwitchValue(beforeLightValue)">中</label>
+                    <label nz-radio-button [nzValue]="3" nz-popconfirm nzTitle="确定调节此亮度?"
+                      (nzOnConfirm)="controlLight(3)" (nzOnCancel)="setSwitchValue(beforeLightValue)">高</label>
+                  </nz-radio-group>
+                </ng-container>
+                <ng-template #disableControl>
+                  <nz-radio-group [(ngModel)]="lightValue" nzButtonStyle="solid" [nzDisabled]="true">
+                    <label nz-radio-button [nzValue]="1">低</label>
+                    <label nz-radio-button [nzValue]="2">中</label>
+                    <label nz-radio-button [nzValue]="3">高</label>
+                  </nz-radio-group>
+                </ng-template>
+              </se>
+            </div>
+          </div>
+        </div>
+        <div class="device__right">
+          <div class="device-attr">
+            <ul class="device-attr-list">
+              <li>企业名称：{{ lampInfo.companyname }}</li>
+              <li>中继类型 ：{{ lampInfo.devicetype }}</li>
+              <li>经度：{{ lampInfo.longitude }}</li>
+              <li>纬度 ：{{ lampInfo.latitude }}</li>
+              <li>电量：{{ lampInfo.battery }} V</li>
+              <li>状态：
+                <ng-container *ngIf="firstLoading">状态获取中...</ng-container>
+                <ng-container *ngIf="!firstLoading">
+                  <ng-container *ngIf="lampInfo.status === 1">
+                    <nz-tag nzColor="green">开灯</nz-tag>
+                  </ng-container>
+                  <ng-container *ngIf="lampInfo.status === 2">
+                    <nz-tag>关灯</nz-tag>
+                  </ng-container>
+                  <ng-container *ngIf="lampInfo.status === 3">
+                    <nz-tag nzColor="red">灯具故障</nz-tag>
+                  </ng-container>
+                </ng-container>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+  </nz-card> -->
+</ng-container>
+<ng-container *ngIf="!resource.hasLampControl">
+  <nz-empty class="empty-container" nzNotFoundContent="暂无此设备"></nz-empty>
+</ng-container>

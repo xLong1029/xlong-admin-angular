@@ -234,7 +234,26 @@ const resList = [
     hasLampControl: true,
     wellCoverResources: [],
     batteryCabinets: [],
-    waterResources: []
+    waterResources: [
+      {
+        id: 1,
+        uid: "BC615F",
+        lng: 111.25158477,
+        lat: 23.41187647,
+        onlineTime: "2020-01-08 17:29:03",
+        address: "水文监测",
+        // 1 检测中 2 已停用
+        status: 2,
+        electricity: 0.4,
+        waterLevel: 3,
+        waterQuality: "Ⅱ",
+        ph: 6.9,
+        residualChlorine: 0.43,
+        ntu: 2.8,
+        demoResourceId: 22,
+        name: "水文监测",
+      }
+    ]
   },
   {
     id: 4,
@@ -247,7 +266,31 @@ const resList = [
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
     hasLampControl: false,
-    wellCoverResources: [],
+    wellCoverResources: [
+      {
+        id: 3,
+        uid: "BDE7EF",
+        onlineTime: "2020-01-08 ,00:00:00",
+        electricity: 0.5,
+        lng: 108.311379,
+        lat: 22.822199,
+        address: "新阳路",
+        // 1 打开 2 关闭
+        status: 2,
+        name: "新阳路井盖BDE7RF",
+      },
+      {
+        id: 4,
+        uid: "BDE8EF",
+        onlineTime: "2020-01-08 00:00:00",
+        electricity: 0.9,
+        lng: 108.311163,
+        lat: 22.822499,
+        address: "新阳路",
+        status: 1,
+        name: "新阳路井盖BDRTRF",
+      },
+    ],
     batteryCabinets: [],
     waterResources: []
   }
