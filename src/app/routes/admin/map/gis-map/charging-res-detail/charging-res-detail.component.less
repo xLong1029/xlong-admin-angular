@@ -1,0 +1,65 @@
+.close-btn {
+    float: right;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.modal-content {
+    ::ng-deep {
+
+        .sv__detail {
+            b {
+                font-weight: 600;
+            }
+        }
+    }
+}
+
+.charge {
+    display: flex;
+    border-bottom: 1px solid #e8e8e8;
+    padding-bottom: 20px;
+
+    &-list {
+        border: 1px solid #e8e8e8;
+        border-radius: 4px;
+        padding: 10px 0 0 10px;
+        list-style: none;
+        display: flex;
+        flex-wrap: wrap;
+
+        &__item {
+            text-align: center;
+            border: 1px solid #e8e8e8;
+            border-radius: 4px;
+            width: 80px;
+            padding: 10px;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            cursor: pointer;
+
+            &.active{
+                border-color: #F5222D;
+            }
+
+            img {
+                width: 100%;
+            }
+        }
+    }
+
+    &-cabinet {
+        width: 282px;
+        max-width: 282px;
+        min-width: 282px;
+    }
+
+    &-detail {
+        margin-left: 20px;
+    }
+}
+
+
+.info {
+    padding-top: 20px;
+}

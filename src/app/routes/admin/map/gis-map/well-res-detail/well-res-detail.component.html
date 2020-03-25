@@ -1,0 +1,29 @@
+<!-- 井盖资源详情弹窗 -->
+<div class="modal-header">
+    <div class="modal-title">{{ resource.name }}</div>
+    <!-- <i nz-icon nzType="close" class="close-btn" nzTheme="outline" (click)="close()"></i> -->
+</div>
+<div class="modal-content">
+    <div class="info">
+        <sv-container col="2">
+            <sv label="资源ID"><b>{{ resource.uid }}</b></sv>
+            <sv label="当前电量"><b>{{ resource.electricity ? (resource.electricity * 100).toFixed(2) + "%" : "-" }}</b></sv>
+            <sv label="经度"><b>{{ resource.lng }}</b></sv>
+            <sv label="纬度"><b>{{ resource.lat }}</b></sv>
+            <sv label="上线时间" col="1"><b>{{ resource.onlineTime ? resource.onlineTime : "-" }}</b></sv>            
+            <sv label="详细地址" col="1"><b>{{ resource.address }}</b></sv>
+        </sv-container>
+    </div>
+    <div class="status">
+        <div>
+            <ng-container *ngIf="resource.status === 2">
+                <img class="status-img" src="assets/images/map/img-well-close.png" />
+                <div class="status-name"><b>井盖-正常</b></div>
+            </ng-container>
+            <ng-container *ngIf="resource.status === 1">
+                <img class="status-img" src="assets/images/map/img-well-open.png" />
+                <div class="status-name"><b>井盖-打开</b></div>
+            </ng-container>
+        </div>
+    </div>
+</div>

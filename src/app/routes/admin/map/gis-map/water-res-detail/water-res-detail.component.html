@@ -1,0 +1,30 @@
+<!-- 水利资源详情弹窗 -->
+<div class="modal-header">
+    <div class="modal-title">{{ resource.name }}</div>
+    <!-- <i nz-icon nzType="close" class="close-btn" nzTheme="outline" (click)="close()"></i> -->
+</div>
+<div class="modal-content">
+    <div class="info">
+        <sv-container col="2">
+            <sv label="资源ID"><b>{{ resource.uid }}</b></sv>
+            <sv label="经度"><b>{{ resource.lng }}</b></sv>
+            <sv label="纬度"><b>{{ resource.lat }}</b></sv>
+            <sv label="上线时间"><b>{{ resource.onlineTime }}</b></sv>
+            <sv label="当前电量"><b>{{ resource.electricity ? (resource.electricity * 100).toFixed(2) + "%" : "-" }}</b>
+            </sv>
+            <sv label="实时水位"><b>{{ resource.waterLevel }} CM</b></sv>
+            <sv label="水质级别"><b>{{ resource.waterQuality }} 类</b></sv>
+            <sv label="PH"><b>{{ resource.ph }}</b></sv>
+            <sv label="余氯(mg/L)"><b>{{ resource.residualChlorine }}</b></sv>
+            <sv label="浊度(NTU)"><b>{{ resource.ntu }}</b></sv>
+            <sv label="详细地址" col="1"><b>{{ resource.address }}</b></sv>
+        </sv-container>
+    </div>
+    <div class="status">
+        <div>
+            <img class="status-img" src="assets/images/map/img-water.png" />
+            <div class="status-name">检测仪
+                <b *ngIf="resource.status === 1">-检测中</b><b *ngIf="resource.status === 2">-已停用</b></div>
+        </div>
+    </div>
+</div>

@@ -1,5 +1,10 @@
 import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from '@angular/core';
-import { _HttpClient } from '@delon/theme';
+import { ModalHelper } from '@delon/theme';
+
+// component
+import { GisWellResDetailComponent } from './well-res-detail/well-res-detail.component';
+import { GisChargingResDetailComponent } from './charging-res-detail/charging-res-detail.component';
+import { GisWaterResDetailComponent } from './water-res-detail/water-res-detail.component';
 
 @Component({
   selector: 'app-gis-map',
@@ -92,7 +97,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
   // 加载
   loading = false;
 
-  constructor(private change: ChangeDetectorRef, private http: _HttpClient) { }
+  constructor(private change: ChangeDetectorRef, private modal: ModalHelper, ) { }
 
   ngOnInit() {
   }
@@ -380,7 +385,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       bmap.getPanes().labelPane.appendChild(div);
 
       div.onclick = () => {
-        // _this.showWellCoverResDetail(true, element);
+        _this.showNearbyResDetail(true, element, type);
       };
 
       return div;
@@ -420,7 +425,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
         strokeColor = "#e16631";
         break;
       case 3:
-        resources = element.hydrologicalResources;
+        resources = element.waterResources;
         strokeColor = "#e16631";
         break;
       default: console.log("type is error");
@@ -440,36 +445,27 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     }
   }
 
-  // 查看井盖资源详情
-  showWellCoverResDetail(visible: boolean, resource: any) {
+  /**
+   * 查看附近资源详情
+   * 
+   * @param visible 可见性
+   * @param resource 资源对象
+   * @param type 1 井盖 2 智能换电 3 水力资源
+   */
+  showNearbyResDetail(visible: boolean, resource: any, type: number) {
     if (visible) {
-      // this.modal.static(GisWellCoverDetail, { resource }, 800).subscribe(
-      //   (res: any) => {
-      //     // console.log(res);
-      //   }
-      // );
-    }
-  }
-
-  // 查看智能换电（充电桩）资源详情
-  showChargingPileResDetail(visible: boolean, resource: any) {
-    if (visible) {
-      // this.modal.static(GisChargingPileDetail, { resource }, 800).subscribe(
-      //   (res: any) => {
-      //     // console.log(res);
-      //   }
-      // );
-    }
-  }
-
-  // 查看水利资源详情
-  showWaterResDetail(visible: boolean, resource: any) {
-    if (visible) {
-      // this.modal.static(GisWaterManageDetail, { resource }, 800).subscribe(
-      //   (res: any) => {
-      //     // console.log(res);
-      //   }
-      // );
+      switch (type) {
+        case 1:
+          this.modal.static(GisWellResDetailComponent, { resource }, 600).subscribe((res: any) => { });
+          break;
+        case 2:
+          this.modal.static(GisChargingResDetailComponent, { resource }, 600).subscribe((res: any) => { });
+          break;
+        case 3:
+          this.modal.static(GisWaterResDetailComponent, { resource }, 800).subscribe((res: any) => { });
+          break;
+        default: console.log("type is error");
+      }
     }
   }
 }

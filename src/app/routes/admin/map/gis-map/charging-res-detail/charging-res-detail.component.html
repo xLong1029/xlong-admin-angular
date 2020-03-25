@@ -1,0 +1,41 @@
+<!-- 智能换电资源详情弹窗 -->
+<div class="modal-header">
+    <div class="modal-title">{{ resource.name }}</div>
+    <!-- <i nz-icon nzType="close" class="close-btn" nzTheme="outline" (click)="close()"></i> -->
+</div>
+<div class="modal-content">
+    <div class="charge" *ngIf="resource.batterys.length">
+        <div class="charge-cabinet">
+            <ul class="charge-list">
+                <li class="charge-list__item" [ngClass]="{ 'active' : currentCharge === item }" *ngFor="let item of resource.batterys" (click)="selectCharge(item)">
+                    <img class="status-img" *ngIf="item.status === 1" src="assets/images/map/img-charging.png" />
+                    <img class="status-img" *ngIf="item.status === 2" src="assets/images/map/img-charged.png" />
+                    <img class="status-img" *ngIf="item.status === 3" src="assets/images/map/img-charge-empty.png" />
+                </li>
+            </ul>
+        </div>
+        <div class="charge-detail">
+            <sv-container col="1">
+                <sv label="当前窗口号"><b>{{ currentCharge.code }}</b></sv>
+                <sv label="状态"><b *ngIf="currentCharge.status === 1">充电中</b>
+                    <b *ngIf="currentCharge.status === 2">已充满</b>
+                    <b *ngIf="currentCharge.status === 3">已借出</b></sv>
+                <sv label="充电开始时间"><b>{{ currentCharge.chargingStartTime ? currentCharge.chargingStartTime : "-" }}</b></sv>
+                <sv label="充电结束时间"><b>{{ currentCharge.chargingEndTime ? currentCharge.chargingStartTime : "-" }}</b></sv>
+                <sv label="当前电量"><b>{{ currentCharge.electricity ? (currentCharge.electricity * 100).toFixed(2) + "%" : "-" }}</b></sv>
+                <sv label="预计充满时间"><b>{{ currentCharge.expectedFullChargeTime ? currentCharge.expectedFullChargeTime : "-" }}</b></sv>
+            </sv-container>
+        </div>
+    </div>
+    <div class="info">
+        <sv-container col="2">
+            <sv label="资源ID"><b>{{ resource.uid }}</b></sv>
+            <sv label="状态"><b>{{ resource.status === 1 ? "在用" : "暂停使用" }}</b></sv>
+            <sv label="总窗口数"><b>{{ resource.windowCount }}</b></sv>
+            <sv label="充电窗口数"><b>{{ resource.chargingCount }}</b></sv>
+            <sv label="经度"><b>{{ resource.lng }}</b></sv>
+            <sv label="纬度"><b>{{ resource.lat }}</b></sv>
+            <sv label="详细地址" col="1"><b>{{ resource.address }}</b></sv>
+        </sv-container>
+    </div>
+</div>

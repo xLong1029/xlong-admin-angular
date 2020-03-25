@@ -112,11 +112,11 @@ const resList = [
           {
             id: 5,
             code: 5,
-            status: 2,
-            chargingStartTime: null,
+            status: 1,
+            chargingStartTime: "2020-03-24 17:03:00",
             chargingEndTime: null,
-            electricity: 1,
-            expectedFullChargeTime: null,
+            electricity: 0.457,
+            expectedFullChargeTime: "2020-03-25 23:06:00",
           },
           {
             id: 6,
@@ -171,6 +171,15 @@ const resList = [
             chargingEndTime: null,
             electricity: null,
             expectedFullChargeTime: null,
+          },
+          {
+            id: 12,
+            code: 12,
+            status: 3,
+            chargingStartTime: null,
+            chargingEndTime: null,
+            electricity: null,
+            expectedFullChargeTime: null,
           }
         ]
       }
@@ -184,7 +193,7 @@ const resList = [
         lat: 22.818188,
         onlineTime: "2020-01-08 17:29:03",
         address: "水文监测",
-        // 1 设备在线 2 设备离线
+        // 1 检测中 2 已停用
         status: 1,
         electricity: 0.4,
         waterLevel: 3,
