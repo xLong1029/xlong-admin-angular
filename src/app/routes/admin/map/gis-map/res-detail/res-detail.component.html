@@ -1,5 +1,5 @@
 <!-- 资源信息 -->
-<div *ngIf="resDetailVisible" class="gis-map__right" [ngStyle]="{ 'height.px': pageH }">
+<div *ngIf="resDetailVisible" class="gis-map__right">
   <div class="lamp-info">
     <nz-spin [nzSpinning]="loading">
       <ng-container *ngIf="resource.hasLampControl">
@@ -62,7 +62,7 @@
                   (nzOnConfirm)="controlLampLight(0, 0, resource.lampInfo.sn)">关灯</button>
                 <button nz-button nzType="primary" nzBlock nz-popconfirm nzTitle="确定控制选中灯杆么?"
                   (nzOnConfirm)="controlLampLight(resource.lampInfo.brightness1, resource.lampInfo.brightness2, resource.lampInfo.sn)">调光</button>
-                <button nz-button nzType="primary" nzBlock (click)="getEnvInfo($event)">更新</button>
+                <button nz-button nzType="primary" nzBlock (click)="getEnvInfo()">更新</button>
               </div>
             </se>
           </div>

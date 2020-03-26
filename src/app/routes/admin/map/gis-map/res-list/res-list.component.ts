@@ -28,6 +28,8 @@ export class GisResListComponent implements OnInit {
   // 输出值给父组件：选中定位资源
   @Output() private getLocateRes = new EventEmitter<any>();
 
+  // 加载
+  loading = false;
   // 页码
   page = new Page();
   // 表格列
@@ -49,8 +51,10 @@ export class GisResListComponent implements OnInit {
 
   // 表格列表
   getTableList() {
+    this.loading = true;
     this.service.GetResourcesList(this.page.page, this.page.pageSize).subscribe((res: any) => {
       if (res.code === 200) {
+        this.loading = false;
         this.page.data = res.data;
         this.page.totalCount = res.page.total;
       }
