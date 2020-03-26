@@ -2,6 +2,7 @@ import { Component, OnInit, Inject, Input, OnChanges } from '@angular/core';
 import { _HttpClient, } from '@delon/theme';
 import { HttpClient } from '@angular/common/http';
 import { NzMessageService } from 'ng-zorro-antd';
+import { environment } from '@env/environment';
 
 @Component({
   selector: 'gis-res-detail',
@@ -54,7 +55,6 @@ export class GisResDetailComponent implements OnInit, OnChanges {
 
   ngOnChanges(){
     if(this.resDetailVisible){
-      console.log(this.resource);
       this.getEnvInfo();
     }
   }
@@ -64,7 +64,7 @@ export class GisResDetailComponent implements OnInit, OnChanges {
     this.loading = true;
     // https://way.jd.com/he/freeweather?city=beijing&appkey=您申请的APPKEY
     this.http
-      .get(`weather?city=nanning&appkey=122bff90a579c0eff439f48f06ce1374`)
+      .get(`${environment.WEATHER_URL}?city=nanning&appkey=122bff90a579c0eff439f48f06ce1374`)
       .subscribe((res: any) => {
         this.loading = false;
         if (res.result.HeWeather5 && res.result.HeWeather5.length) {

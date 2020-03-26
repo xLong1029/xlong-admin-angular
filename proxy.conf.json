@@ -1,10 +1,10 @@
 {
-    "/weather": {
+    "/api/weather": {
         "target": "https://way.jd.com/he/freeweather",
         "secure": "false",
         "changeOrigin": true,
         "pathRewrite": {
-            "^/weather": ""
+            "^/api/weather": ""
         }
     }
 }
