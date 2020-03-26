@@ -1,0 +1,233 @@
+{
+  "id": "1284377",
+  "name": "SmartCity",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon",
+  "description": "智慧城市项目",
+  "glyphs": [
+    {
+      "icon_id": "13717019",
+      "name": "icon-o3",
+      "font_class": "-o3",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "13716943",
+      "name": "icon-co2",
+      "font_class": "-co2",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "13716908",
+      "name": "icon-co",
+      "font_class": "-co",
+      "unicode": "e60f",
+      "unicode_decimal": 58895
+    },
+    {
+      "icon_id": "13716804",
+      "name": "icon-no",
+      "font_class": "-no",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    },
+    {
+      "icon_id": "13716805",
+      "name": "icon-so2",
+      "font_class": "-so2",
+      "unicode": "e60e",
+      "unicode_decimal": 58894
+    },
+    {
+      "icon_id": "13638739",
+      "name": "气体",
+      "font_class": "-qiti",
+      "unicode": "e65f",
+      "unicode_decimal": 58975
+    },
+    {
+      "icon_id": "5961313",
+      "name": "路灯",
+      "font_class": "-ludeng",
+      "unicode": "ec58",
+      "unicode_decimal": 60504
+    },
+    {
+      "icon_id": "1365397",
+      "name": "告警待处理",
+      "font_class": "-gaojingdaichuli",
+      "unicode": "e602",
+      "unicode_decimal": 58882
+    },
+    {
+      "icon_id": "702018",
+      "name": "car-battery",
+      "font_class": "-carbattery",
+      "unicode": "e6f2",
+      "unicode_decimal": 59122
+    },
+    {
+      "icon_id": "936874",
+      "name": "80%电量",
+      "font_class": "-dianliang",
+      "unicode": "e638",
+      "unicode_decimal": 58936
+    },
+    {
+      "icon_id": "1312422",
+      "name": "icon_maintenance",
+      "font_class": "-maintenance",
+      "unicode": "e628",
+      "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "3145454",
+      "name": "湿度",
+      "font_class": "-shidu",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "3145455",
+      "name": "风向",
+      "font_class": "-fengxiang",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "3145456",
+      "name": "风速",
+      "font_class": "-fengsu",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "3145518",
+      "name": "大气压力",
+      "font_class": "-daqiyali",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "3207717",
+      "name": "功率",
+      "font_class": "-power",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "3978384",
+      "name": "策略执行配置",
+      "font_class": "-strategy-setting",
+      "unicode": "e663",
+      "unicode_decimal": 58979
+    },
+    {
+      "icon_id": "3988143",
+      "name": "光照",
+      "font_class": "-guangzhao",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "3988202",
+      "name": "电流",
+      "font_class": "-dianliu",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "3988230",
+      "name": "电压",
+      "font_class": "-dianya",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "4510772",
+      "name": "heavy-rain-1",
+      "font_class": "-rain",
+      "unicode": "e68a",
+      "unicode_decimal": 59018
+    },
+    {
+      "icon_id": "5178942",
+      "name": "温度",
+      "font_class": "-wendu",
+      "unicode": "e622",
+      "unicode_decimal": 58914
+    },
+    {
+      "icon_id": "5488172",
+      "name": "商机监控",
+      "font_class": "-monitor-center",
+      "unicode": "e696",
+      "unicode_decimal": 59030
+    },
+    {
+      "icon_id": "5634143",
+      "name": "home",
+      "font_class": "-home",
+      "unicode": "f017",
+      "unicode_decimal": 61463
+    },
+    {
+      "icon_id": "5634180",
+      "name": "layer-group",
+      "font_class": "-group",
+      "unicode": "f034",
+      "unicode_decimal": 61492
+    },
+    {
+      "icon_id": "5725928",
+      "name": "solar-panel",
+      "font_class": "-solar-panel",
+      "unicode": "e612",
+      "unicode_decimal": 58898
+    },
+    {
+      "icon_id": "6228652",
+      "name": "resource",
+      "font_class": "-resource",
+      "unicode": "e867",
+      "unicode_decimal": 59495
+    },
+    {
+      "icon_id": "7141647",
+      "name": "monitor",
+      "font_class": "-monitor",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "7821778",
+      "name": "pm2.5",
+      "font_class": "-pm25",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "7852075",
+      "name": "signal-3",
+      "font_class": "-signal",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "8804411",
+      "name": "pm10",
+      "font_class": "-pm10",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "9358709",
+      "name": "map-marked",
+      "font_class": "-map",
+      "unicode": "e60d",
+      "unicode_decimal": 58893
+    }
+  ]
+}

@@ -1,5 +1,168 @@
-.close-btn {
-    float: right;
-    font-size: 20px;
-    cursor: pointer;
+// 遮罩背景色
+@shadowBgColor: rgba(19, 19, 76, 0.8);
+@shadowBorder: 1px solid #08304a;
+
+// 滚动条样式
+.scroll-style {
+
+  /*整体样式*/
+  &::-webkit-scrollbar {
+    // display: none;
+    width: 4px;
+    /*高宽分别对应横竖滚动条的尺寸*/
+    height: 4px;
+    background: none;
+  }
+
+  /*滚动条滑块*/
+  &::-webkit-scrollbar-thumb {
+    border-radius: 5px;
+    -webkit-box-shadow: none;
+    background: #7acaff;
+  }
+
+  /*滚动条轨道*/
+  &::-webkit-scrollbar-track {
+    -webkit-box-shadow: none;
+    border-radius: 0;
+    background: rgba(0, 0, 0, 0.1);
+  }
+
+  /*滚动条边角，即两个滚动条的交汇处*/
+  &::-webkit-scrollbar-corner {
+    background: none;
+  }
+}
+
+.gis-map__right {
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: @shadowBgColor;
+  width: 300px;
+  height: 100%;
+}
+
+// 灯信息
+.lamp-info {
+  color: #fff;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  ::ng-deep{
+    .ant-spin-nested-loading{
+      background: transparent;
+      min-height: calc(100vh - 64px);
+    }
+
+    .ant-spin-container{
+      min-height: calc(100vh - 64px);
+    }
+
+    .ant-spin-blur {
+      min-height: calc(100vh - 64px);
+    }
+  }
+}
+
+.lamp-desc {
+  padding: 15px 20px 10px 20px;
+
+  &__status {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .lamp-img{
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+    background-color: #fff;
+    border-radius: 25px;
+  }
+
+  .lamp-light-text{
+    margin: 10px 0 5px 0;
+  }
+
+  &-attr{
+    margin-top: 30px;
+  }
+}
+
+.lamp-action {
+  width: 100%;
+  padding: 5px 20px 15px 20px;
+
+  ::ng-deep {
+    .se__label {
+      text-align: left;
+    }
+
+    .ant-form-item{
+      margin-bottom: 5px;
+    }
+  }
+
+  &__btn {
+    display: flex;
+    margin-top: 10px;
+  }
+}
+
+.env-detail {
+  color: #fff;
+
+  &-attr {
+    padding: 15px 10px 15px 20px;
+  }
+
+  ::ng-deep{
+    .iconfont{
+      min-width: 21px;
+      max-width: 21px;
+      display: inline-block;
+      text-align: center;
+    }
+  }
+}
+
+.env-desc {
+  padding: 15px 20px 10px 20px;
+  border-top:1px solid #08304a;
+
+  &__status {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .env-img{
+    width: 50px;
+    height: 50px;
+    padding: 8px;
+    background-color: #fff;
+    border-radius: 25px;
+  }
+
+  .env-text{
+    margin: 10px 0 5px 0;
+  }
+}
+
+:host ::ng-deep {
+
+  .sv__detail,
+  .sv__unit,
+  .sv__label {
+    color: #fff;
+  }
+
+  .ant-form-item-label>label {
+    color: #fff;
+  }
 }

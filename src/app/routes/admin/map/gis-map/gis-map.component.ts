@@ -8,6 +8,11 @@ import { GisWaterResDetailComponent } from './water-res-detail/water-res-detail.
 import { GisResDetailComponent } from './res-detail/res-detail.component';
 // enum
 import { MonitorTypeEnum } from '@shared/enum/monitor-type.enum';
+// service
+import { MapService } from '../map.service';
+// ts
+import { MapLightSplitList } from '@common/mapLightSplitList';
+import { Page } from '@common/page';
 
 @Component({
   selector: 'app-gis-map',
@@ -86,13 +91,15 @@ export class GisMapComponent implements OnInit, AfterViewInit {
         visibility: 'off',
       },
     },
+    // 隐藏高速路图标
+    {
+      featureType: "highway",
+      elementType: "labels.icon",
+      stylers: {
+        visibility: "off"
+      }
+    }
   ];
-
-  // 视图枚举
-  viewEnum = MapviewEnum;
-
-  // 当前视图
-  currentView = this.viewEnum.Null;
 
   // 资源标记Markers
   resMarkers: any = [];
@@ -106,7 +113,28 @@ export class GisMapComponent implements OnInit, AfterViewInit {
   // 资源列表弹窗可见性
   resListVisible: any = false;
 
-  constructor(private change: ChangeDetectorRef, private modal: ModalHelper, ) { }
+  // 资源详情侧边栏可见性
+  resDetailVisible: any = false;
+
+  // 当前选中资源
+  currentSelectRes: any = {};
+
+  // 页码
+  page = new Page();
+
+  // 获取灯杆聚点的配置
+  lampLiteList = [];
+  lampLiteCount = 0;
+  // 聚点图层
+  lampLiteLayer = null;
+  // 显示灯杆聚点图层
+  showLampLiteLayer = false;
+  // 聚点选项
+  lightOptions = MapLightSplitList;
+  // 资源坐标点集合
+  groupPoints = [];
+
+  constructor(private change: ChangeDetectorRef, private modal: ModalHelper, public service: MapService, ) { }
 
   ngOnInit() {
   }
@@ -143,29 +171,118 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     this.map.centerAndZoom(point, 7);
   }
 
-  // 资源定位
-  resourcesLocate() {
+  // 显示聚合视图
+  showLampMapLite() {
+    this.clearMap();
+    this.loading = true;
+    this.page.page = 1;
+    this.getLampMapLiteData();
+  }
+
+  // 获取据点数据
+  getLampMapLiteData() {
+    this.service.GetResourcesList(this.page.page, this.page.pageSize).subscribe((res: any) => {
+      if (res.code === 200) {
+        console.log(
+          `返回第${this.page.page}段获取到的数据，已获取${res.data.length}条数据`,
+        );
+        this.lampLiteCount = res.page.total;
+        this.lampLiteDataFormat(res.data);
+
+        // 如果还有后续数据，继续加载
+        if (this.lampLiteCount > this.lampLiteList.length) {
+          this.page.page++;
+          this.getLampMapLiteData();
+        } else {
+          this.loading = false;
+          console.log(
+            `完成所有数据请求(共${this.lampLiteList.length}条数据)，开始创建地图图层`,
+          );
+
+          // 根据分组分布坐标设置地图视野
+          this.lampLiteCreateLayer(this.lampLiteList);
+          this.map.setViewport(this.groupPoints, { enableAnimation: false });
+        }
+      }
+    });
+  }
+
+  // 灯杆聚点数据格式化
+  lampLiteDataFormat(data) {
+    // 批量标记
+    data.forEach(obj => {
+      this.lampLiteList.push({
+        geometry: {
+          type: 'Point',
+          coordinates: [obj.lng, obj.lat],
+        },
+        count: obj.lampInfo.brightness1,
+        // count: 105, // 测试用，实际需要修改
+      });
+
+      // 保存坐标点
+      const point = new BMap.Point(obj.lng, obj.lat);
+      this.groupPoints.push(point);
+    });
+  }
+
+  // 生成灯杆聚点图层
+  lampLiteCreateLayer(data) {
+    this.map.clearOverlays();
+
+    const dataSet = new mapv.DataSet(data);
+
+    this.lampLiteLayer = new mapv.baiduMapLayer(this.map, dataSet, {
+      size: 6,
+      zIndex: 10,
+      splitList: this.lightOptions,
+      max: 30,
+      draw: 'choropleth',
+    });
+
+    this.showLampLiteLayer = true;
+    this.loading = false;
+  }
+
+  // 重置灯杆聚点
+  clearLampList() {
+    if (this.lampLiteLayer) {
+      this.lampLiteLayer.destroy();
+    }
+    this.showLampLiteLayer = false;
+    this.lampLiteLayer = null;
+    this.lampLiteList = [];
+    this.lampLiteCount = 0;
+    // this.groupPoints = [];
+  }
+
+  // 筛选灯杆聚点
+  filterLampLite(start, end) {
+    const filterList = this.lampLiteList.filter(item => item.count >= start && item.count < end);
+
+    this.lampLiteCreateLayer(filterList);
   }
 
   /**
-   * 清除所有
+   * 重置地图
    */
-  clearAll() {
+  resetMap() {
+    this.clearMap();
+    this.initMapView();
+  }
+
+
+  /**
+   * 清理地图
+   */
+  clearMap() {
     // 关闭在地图上打开的信息窗口
     if (this.map.getInfoWindow()) {
       this.map.closeInfoWindow();
     }
-
-    this.currentView = this.viewEnum.Null;
-    this.clearMap();
-
     this.map.clearOverlays();    // 清除地图上所有覆盖物
-  }
 
-  /**
-   * 清理地图（不包含路测图层）
-   */
-  clearMap() {
+    this.clearLampList();
     this.clearMarkers();
   }
 
@@ -180,35 +297,20 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     );
   }
 
-  // 显示资源
-  showResources() {
-    this.clearAll();
-    this.currentView = this.viewEnum.ShowIcon;
-    this.getPointByView();
-  }
-
-  // 根据当前地图边界获取坐标点
-  getPointByView() {
-    let bs = this.map.getBounds(); //获取可视区域
-    let bssw = bs.getSouthWest(); //可视区域左下角
-    let bsne = bs.getNorthEast(); //可视区域右上角    
-    this.getResByPoints(bssw, bsne);
-  }
-
-  // 获取资源坐标点
-  getResByPoints(bssw, bsne) {
-    return new Promise((resolve, reject) => {
-    });
-  }
-  
-  // 接收子组件传递的可见性
+  // 资源列表可见性
   setResListVisible(val: boolean) {
     this.resListVisible = val;
   }
 
+  // 资源详情可见性
+  setResDetailVisible(val: boolean) {
+    this.resDetailVisible = val;
+  }
+
   // 获取监控资源
   getLocateRes(res) {
-    this.clearAll();
+    this.clearMap();
+    this.showLampLiteLayer = false;
 
     // 关闭资源列表弹窗
     this.setResListVisible(false);
@@ -234,14 +336,14 @@ export class GisMapComponent implements OnInit, AfterViewInit {
 
     ComplexCustomOverlay.prototype = new BMap.Overlay();
     ComplexCustomOverlay.prototype.initialize = function (bmap) {
-      this._map = bmap;
+      this.map = bmap;
       let div = (this._div = document.createElement('div'));
       let arrow = (this._arrow = document.createElement('div'));
 
-      return _this.setMonitorTowerResOverlay(point, element, bmap, div, arrow);
+      return _this.setMonitorResOverlay(point, element, bmap, div, arrow);
     };
     ComplexCustomOverlay.prototype.draw = function () {
-      let map = this._map;
+      let map = this.map;
       let pixel = map.pointToOverlayPixel(this._point);
 
       this._div.style.left = pixel.x - 10 + 'px';
@@ -266,7 +368,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
    * @param div 信息框div
    * @param arrow 信息框箭头
    */
-  setMonitorTowerResOverlay(point, element, bmap, div, arrow) {
+  setMonitorResOverlay(point, element, bmap, div, arrow) {
     div.style.position = 'absolute';
     // 默认情况下，纬度较低的标注会覆盖在纬度较高的标注之上，从而形成一种立体效果。通过此方法使某个标注覆盖在其他标注之上
     // div.style.zIndex = BMap.Overlay.getZIndex(this._point.lat);
@@ -285,6 +387,12 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     bmap.getPanes().labelPane.appendChild(div);
 
     div.onclick = () => {
+      if(element.hasLampControl || element.hasMeteorologicalEnv){
+        this.resDetailVisible = true;
+      }
+
+      this.currentSelectRes = element;
+
       let opts = {
         width: 455, // 信息窗口宽度
         height: 260, // 信息窗口高度
@@ -324,33 +432,21 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       content += `</div></div>`;
 
       let infoWindow = new BMap.InfoWindow(content, opts);
+      // 禁用点击地图时关闭信息窗口
+      infoWindow.disableCloseOnClick();
+      //点击信息窗口的关闭按钮时触发此事件
+      infoWindow.addEventListener("close", () => {
+        this.resDetailVisible = false;
+      });
       bmap.openInfoWindow(infoWindow, point); //开启信息窗口
 
       // 打开信息窗口加载“功能”按钮点击事件
       setTimeout(() => {
-        document.getElementById('meteorologicalEnvBtn').onclick = () => {
-          this.showMonitorTowerResDetail(true, element, this.monitorType.meteorologicalEnv);
-        }
-        document.getElementById('lampControlBtn').onclick = () => {
-          this.showMonitorTowerResDetail(true, element, this.monitorType.lampControl);
-        }
+        this.setResDetailVisible(true);
       }, 100);
     };
 
     return div;
-  }
-
-  /**
-   * 查看监控资源详情
-   * 
-   * @param visible 可见性
-   * @param resource 资源对象
-   * @param currentMonitorType 当前监控类型
-   */
-  showMonitorTowerResDetail(visible: boolean, resource: any, currentMonitorType) {
-    if (visible) {
-      this.modal.static(GisResDetailComponent, { resource, currentMonitorType }, 1200).subscribe((res: any) => {});
-    }
   }
 
   /**
@@ -475,6 +571,8 @@ export class GisMapComponent implements OnInit, AfterViewInit {
    */
   showNearbyResDetail(visible: boolean, resource: any, type: number) {
     if (visible) {
+      this.resDetailVisible = false;
+
       switch (type) {
         case 1:
           this.modal.static(GisWellResDetailComponent, { resource }, 600).subscribe((res: any) => { });
@@ -489,42 +587,4 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       }
     }
   }
-}
-
-/**
- * 地图视图枚举
- */
-enum MapviewEnum {
-  /**
-   * 未选择任何视图
-   */
-  Null = 0,
-  /**
-   * 行政区域视图
-   */
-  Region = 1,
-  /**
-   * 聚合视图
-   */
-  Cluster = 2,
-  /**
-   * 绘图模式开始（包括圆形选择和自定义选择）
-   */
-  DrawStart = 3,
-  /**
-   * 绘图模式结束（包括圆形选择和自定义选择）
-   */
-  DrawEnd = 4,
-  /**
-   * 资源定位 > 按经纬度定位 > 精确定位
-   */
-  ResourcesLocate_JQ = 5,
-  /**
-   * 资源定位 > 按经纬度定位 > 半径查询
-   */
-  ResourcesLocate_BJ = 6,
-  /**
-   * 显示资源
-   */
-  ShowIcon = 7,
 }

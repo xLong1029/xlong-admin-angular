@@ -1,21 +1,79 @@
-.gis-map{
+// 遮罩背景色
+@shadowBgColor: rgba(19, 19, 76, 0.8);
+@shadowBorder: 1px solid #08304a;
+
+.gis-map {
   padding: 0;
   position: relative;
 
-  &__control-bar{
+  &__control-bar {
     position: absolute;
     z-index: 999;
     top: 20px;
     left: 20px;
   }
+
+  ::ng-deep {
+    .ant-spin-nested-loading {
+      background: #030020;
+
+      &>div>.ant-spin {
+        max-height: 100%;
+
+        .ant-spin-text {
+          text-shadow: none;
+        }
+      }
+    }
+
+    .ant-spin-blur {
+      opacity: 0.5;
+    }
+  }
+}
+
+// 灯杆聚点图层
+.lamp-lite {
+  &-layer {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    background: @shadowBgColor;
+    padding: 10px;
+    border-radius: 5px;
+    border: @shadowBorder;
+  }
+
+  &-info-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &__item {
+      margin-bottom: 6px;
+      cursor: pointer;
+
+      ::ng-deep {
+        .ant-badge-status-text {
+          font-size: 12px;
+          color: #fff;
+        }
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
 }
 
 :host ::ng-deep {
-    #bmap{
-      background: #1b196a !important;
-    }
-  
-    .BMap_cpyCtrl,.anchorBL{
-        display: none;
-    }
+  #bmap {
+    background: #1b196a !important;
   }
+
+  .BMap_cpyCtrl,
+  .anchorBL {
+    display: none;
+  }
+}

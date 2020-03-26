@@ -1,17 +1,158 @@
-<!-- 监控杆塔资源详情弹窗 -->
-<div class="modal-header">
-  <div class="modal-title">{{ resource.siteName }}-监控情况</div>
-</div>
-<div class="modal-content">
-  <nz-tabset class="gis-monitor-tabs" nzAnimated="false" nzTabPosition="left" [(nzSelectedIndex)]="currentMonitorType"
-    (nzSelectChange)="nzSelectChange($event)">
-      <nz-tab nzTitle="环境监测" [nzDisabled]="!resource.hasMeteorologicalEnv">
-        <gis-meteorological-env [resource]="resource" [currentMonitorType]="currentMonitorType"
-          [monitorType]="monitorType"></gis-meteorological-env>
-      </nz-tab>
-      <nz-tab nzTitle="单灯控制" [nzDisabled]="!resource.hasLampControl">
-        <gis-lamp-control [resource]="resource" [currentMonitorType]="currentMonitorType" [monitorType]="monitorType">
-        </gis-lamp-control>
-      </nz-tab>
-  </nz-tabset>
+<!-- 资源信息 -->
+<div *ngIf="resDetailVisible" class="gis-map__right" [ngStyle]="{ 'height.px': pageH }">
+  <div class="lamp-info">
+    <nz-spin [nzSpinning]="loading">
+      <ng-container *ngIf="resource.hasLampControl">
+        <!-- 灯杆描述 -->
+        <div class="lamp-desc">
+          <div class="lamp-desc__status">
+            <ng-container *ngIf="resource.lampInfo.brightness1 == 0 || !resource.lampInfo.brightness1">
+              <img class="lamp-img" src="assets/images/map/lamp_close_big.png" nz-tooltip="亮度" />
+            </ng-container>
+            <ng-container *ngIf="resource.lampInfo.brightness1 > 0 && resource.lampInfo.brightness1 <= 35">
+              <img class="lamp-img" src="assets/images/map/25p_big.png" nz-tooltip="亮度" />
+            </ng-container>
+            <ng-container *ngIf="resource.lampInfo.brightness1 > 35 && resource.lampInfo.brightness1 <= 65">
+              <img class="lamp-img" src="assets/images/map/50p_big.png" nz-tooltip="亮度" />
+            </ng-container>
+            <ng-container *ngIf="resource.lampInfo.brightness1 > 65 && resource.lampInfo.brightness1 < 100">
+              <img class="lamp-img" src="assets/images/map/75p_big.png" nz-tooltip="亮度" />
+            </ng-container>
+            <ng-container *ngIf="resource.lampInfo.brightness1 == 100">
+              <img class="lamp-img" src="assets/images/map/lamp_open_big.png" nz-tooltip="亮度" />
+            </ng-container>
+            <span class="lamp-light-text">
+              <span>灯杆控制：</span>
+              <ng-container *ngIf="resource.lampInfo.brightness1">{{ resource.lampInfo.brightness1 }}%</ng-container>
+              <ng-container *ngIf="!resource.lampInfo.brightness1">0</ng-container>
+            </span>
+          </div>
+          <sv-container col="2" class="lamp-desc-attr">
+            <sv label="SN" unit="">
+              {{ resource.lampInfo.sn }}
+            </sv>
+            <sv label="电压" unit="V">
+              12
+            </sv>
+            <sv label="电流" unit="A">
+              1.25
+            </sv>
+            <sv label="功率" unit="W">
+              15
+            </sv>
+            <sv label="整灯光效" unit="lm/w" col="1">
+              130
+            </sv>
+          </sv-container>
+        </div>
+        <!-- 控制栏 -->
+        <div class="lamp-action">
+          <div se-container>
+            <se label="第一路亮度({{ resource.lampInfo.brightness1 }}%)" col="1" labelWidth="110">
+              <nz-slider [(ngModel)]="resource.lampInfo.brightness1" name="FirstRoadLightness"></nz-slider>
+            </se>
+            <se label="第二路亮度({{ resource.lampInfo.brightness2 }}%)" col="1" labelWidth="110">
+              <nz-slider [(ngModel)]="resource.lampInfo.brightness2" name="SecondRoadLightness"></nz-slider>
+            </se>
+            <se col="1" labelWidth="0">
+              <div class="lamp-action__btn">
+                <button nz-button nzType="primary" nzBlock nz-popconfirm nzTitle="确定控制选中灯杆么?"
+                  (nzOnConfirm)="controlLampLight(100, 100, resource.lampInfo.sn)">开灯</button>
+                <button nz-button nzType="primary" nzBlock nz-popconfirm nzTitle="确定控制选中灯杆么?"
+                  (nzOnConfirm)="controlLampLight(0, 0, resource.lampInfo.sn)">关灯</button>
+                <button nz-button nzType="primary" nzBlock nz-popconfirm nzTitle="确定控制选中灯杆么?"
+                  (nzOnConfirm)="controlLampLight(resource.lampInfo.brightness1, resource.lampInfo.brightness2, resource.lampInfo.sn)">调光</button>
+                <button nz-button nzType="primary" nzBlock (click)="getEnvInfo($event)">更新</button>
+              </div>
+            </se>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="resource.hasMeteorologicalEnv">
+        <!-- 气象详情 -->
+        <div class="env-desc">
+          <div class="env-desc__status">
+            <img class="env-img" src="assets/images/map/img-env.png" />
+            <span class="env-text">环境监测</span>
+          </div>
+        </div>
+        <div class="env-detail">
+          <sv-container col="2" class="env-detail-attr">
+            <sv [label]="label1" nz-tooltip="温度" nzPlacement="topLeft" unit="°C">
+              <ng-template #label1>
+                <i class="iconfont icon-wendu"></i>
+              </ng-template>
+              {{ envInfo.now.tmp }}
+            </sv>
+            <sv [label]="label2" nz-tooltip="湿度" nzPlacement="topLeft" unit="%">
+              <ng-template #label2>
+                <i class="iconfont icon-shidu"></i>
+              </ng-template>
+              {{ envInfo.now.hum }}
+            </sv>
+            <sv [label]="label3" nz-tooltip="大气压力" nzPlacement="topLeft" unit="hPa">
+              <ng-template #label3>
+                <i class="iconfont icon-daqiyali"></i>
+              </ng-template>
+              {{ envInfo.now.pres }}
+            </sv>
+            <sv [label]="label4" nz-tooltip="风向" nzPlacement="topLeft">
+              <ng-template #label4>
+                <i class="iconfont icon-fengxiang"></i>
+              </ng-template>
+              {{ envInfo.now.wind.dir }}
+            </sv>
+            <sv [label]="label5" nz-tooltip="风力等级" nzPlacement="topLeft" unit="级">
+              <ng-template #label5>
+                <i class="iconfont icon-fengsu"></i>
+              </ng-template>
+              {{ envInfo.now.wind.sc }}
+            </sv>
+            <sv [label]="label6" nz-tooltip="雨量" nzPlacement="topLeft" unit="mm">
+              <ng-template #label6>
+                <i class="iconfont icon-rain"></i>
+              </ng-template>
+              {{ envInfo.now.pcpn }}
+            </sv>
+            <sv [label]="label7" nz-tooltip="CO(一氧化碳)" nzPlacement="topLeft" unit="μg/m3">
+              <ng-template #label7>
+                <i class="iconfont icon-co"></i>
+              </ng-template>
+              {{ envInfo.aqi.city.co }}
+            </sv>
+            <sv [label]="label8" nz-tooltip="NO2(二氧化氮)" nzPlacement="topLeft" unit="μg/m3">
+              <ng-template #label8>
+                <i class="iconfont icon-no"></i>
+              </ng-template>
+              {{ envInfo.aqi.city.no2 }}
+            </sv>
+            <sv [label]="label9" nz-tooltip="O3(臭氧)" nzPlacement="topLeft" unit="μg/m3">
+              <ng-template #label9>
+                <i class="iconfont icon-o3"></i>
+              </ng-template>
+              {{ envInfo.aqi.city.o3 }}
+            </sv>
+            <sv [label]="label10" nz-tooltip="SO2(二氧化硫)" nzPlacement="topLeft" unit="μg/m3">
+              <ng-template #label10>
+                <i class="iconfont icon-so2"></i>
+              </ng-template>
+              {{ envInfo.aqi.city.so2 }}
+            </sv>
+            <sv [label]="label11" nz-tooltip="pm2.5" nzPlacement="topLeft" unit="μg/m3">
+              <ng-template #label11>
+                <i class="iconfont icon-pm25"></i>
+              </ng-template>
+              {{ envInfo.aqi.city.pm25 }}
+            </sv>
+            <sv [label]="label12" nz-tooltip="pm10" nzPlacement="topLeft" unit="μg/m3">
+              <ng-template #label12>
+                <i class="iconfont icon-pm10"></i>
+              </ng-template>
+              {{ envInfo.aqi.city.pm10 }}
+            </sv>
+          </sv-container>
+        </div>
+      </ng-container>
+    </nz-spin>
+  </div>
 </div>

@@ -22,6 +22,12 @@ const resList = [
     meteorologicalEnv: "nanning",
     // 是否有灯杆监控
     hasLampControl: true,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 57,
+      brightness2: 68,
+      sn: 888888,
+    },
     // 井盖资源
     wellCoverResources: [
       {
@@ -217,6 +223,12 @@ const resList = [
     hasMeteorologicalEnv: true,
     meteorologicalEnv: "beihai",
     hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 35,
+      brightness2: 35,
+      sn: 666666,
+    },
     wellCoverResources: [],
     batteryCabinets: [],
     waterResources: []
@@ -232,6 +244,11 @@ const resList = [
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "wuzhou",
     hasLampControl: true,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 90,
+      brightness2: 85,
+    },
     wellCoverResources: [],
     batteryCabinets: [],
     waterResources: [
@@ -266,6 +283,12 @@ const resList = [
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
     hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 0,
+      brightness2: 0,
+      sn: 999999,
+    },
     wellCoverResources: [
       {
         id: 3,
@@ -291,6 +314,278 @@ const resList = [
         name: "新阳路井盖BDRTRF",
       },
     ],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 5,
+    lng: 108.321163,
+    lat: 22.823094,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据一",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 30,
+      brightness2: 35,
+      sn: 222222,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 6,
+    lng: 108.361163,
+    lat: 23.829094,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据二",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 20,
+      brightness2: 25,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 7,
+    lng: 108.969163,
+    lat: 22.729094,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据三",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 0,
+      brightness2: 0,
+      sn: 333333,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 8,
+    lng: 108.981401,
+    lat: 22.965941,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据四",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 15,
+      brightness2: 60,
+      sn: 555555,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 9,
+    lng: 109.265409,
+    lat: 22.699604,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据五",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 67,
+      brightness2: 80,
+      sn: 777777,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 10,
+    lng: 109.827677,
+    lat: 22.539472,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据六",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 97,
+      brightness2: 80,
+      sn: 111111,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 11,
+    lng: 110.178375,
+    lat: 22.660923,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据七",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 90,
+      brightness2: 80,
+      sn: 812238,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 12,
+    lng: 109.536769,
+    lat: 22.273238,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据八",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 20,
+      brightness2: 40,
+      sn: 356345,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 13,
+    lng: 109.476978,
+    lat: 22.204725,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据九",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 10,
+      brightness2: 10,
+      sn: 452123,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 14,
+    lng: 109.458581,
+    lat: 22.106179,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据十",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 0,
+      brightness2: 0,
+      sn: 874567,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 15,
+    lng: 108.745686,
+    lat: 22.191875,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据十一",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 0,
+      brightness2: 0,
+      sn: 982362,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 16,
+    lng: 109.725342,
+    lat: 23.949462,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据十二",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 58,
+      brightness2: 67,
+      sn: 238645,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 17,
+    lng: 109.775934,
+    lat: 23.347787,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据十三",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: false,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 35,
+      brightness2: 30,
+      sn: 761234,
+    },
+    wellCoverResources: [],
     batteryCabinets: [],
     waterResources: []
   }

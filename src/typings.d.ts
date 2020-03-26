@@ -9,4 +9,4 @@ declare var Slider: any;
 declare var Bmob: any;
 declare var BMap: any;
 declare var BMapLib: any;
-declare var Mapv: any;
+declare var mapv: any;

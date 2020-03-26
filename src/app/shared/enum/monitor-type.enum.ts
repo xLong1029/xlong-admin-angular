@@ -7,7 +7,7 @@ export enum MonitorTypeEnum {
      */
     meteorologicalEnv = 0,
     /**
-     * 单灯控制
+     * 灯杆控制
      */
     lampControl = 1,
     /**
