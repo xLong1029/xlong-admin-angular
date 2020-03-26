@@ -10,6 +10,13 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob 开发的单页面
 
 > DEMO地址：https://xlong1029.github.io/xlong-admin-angular/#/passport/login
 
+## 项目迭代
+
+1. 2020-03-26
+
+    新增：GIS地图示例 <br/>
+    包含功能：监控资源列表、资源在地图上的聚点显示、资源在地图上定位打点、气象信息获取等
+    
 ## 项目说明
 
 #### 1. 前后端分离开发模式
@@ -54,6 +61,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob 开发的单页面
 * GIS地图示例
 
 ![Image text](static/images/screen-6.gif)
+
 
 ![Image text](static/images/screen-7.gif)
 
