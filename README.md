@@ -2,7 +2,7 @@
 
 ## 介绍
 
-xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面响应式管理后台系统应用示例。
+xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob 开发的单页面响应式管理后台系统应用示例。
 
 * 仅作学习参考，将持续添加功能……
 
@@ -20,6 +20,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面�
 [angular](https://github.com/angular)<br/>
 [ng-alain](https://github.com/ng-alain/ng-alain)<br/>
 [ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)<br/>
+[BMap](http://lbsyun.baidu.com/index.php?title=jspopularGL)<br/>
 
 #### 3. 浏览器兼容性
 由于是响应式页面，PC和移动设备都能统一访问，并且用到了部分版本比较高的插件，所以主要兼容浏览器：IE10+、IE Edge、Safai、Firefox、Chrome等。
