@@ -24,6 +24,7 @@ export class GisResDetailComponent implements OnInit, OnChanges {
       city: {
         co: "333",
         o3: null,
+        no2: null,
         so2: null,
         pm25: null,
         pm10: null,
@@ -50,11 +51,11 @@ export class GisResDetailComponent implements OnInit, OnChanges {
   }
 
   ngOnInit(): void {
-    
+
   }
 
-  ngOnChanges(){
-    if(this.resDetailVisible){
+  ngOnChanges() {
+    if (this.resDetailVisible) {
       this.getEnvInfo();
     }
   }
@@ -62,22 +63,59 @@ export class GisResDetailComponent implements OnInit, OnChanges {
   // 获取气象信息
   getEnvInfo() {
     this.loading = true;
-    // https://way.jd.com/he/freeweather?city=beijing&appkey=您申请的APPKEY
-    this.http
-      .get(`${environment.WEATHER_URL}?city=nanning&appkey=122bff90a579c0eff439f48f06ce1374`)
-      .subscribe((res: any) => {
+
+    if (!environment.prod) {
+      // https://way.jd.com/he/freeweather?city=beijing&appkey=您申请的APPKEY
+      this.http
+        .get(`${environment.WEATHER_URL}?city=nanning&appkey=122bff90a579c0eff439f48f06ce1374`)
+        .subscribe((res: any) => {
+          this.loading = false;
+          if (res.result.HeWeather5 && res.result.HeWeather5.length) {
+            this.envInfo = res.result.HeWeather5[0];
+          }
+          else {
+            this.message.error('获取气象信息失败');
+          }
+        });
+    }
+    else {
+      // 生产环境请求气象地址会跨域，写模拟数据展示
+      setTimeout(() => {
         this.loading = false;
-        if (res.result.HeWeather5 && res.result.HeWeather5.length) {
-          this.envInfo = res.result.HeWeather5[0];
+
+        this.envInfo = {
+          aqi: {
+            city: {
+              co: "333",
+              o3: "54",
+              so2: "6",
+              no2: "15",
+              pm25: "22",
+              pm10: "43",
+              qlty: "优"
+            }
+          },
+          now: {
+            fl: "27",
+            hum: "87",
+            pcpn: "0.0",
+            pres: "985",
+            tmp: "26",
+            vis: "16",
+            wind: {
+              deg: "160",
+              dir: "东南风",
+              sc: "3",
+              spd: "17"
+            }
+          }
         }
-        else {
-          this.message.error('获取气象信息失败');
-        }
-      });
+      }, 800);
+    }
   }
 
   // 控制调光
-  controlLampLight(brightness1, brightness2, sn){
+  controlLampLight(brightness1, brightness2, sn) {
     this.resource.lampInfo.brightness1 = brightness1;
     this.resource.lampInfo.brightness2 = brightness2;
     this.message.success("(模拟)指令已下发成功!");
