@@ -28,8 +28,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/styles.less",
-              "src/assets/iconfont/iconfont.css"
+              "src/styles.less"
             ],
             "scripts": [
               "node_modules/ajv/dist/ajv.bundle.js",
