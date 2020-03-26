@@ -4,6 +4,7 @@
 
 export const environment = {
   SERVER_URL: `./`,
+  WEATHER_URL: `api/weather`, // 气象接口
   production: false,
   useHash: true,
   hmr: true,
