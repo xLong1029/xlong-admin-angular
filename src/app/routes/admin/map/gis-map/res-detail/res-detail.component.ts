@@ -18,6 +18,14 @@ export class GisResDetailComponent implements OnInit, OnChanges {
   // 加载
   loading = false;
 
+  // 灯杆信息
+  lampInfo: any = {
+    voltage: "12",
+    current: "1.25",
+    power: "15",
+    lightEfficacy: "130"
+  };
+
   // 气象信息
   envInfo: any = {
     aqi: {
