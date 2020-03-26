@@ -1,22 +1,137 @@
 <!doctype html>
 <html lang="en">
+
 <head>
   <meta charset="utf-8">
   <title>XLONG家里蹲管理系统</title>
   <base href="./">
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="renderer" content="webkit"/>
+  <meta name="renderer" content="webkit" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge chrome=1">
   <meta http-equiv="pragma" content="no-cache">
   <meta name="copyright" content="Xlong Jia Li Dun Co.,Ltd.">
   <meta name="front-end technicist" content="xLong">
   <meta name="designer" content="xLong">
   <meta name="author" content="xLong">
+
   <link rel="icon" type="image/x-icon" href="favicon.ico">
-  <style type="text/css">.preloader{position:fixed;top:0;left:0;width:100%;height:100%;overflow:hidden;background:#00c5a3;z-index:9999;transition:opacity .65s}.preloader-hidden-add{opacity:1;display:block}.preloader-hidden-add-active{opacity:0}.preloader-hidden{display:none}.cs-loader{position:absolute;top:0;left:0;height:100%;width:100%}.cs-loader-inner{transform:translateY(-50%);top:50%;position:absolute;width:100%;color:#fff;text-align:center}.cs-loader-inner label{font-size:20px;opacity:0;display:inline-block}@keyframes lol{0%{opacity:0;transform:translateX(-300px)}33%{opacity:1;transform:translateX(0)}66%{opacity:1;transform:translateX(0)}100%{opacity:0;transform:translateX(300px)}}.cs-loader-inner label:nth-child(6){animation:lol 3s infinite ease-in-out}.cs-loader-inner label:nth-child(5){animation:lol 3s .1s infinite ease-in-out}.cs-loader-inner label:nth-child(4){animation:lol 3s .2s infinite ease-in-out}.cs-loader-inner label:nth-child(3){animation:lol 3s .3s infinite ease-in-out}.cs-loader-inner label:nth-child(2){animation:lol 3s .4s infinite ease-in-out}.cs-loader-inner label:nth-child(1){animation:lol 3s .5s infinite ease-in-out}</style><link rel="stylesheet" href="styles.5bc8137f1ee5dac6a399.css"></head>
+  <!--百度地图API-->
+  <script type="text/javascript" src="http://api.map.baidu.com/api?v3.0&ak=6ZWwV5TNUFKbsWkV30QPGUlbNugR1BKg"></script>
+  <!--加载鼠标绘制工具-->
+  <script type="text/javascript"
+    src="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.js"></script>
+  <link rel="stylesheet" href="http://api.map.baidu.com/library/DrawingManager/1.4/src/DrawingManager_min.css" />
+  <script type="text/javascript"
+    src="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.js"></script>
+  <link rel="stylesheet" href="http://api.map.baidu.com/library/SearchInfoWindow/1.4/src/SearchInfoWindow_min.css" />
+  <!--加载Mapv工具-->
+  <script src="https://mapv.baidu.com/build/mapv.min.js"></script>
+
+  <style type="text/css">
+    .preloader {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #00c5a3;
+      z-index: 9999;
+      transition: opacity .65s
+    }
+
+    .preloader-hidden-add {
+      opacity: 1;
+      display: block
+    }
+
+    .preloader-hidden-add-active {
+      opacity: 0
+    }
+
+    .preloader-hidden {
+      display: none
+    }
+
+    .cs-loader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%
+    }
+
+    .cs-loader-inner {
+      transform: translateY(-50%);
+      top: 50%;
+      position: absolute;
+      width: 100%;
+      color: #fff;
+      text-align: center
+    }
+
+    .cs-loader-inner label {
+      font-size: 20px;
+      opacity: 0;
+      display: inline-block
+    }
+
+    @keyframes lol {
+      0% {
+        opacity: 0;
+        transform: translateX(-300px)
+      }
+
+      33% {
+        opacity: 1;
+        transform: translateX(0)
+      }
+
+      66% {
+        opacity: 1;
+        transform: translateX(0)
+      }
+
+      100% {
+        opacity: 0;
+        transform: translateX(300px)
+      }
+    }
+
+    .cs-loader-inner label:nth-child(6) {
+      animation: lol 3s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(5) {
+      animation: lol 3s .1s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(4) {
+      animation: lol 3s .2s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(3) {
+      animation: lol 3s .3s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(2) {
+      animation: lol 3s .4s infinite ease-in-out
+    }
+
+    .cs-loader-inner label:nth-child(1) {
+      animation: lol 3s .5s infinite ease-in-out
+    }
+  </style>
+<link rel="stylesheet" href="styles.a6bc3f34c35e3dc9d1b4.css"></head>
+
 <body>
   <app-root></app-root>
-  <div class="preloader"><div class="cs-loader"><div class="cs-loader-inner"><label>	●</label><label>	●</label><label>	●</label><label>	●</label><label>	●</label><label>	●</label></div></div>
-<script src="runtime-es2015.534dc8efde2a0b89cb48.js" type="module"></script><script src="polyfills-es2015.7d693ae6201b3f175134.js" type="module"></script><script src="runtime-es5.d7fc70aae22400360c3b.js" nomodule></script><script src="polyfills-es5.64a039916eb431138862.js" nomodule></script><script src="scripts.e300c0c4b481f5ef2025.js"></script><script src="main-es2015.7434a7f77c7eb9a2b20c.js" type="module"></script><script src="main-es5.9f42c6c55b3050430234.js" nomodule></script></body>
+  <div class="preloader">
+    <div class="cs-loader">
+      <div class="cs-loader-inner"><label> ●</label><label> ●</label><label> ●</label><label> ●</label><label>
+          ●</label><label> ●</label></div>
+    </div>
+<script src="runtime-es2015.f529c9be362a88e81786.js" type="module"></script><script src="polyfills-es2015.a7f11a75473e3ab401ea.js" type="module"></script><script src="runtime-es5.89554572b9afddff1a09.js" nomodule></script><script src="polyfills-es5.db03ffbdbb93a94c3997.js" nomodule></script><script src="scripts.e300c0c4b481f5ef2025.js"></script><script src="main-es2015.179bf155bb9cecbd7ddd.js" type="module"></script><script src="main-es5.2be26d8dcf03d26f9628.js" nomodule></script></body>
+
 </html>
