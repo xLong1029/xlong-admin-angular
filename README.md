@@ -50,6 +50,14 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面�
 
 ![Image text](static/images/screen-5.gif)
 
+* GIS地图示例
+
+![Image text](static/images/screen-6.gif)
+
+![Image text](static/images/screen-7.gif)
+
+![Image text](static/images/screen-8.gif)
+
 ## 目录结构
 
 ```
