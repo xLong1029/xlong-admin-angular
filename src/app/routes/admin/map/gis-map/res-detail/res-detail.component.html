@@ -32,16 +32,16 @@
               {{ resource.lampInfo.sn }}
             </sv>
             <sv label="电压" unit="V">
-              12
+              {{ lampInfo.voltage }}
             </sv>
             <sv label="电流" unit="A">
-              1.25
+              {{ lampInfo.current }}
             </sv>
             <sv label="功率" unit="W">
-              15
+              {{ lampInfo.power }}
             </sv>
             <sv label="整灯光效" unit="lm/w" col="1">
-              130
+              {{ lampInfo.slightEfficacy }}
             </sv>
           </sv-container>
         </div>

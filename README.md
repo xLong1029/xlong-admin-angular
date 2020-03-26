@@ -2,7 +2,7 @@
 
 ## 介绍
 
-xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面响应式管理后台系统应用示例。
+xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob 开发的单页面响应式管理后台系统应用示例。
 
 * 仅作学习参考，将持续添加功能……
 
@@ -10,6 +10,13 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面�
 
 > DEMO地址：https://xlong1029.github.io/xlong-admin-angular/#/passport/login
 
+## 项目迭代
+
+1. 2020-03-26
+
+    新增：GIS地图示例 <br/>
+    包含功能：监控资源列表、资源在地图上的聚点显示、资源在地图上定位打点、气象信息获取等
+    
 ## 项目说明
 
 #### 1. 前后端分离开发模式
@@ -20,6 +27,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面�
 [angular](https://github.com/angular)<br/>
 [ng-alain](https://github.com/ng-alain/ng-alain)<br/>
 [ng-zorro-antd](https://github.com/NG-ZORRO/ng-zorro-antd)<br/>
+[BMap](http://lbsyun.baidu.com/index.php?title=jspopularGL)<br/>
 
 #### 3. 浏览器兼容性
 由于是响应式页面，PC和移动设备都能统一访问，并且用到了部分版本比较高的插件，所以主要兼容浏览器：IE10+、IE Edge、Safai、Firefox、Chrome等。
@@ -53,6 +61,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain +Bmob 开发的单页面�
 * GIS地图示例
 
 ![Image text](static/images/screen-6.gif)
+
 
 ![Image text](static/images/screen-7.gif)
 

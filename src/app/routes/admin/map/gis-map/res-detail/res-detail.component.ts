@@ -18,11 +18,19 @@ export class GisResDetailComponent implements OnInit, OnChanges {
   // 加载
   loading = false;
 
+  // 灯杆信息
+  lampInfo: any = {
+    voltage: "12",
+    current: "1.25",
+    power: "15",
+    lightEfficacy: "130"
+  };
+
   // 气象信息
   envInfo: any = {
     aqi: {
       city: {
-        co: "333",
+        co: null,
         o3: null,
         no2: null,
         so2: null,
@@ -81,35 +89,18 @@ export class GisResDetailComponent implements OnInit, OnChanges {
     else {
       // 生产环境请求气象地址会跨域，写模拟数据展示
       setTimeout(() => {
-        this.loading = false;
 
-        this.envInfo = {
-          aqi: {
-            city: {
-              co: "333",
-              o3: "54",
-              so2: "6",
-              no2: "15",
-              pm25: "22",
-              pm10: "43",
-              qlty: "优"
-            }
-          },
-          now: {
-            fl: "27",
-            hum: "87",
-            pcpn: "0.0",
-            pres: "985",
-            tmp: "26",
-            vis: "16",
-            wind: {
-              deg: "160",
-              dir: "东南风",
-              sc: "3",
-              spd: "17"
-            }
+        this.http
+        .get(`${environment.WEATHER_URL}`)
+        .subscribe((res: any) => {
+          this.loading = false;
+          if (res.code === 200) {
+            this.envInfo = res.data;
           }
-        }
+          else {
+            this.message.error('获取气象信息失败');
+          }
+        });
       }, 800);
     }
   }
