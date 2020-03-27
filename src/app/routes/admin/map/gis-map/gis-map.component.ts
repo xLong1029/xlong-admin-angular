@@ -14,17 +14,36 @@ import { MapService } from '../map.service';
 import { MapLightSplitList } from '@common/mapLightSplitList';
 import { Page } from '@common/page';
 
+/**
+ * 地图视图枚举
+ */
+enum MapViewEnum {
+  // 未选择任何视图
+  null = 0,
+  // 显示所有资源（聚点数据）
+  lightLite = 1,
+  // 聚合视图
+  cluster = 2,
+}
+
 @Component({
   selector: 'app-gis-map',
   templateUrl: './gis-map.component.html',
   styleUrls: [`gis-map.component.less`],
 })
 export class GisMapComponent implements OnInit, AfterViewInit {
+  // 视图枚举
+  viewEnum = MapViewEnum;
+  // 当前视图
+  currentView = this.viewEnum.null;
+
   // 页面高度适配
   pageH: any = "auto";
 
   // 地图实例
   map: any = null;
+  // 地图扩展库实例
+  // mapV: any;
   // 地图样式
   mapStyle = [
     // 修改道路中间的线条
@@ -122,17 +141,24 @@ export class GisMapComponent implements OnInit, AfterViewInit {
   // 页码
   page = new Page();
 
-  // 获取灯杆聚点的配置
-  lampLiteList = [];
-  lampLiteCount = 0;
-  // 聚点图层
-  lampLiteLayer = null;
-  // 显示灯杆聚点图层
-  showLampLiteLayer = false;
-  // 聚点选项
-  lightOptions = MapLightSplitList;
   // 资源坐标点集合
   groupPoints = [];
+
+  // 获取资源聚点的配置
+  lightLiteList = [];
+  lightLiteCount = 0;
+  // 聚点图层
+  lightLiteLayer = null;
+  // 显示资源聚点图层
+  showLightLiteLayer = false;
+  // 聚点选项
+  lightOptions = MapLightSplitList;
+
+  // 获取聚合点的配置
+  pointClusterList = [];
+  pointClusterCount = 0;
+  // 聚合视图图层
+  pointClusterLayer = null;
 
   constructor(private change: ChangeDetectorRef, private modal: ModalHelper, public service: MapService, ) { }
 
@@ -172,46 +198,143 @@ export class GisMapComponent implements OnInit, AfterViewInit {
   }
 
   // 显示聚合视图
-  showLampMapLite() {
+  showPointCluster() {
     this.clearMap();
     this.loading = true;
     this.page.page = 1;
-    this.getLampMapLiteData();
+    this.currentView = this.viewEnum.cluster;
+    this.getPointClusterData();
   }
 
-  // 获取据点数据
-  getLampMapLiteData() {
-    this.service.GetResourcesList(this.page.page, this.page.pageSize).subscribe((res: any) => {
+  // 获取聚合视图坐标点
+  getPointClusterData() {
+    this.service.GetResourcesPoints(this.page.page, this.page.pageSize).subscribe((res: any) => {
       if (res.code === 200) {
         console.log(
           `返回第${this.page.page}段获取到的数据，已获取${res.data.length}条数据`,
         );
-        this.lampLiteCount = res.page.total;
-        this.lampLiteDataFormat(res.data);
+        this.pointClusterCount = res.page.total;
+        this.pointClusterDataFormat(res.data);
 
         // 如果还有后续数据，继续加载
-        if (this.lampLiteCount > this.lampLiteList.length) {
+        if (this.pointClusterCount > this.pointClusterList.length) {
           this.page.page++;
-          this.getLampMapLiteData();
+          this.getPointClusterData();
         } else {
           this.loading = false;
           console.log(
-            `完成所有数据请求(共${this.lampLiteList.length}条数据)，开始创建地图图层`,
+            `完成所有数据请求(共${this.pointClusterList.length}条数据)，开始创建地图图层`,
           );
 
           // 根据分组分布坐标设置地图视野
-          this.lampLiteCreateLayer(this.lampLiteList);
+          this.pointClusterCreateLayer(this.pointClusterList);
           this.map.setViewport(this.groupPoints, { enableAnimation: false });
         }
       }
     });
   }
 
-  // 灯杆聚点数据格式化
-  lampLiteDataFormat(data) {
+  // 资源聚合数据格式化
+  pointClusterDataFormat(data) {
     // 批量标记
     data.forEach(obj => {
-      this.lampLiteList.push({
+      this.pointClusterList.push({
+        geometry: {
+          type: 'Point',
+          coordinates: [obj.lng, obj.lat],
+        },
+        count: 1,
+      });
+
+      // 保存坐标点
+      const point = new BMap.Point(obj.lng, obj.lat);
+      this.groupPoints.push(point);
+    });
+  }
+
+  // 生成聚合视图
+  pointClusterCreateLayer(data) {
+    this.map.clearOverlays();
+
+    const dataSet = new mapv.DataSet(data);
+
+    // 配置参考：https://github.com/huiyan-fe/mapv/blob/master/src/map/baidu-map/Layer.md
+    // 示例：https://mapv.baidu.com/examples/#baidu-map-point-cluster.html
+    this.pointClusterLayer = new mapv.baiduMapLayer(this.map, dataSet, {
+      fillStyle: '#ff9712', // 非聚合点填充颜色      
+      strokeStyle: '#000000', // 边框颜色
+      lineWidth: 5, // 描边宽度
+      size: 6, // 非聚合点的半径
+      minSize: 20, // 聚合点最小半径
+      maxSize: 50, // 聚合点最大半径
+      globalAlpha: 0.8, // 透明度
+      clusterRadius: 150, // 聚合像素半径
+      maxZoom: 19, // 最大显示级别
+      label: { // 聚合文本样式
+        show: true,
+        fillStyle: '#fff',
+        font: '18px Arial',
+      },
+      gradient: { 0: "#2db7f5", 0.5: '#a0d911', 1.0: "#ff9712"}, // 聚合图标渐变色
+      draw: 'cluster'
+    });
+
+    this.loading = false;
+  }
+
+  // 清理聚合视图
+  clearPointCluster() {
+    if (this.pointClusterLayer) {
+      this.pointClusterLayer.destroy();
+      this.pointClusterLayer = null;
+    }
+    
+    this.pointClusterList = [];
+    this.pointClusterCount = 0;
+  }
+
+  // 显示所有资源（聚点）
+  showLightLite() {
+    this.clearMap();
+    this.loading = true;
+    this.page.page = 1;
+    this.currentView = this.viewEnum.lightLite;
+    this.getLightLiteData();
+  }
+
+  // 获取资源坐标点
+  getLightLiteData() {
+    this.service.GetLightResPoints(this.page.page, this.page.pageSize).subscribe((res: any) => {
+      if (res.code === 200) {
+        console.log(
+          `返回第${this.page.page}段获取到的数据，已获取${res.data.length}条数据`,
+        );
+        this.lightLiteCount = res.page.total;
+        this.lightLiteDataFormat(res.data);
+
+        // 如果还有后续数据，继续加载
+        if (this.lightLiteCount > this.lightLiteList.length) {
+          this.page.page++;
+          this.getLightLiteData();
+        } else {
+          this.loading = false;
+          console.log(
+            `完成所有数据请求(共${this.lightLiteList.length}条数据)，开始创建地图图层`,
+          );
+
+          // 根据分组分布坐标设置地图视野
+          this.lightLiteCreateLayer(this.lightLiteList);
+          this.map.setViewport(this.groupPoints, { enableAnimation: false });
+        }
+      }
+    });
+  }
+
+  // 资源聚点数据格式化
+  lightLiteDataFormat(data) {
+    // 批量标记
+    data.forEach(obj => {
+      this.lightLiteList.push({
         geometry: {
           type: 'Point',
           coordinates: [obj.lng, obj.lat],
@@ -226,13 +349,13 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     });
   }
 
-  // 生成灯杆聚点图层
-  lampLiteCreateLayer(data) {
+  // 生成资源聚点图层
+  lightLiteCreateLayer(data) {
     this.map.clearOverlays();
 
     const dataSet = new mapv.DataSet(data);
 
-    this.lampLiteLayer = new mapv.baiduMapLayer(this.map, dataSet, {
+    this.lightLiteLayer = new mapv.baiduMapLayer(this.map, dataSet, {
       size: 6,
       zIndex: 10,
       splitList: this.lightOptions,
@@ -240,55 +363,50 @@ export class GisMapComponent implements OnInit, AfterViewInit {
       draw: 'choropleth',
     });
 
-    this.showLampLiteLayer = true;
+    this.showLightLiteLayer = true;
     this.loading = false;
   }
 
-  // 重置灯杆聚点
-  clearLampList() {
-    if (this.lampLiteLayer) {
-      this.lampLiteLayer.destroy();
+  // 重置资源聚点
+  clearLightLite() {
+    if (this.lightLiteLayer) {
+      this.lightLiteLayer.destroy();
     }
-    this.showLampLiteLayer = false;
-    this.lampLiteLayer = null;
-    this.lampLiteList = [];
-    this.lampLiteCount = 0;
-    // this.groupPoints = [];
+    this.showLightLiteLayer = false;
+    this.lightLiteLayer = null;
+    this.lightLiteList = [];
+    this.lightLiteCount = 0;
   }
 
-  // 筛选灯杆聚点
-  filterLampLite(start, end) {
-    const filterList = this.lampLiteList.filter(item => item.count >= start && item.count < end);
+  // 筛选资源聚点
+  filterLightLite(start, end) {
+    const filterList = this.lightLiteList.filter(item => item.count >= start && item.count < end);
 
-    this.lampLiteCreateLayer(filterList);
+    this.lightLiteCreateLayer(filterList);
   }
 
-  /**
-   * 重置地图
-   */
+  // 重置地图
   resetMap() {
     this.clearMap();
     this.initMapView();
   }
 
-
-  /**
-   * 清理地图
-   */
+  // 清理地图
   clearMap() {
+    this.groupPoints = [];
+
     // 关闭在地图上打开的信息窗口
     if (this.map.getInfoWindow()) {
       this.map.closeInfoWindow();
     }
     this.map.clearOverlays();    // 清除地图上所有覆盖物
 
-    this.clearLampList();
+    this.clearPointCluster();
+    this.clearLightLite();
     this.clearMarkers();
   }
 
-  /**
-   * 清除Markers
-   */
+  // 清除Markers
   clearMarkers() {
     this.resMarkers.forEach(
       f => {
@@ -310,12 +428,12 @@ export class GisMapComponent implements OnInit, AfterViewInit {
   // 获取监控资源
   getLocateRes(res) {
     this.clearMap();
-    this.showLampLiteLayer = false;
+    this.showLightLiteLayer = false;
 
     // 关闭资源列表弹窗
     this.setResListVisible(false);
 
-    // 显示监控灯杆资源
+    // 显示监控资源资源
     let p = new BMap.Point(res.lng, res.lat);
     this.createResIcon(p, res);
     this.map.setViewport([p]);
@@ -387,7 +505,7 @@ export class GisMapComponent implements OnInit, AfterViewInit {
     bmap.getPanes().labelPane.appendChild(div);
 
     div.onclick = () => {
-      if(element.hasLampControl || element.hasMeteorologicalEnv){
+      if (element.hasLampControl || element.hasMeteorologicalEnv) {
         this.resDetailVisible = true;
       }
 

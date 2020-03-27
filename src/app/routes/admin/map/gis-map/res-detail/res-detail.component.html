@@ -1,5 +1,5 @@
 <!-- 资源信息 -->
-<div *ngIf="resDetailVisible" class="gis-map__right">
+<div *ngIf="resDetailVisible && (resource.hasLampControl || resource.hasMeteorologicalEnv)" class="gis-map__right">
   <div class="lamp-info">
     <nz-spin [nzSpinning]="loading">
       <ng-container *ngIf="resource.hasLampControl">

@@ -225,8 +225,8 @@ const resList = [
     hasLampControl: false,
     // 灯杆详情
     lampInfo: {
-      brightness1: 35,
-      brightness2: 35,
+      brightness1: 0,
+      brightness2: 0,
       sn: 666666,
     },
     wellCoverResources: [],
@@ -282,7 +282,7 @@ const resList = [
     hasAdScreen: true,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 0,
@@ -327,7 +327,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 30,
@@ -348,7 +348,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 20,
@@ -368,7 +368,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 0,
@@ -389,7 +389,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 15,
@@ -410,7 +410,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 67,
@@ -431,7 +431,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 97,
@@ -452,7 +452,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 90,
@@ -473,7 +473,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 20,
@@ -494,7 +494,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 10,
@@ -515,7 +515,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 0,
@@ -536,7 +536,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 0,
@@ -557,7 +557,7 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 58,
@@ -578,12 +578,75 @@ const resList = [
     hasAdScreen: false,
     hasMeteorologicalEnv: false,
     meteorologicalEnv: "nanning",
-    hasLampControl: false,
+    hasLampControl: true,
     // 灯杆详情
     lampInfo: {
       brightness1: 35,
       brightness2: 30,
       sn: 761234,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 18,
+    lng: 109.773275,
+    lat: 23.349048,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据十四",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: true,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 35,
+      brightness2: 30,
+      sn: 761434,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 19,
+    lng: 109.775575,
+    lat: 23.345133,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据十五",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: true,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 25,
+      brightness2: 20,
+      sn: 721434,
+    },
+    wellCoverResources: [],
+    batteryCabinets: [],
+    waterResources: []
+  },
+  {
+    id: 20,
+    lng: 109.750422,
+    lat: 23.344934,
+    siteCode: "450107265485XXXXXX",
+    siteName: "聚点测试数据十六",
+    address: "暂无描述",
+    hasAdScreen: false,
+    hasMeteorologicalEnv: false,
+    meteorologicalEnv: "nanning",
+    hasLampControl: true,
+    // 灯杆详情
+    lampInfo: {
+      brightness1: 25,
+      brightness2: 20,
+      sn: 721434,
     },
     wellCoverResources: [],
     batteryCabinets: [],
@@ -602,7 +665,43 @@ function getResListByPage(page, size) {
   };
 }
 
+// 根据页码获取资源坐标点集合，包含亮度
+function getLightResPoints(page, size) {
+  const list = resList.map(e => {
+    const { lat, lng, lampInfo } = e;
+    return { lat, lng, lampInfo };
+  });
+
+  return {
+    code: 200, msg: 'ok', data: list.slice((page - 1) * size, page * size), page: {
+      page,
+      size,
+      total: list.length
+    }
+  };
+}
+
+// 根据页码获取资源坐标点集合
+function getResourcesPoints(page, size) {
+  const list = resList.map(e => {
+    const { lat, lng } = e;
+    return { lat, lng };
+  });
+
+  return {
+    code: 200, msg: 'ok', data: list.slice((page - 1) * size, page * size), page: {
+      page,
+      size,
+      total: list.length
+    }
+  };
+}
+
 export const Map = {
-  // 打点资源
+  // 资源数据
   '/getResources': (req: MockRequest) => getResListByPage(req.queryString.page, req.queryString.size),
+  // 资源坐标点，包含亮度
+  '/getLightResPoints': (req: MockRequest) => getLightResPoints(req.queryString.page, req.queryString.size),
+  // 资源坐标点
+  '/getResourcesPoints': (req: MockRequest) => getResourcesPoints(req.queryString.page, req.queryString.size),
 };

@@ -5,16 +5,18 @@
     <div class="gis-map__control-bar">
       <button nz-button nzType="primary" (click)="setResListVisible(true)"
         [disabled]="loading">资源列表</button>
-      <button nz-button nzType="primary" (click)="showLampMapLite()"
+      <button nz-button nzType="primary" (click)="showLightLite()"
         [disabled]="loading">显示所有资源</button>
+        <button nz-button nzType="primary" (click)="showPointCluster()"
+        [disabled]="loading">聚合视图</button>
       <button nz-button nzType="primary" (click)="resetMap()"
         [disabled]="loading">重置地图</button>
     </div>
     <!-- 灯杆聚点信息图层 -->
-    <div *ngIf="showLampLiteLayer" class="lamp-lite-layer">
+    <div *ngIf="showLightLiteLayer" class="lamp-lite-layer">
       <ul class="lamp-lite-info-list">
         <li *ngFor="let item of lightOptions" class="lamp-lite-info-list__item"
-          (click)="filterLampLite(item.start, item.end)">
+          (click)="filterLightLite(item.start, item.end)">
           <nz-badge [nzColor]="item.value" [nzText]="item.label"></nz-badge>
         </li>
       </ul>
