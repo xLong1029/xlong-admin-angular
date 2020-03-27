@@ -15,7 +15,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob 开发的单页面
 1. 2020-03-26
 
     新增：GIS地图示例 <br/>
-    包含功能：监控资源列表、资源在地图上的聚点显示、资源在地图上定位打点、气象信息获取等
+    包含功能：监控资源列表、资源聚点显示、资源定位打点、灯杆控制、气象信息获取等
     
 ## 项目说明
 
@@ -62,10 +62,11 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob 开发的单页面
 
 ![Image text](static/images/screen-6.gif)
 
-
 ![Image text](static/images/screen-7.gif)
 
 ![Image text](static/images/screen-8.gif)
+
+![Image text](static/images/screen-9.gif)
 
 ## 目录结构
 
