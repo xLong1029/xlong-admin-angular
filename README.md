@@ -18,6 +18,7 @@ xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob + BMap 开发的�
 ## 项目迭代
 
 1. 2021-08-10
+
     hydrogen-js-sdk v2.x版本请求服务器会提示“请求到达服务器超过了规定的时间”，官方暂时未给予答复，降至使用v1.7.0版本
 
 2. 2020-03-26
