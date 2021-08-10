@@ -2,7 +2,7 @@
 
 ## 介绍
 
-xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob 开发的单页面响应式管理后台系统应用示例。  
+xlong-admin-angular 是一套基于 Angular + Ng Alain + Bmob + BMap 开发的单页面响应式管理后台系统应用示例。  
 
 温馨提示：  
 1. 因我的Bmob用的是开发版套餐，所有查询只有全匹配查询，无模糊查询，请根据自行需求进行修改。

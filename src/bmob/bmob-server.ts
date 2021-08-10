@@ -11,7 +11,6 @@ import { APPLICATION_ID, REST_API_KEY } from '@app/app.global';
 export default {
   // 初始化
   Init: () => {
-    // Bmob.initialize("Application ID", "REST API Key");
     Bmob.initialize(APPLICATION_ID, REST_API_KEY);
   },
   // 获取查询数据对象

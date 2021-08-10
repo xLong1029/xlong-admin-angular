@@ -42,7 +42,7 @@
     "@delon/util": "^8.9.2",
     "ajv": "^6.12.0",
     "classlist.js": "^1.1.20150312",
-    "hydrogen-js-sdk": "^2.2.4",
+    "hydrogen-js-sdk": "^1.7.0",
     "ng-zorro-antd": "^8.5.2",
     "rxjs": "~6.4.0",
     "screenfull": "^4.2.1",
